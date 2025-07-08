@@ -1,0 +1,29 @@
+{
+  "name": "@relational-fabric/relational-fabric",
+  "version": "0.0.1",
+  "description": "Weave your own data fabric",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "typecheck": "tsc --build",
+    "clean": "npm run clean --workspaces",
+    "dev": "npm run dev --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RelationalFabric/relational-fabric.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RelationalFabric/relational-fabric/issues"
+  },
+  "homepage": "https://github.com/RelationalFabric/relational-fabric#readme"
+}

@@ -1,0 +1,23 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/warp" },
+    { "path": "packages/weft" },
+    { "path": "packages/filament" }
+  ],
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@relational-fabric/warp": ["packages/warp/src"],
+      "@relational-fabric/weft": ["packages/weft/src"],
+      "@relational-fabric/filament": ["packages/filament/src"]
+    }
+  }
+}
