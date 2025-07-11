@@ -27,4 +27,4 @@ jobs:
             | reviewdog -efm="%f(%l,%c): error %m" \
                 -name="tsc" \
                 -reporter=github-pr-review \
-                -fail-on-error=true
+                -fail-level=error
