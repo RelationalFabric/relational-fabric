@@ -9,6 +9,22 @@
         "dist/**/*.js",
         "dist/**/*.d.ts"
       ]
+    },
+    "clean": {
+      "dependsOn": [
+        "^clean"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "^typecheck"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "build",
+        "^test"
+      ]
     }
   }
 }

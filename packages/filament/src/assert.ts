@@ -1,11 +1,11 @@
 // Assertion helpers for Relational Fabric (filament)
-import type { AnyThing } from './types'
-import { isIdentifierOnly } from './utils'
+import type { AnyThing } from './types/index.js'
+import { isIdentifierOnly } from './utils.js'
 
 export function assertFlatEntity(entity: AnyThing): void {
   Object.entries(entity).forEach(([key, value]) => {
     if (typeof value === 'object' && value !== null && !isIdentifierOnly(value)) {
-      throw new Error('Entity has nested entities', { cause: value })
+      throw new Error('Entity has nested entities')
     }
   })
 }

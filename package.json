@@ -14,11 +14,11 @@
     "src"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm run test --workspaces",
-    "typecheck": "tsc --build",
-    "clean": "npm run clean --workspaces",
-    "dev": "npm run dev --workspaces"
+    "dev": "turbo watch build",
+    "build": "turbo build",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck",
+    "clean": "turbo run clean"
   },
   "devDependencies": {
     "turbo": "^2.5.4",
