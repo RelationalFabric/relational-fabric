@@ -18,4 +18,4 @@ jobs:
           fetch-depth: 0 # This ensures we get all commits for version analysis
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: bahulneel/action-version@v0.15.0
+      - uses: bahulneel/action-version@v0.16.0
