@@ -1,5 +1,5 @@
 {
-  "name": "@relational-fabric/filament",
+  "name": "@relational-fabric/warp",
   "version": "0.0.1",
   "description": "Core types and utilities for Relational Fabric",
   "type": "module",
@@ -17,6 +17,9 @@
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
     "test": "echo \"No tests specified\""
+  },
+  "dependencies": {
+    "@relational-fabric/filament": "*"
   },
   "devDependencies": {
     "typescript": "^5.8.3"

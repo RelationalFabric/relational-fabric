@@ -2,9 +2,16 @@
   "name": "@relational-fabric/relational-fabric",
   "version": "0.0.1",
   "description": "Weave your own data fabric",
+  "type": "module",
+  "packageManager": "npm@10.9.0",
   "private": true,
   "workspaces": [
     "packages/*"
+  ],
+  "main": "src/index.ts",
+  "types": "src/types/index.ts",
+  "files": [
+    "src"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -14,7 +21,8 @@
     "dev": "npm run dev --workspaces"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
   },
   "repository": {
     "type": "git",
