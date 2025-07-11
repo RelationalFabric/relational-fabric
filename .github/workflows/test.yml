@@ -1,11 +1,13 @@
 name: Test
 
 on:
-  pull_request:
+  push:
     branches:
       - main
       - develop
-
+      - feature/*
+      - hotfix/*
+      - release/*
 jobs:
   test:
     runs-on: ubuntu-latest
