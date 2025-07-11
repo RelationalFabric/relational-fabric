@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-
+  merge_group:
 jobs:
   check:
     runs-on: ubuntu-latest
