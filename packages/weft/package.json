@@ -16,7 +16,8 @@
     "build": "tsc --build",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "test": "echo \"No tests specified\""
+    "test": "echo \"No tests specified\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@relational-fabric/filament": "*"

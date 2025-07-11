@@ -17,7 +17,7 @@
     "dev": "turbo watch build",
     "build": "turbo build",
     "test": "vitest run",
-    "typecheck": "turbo typecheck",
+    "typecheck": "tsc --noEmit",
     "clean": "turbo run clean"
   },
   "devDependencies": {
