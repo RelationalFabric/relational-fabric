@@ -22,7 +22,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "clean": "turbo run clean",
-    "deploy": "npm publish --workspaces"
+    "deploy": "turbo run deploy"
   },
   "devDependencies": {
     "turbo": "^2.5.4",

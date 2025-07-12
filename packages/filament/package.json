@@ -18,7 +18,8 @@
     "clean": "rm -rf dist",
     "test": "echo \"No tests specified\"",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "deploy": "npm publish"
   },
   "devDependencies": {
     "typescript": "^5.8.3"
