@@ -1,0 +1,59 @@
+name: Merge
+
+on:
+  merge_group:
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Install reviewdog
+        uses: reviewdog/action-setup@v1
+      - name: Run tsc and report with reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx tsc --noEmit --pretty false 2>&1 \
+            | reviewdog -efm="%f(%l,%c): error %m" \
+                -name="tsc" \
+                -reporter=github-pr-review \
+                -fail-level=error
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ">=20.0.0"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
+        env:
+          CI: true
+          NODE_ENV: test
+          VITEST_TIMEOUT: 10000
+          VITEST_REPORTER: dot
+          VITEST_REPORTER_OPTIONS: summary,verbose
+
+  version:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # This ensures we get all commits for version analysis
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: bahulneel/action-version@v0.19.0
