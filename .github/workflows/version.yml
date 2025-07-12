@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: ">=20.0.0"
           cache: "npm"
-      - uses: bahulneel/action-version@v0.26.11
+      - uses: bahulneel/action-version@v0.27.0
         with:
           branch: ?1
           branch_deletion: prune
