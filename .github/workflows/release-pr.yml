@@ -5,8 +5,6 @@ on:
     workflows: ["Version"]
     types:
       - completed
-    branches:
-      - release/*
 
 permissions:
   contents: write
