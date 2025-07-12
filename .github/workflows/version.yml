@@ -18,6 +18,6 @@ jobs:
         with:
           node-version: ">=20.0.0"
           cache: "npm"
-      - uses: bahulneel/action-version@v0.25.4
+      - uses: bahulneel/action-version@v0.25.5
         with:
           branch: ?1
