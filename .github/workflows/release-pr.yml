@@ -1,10 +1,18 @@
+# .github/workflows/release-pr.yml
 name: Release PR
 
 on:
   workflow_run:
+    # IMPORTANT: The 'workflows' name must exactly match the 'name' of the first workflow
     workflows: ["Version"]
     types:
       - completed
+    # The branch filter here is for the source branch that the *triggering* workflow ran on.
+    # In this case, it's the branch that the 'Create Release Branch' workflow was run from (e.g. 'develop').
+    # If the 'create-release-branch.yml' is only triggered manually (workflow_dispatch) it might not need branches filter
+    # but for clarity, if it ever runs on branches, you'd specify it.
+    branches:
+      - develop # If 'Create Release Branch' runs on push to develop
 
 permissions:
   contents: write
@@ -13,16 +21,78 @@ permissions:
 jobs:
   open-pr:
     runs-on: ubuntu-latest
+    # Only run if the preceding workflow completed successfully
+    if: github.event.workflow_run.conclusion == 'success'
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Download Workflow Artifacts (to get outputs from previous workflow)
+        uses: actions/github-script@v7
+        id: get_outputs
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const run_id = github.event.workflow_run.id;
+            const workflow_name = github.event.workflow_run.name;
+
+            const runs = await github.rest.actions.listWorkflowRunsForRepo({
+              owner,
+              repo,
+              workflow_id: workflow_name,
+              branch: github.event.workflow_run.head_branch, // Get runs from the correct branch
+              per_page: 1,
+              event: github.event.workflow_run.event // Filter by the event type (e.g., workflow_dispatch)
+            });
+
+            const workflowRun = runs.data.workflow_runs.find(run => run.id === run_id);
+
+            if (!workflowRun) {
+              console.log('No matching workflow run found to retrieve outputs from.');
+              return;
+            }
+
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
+              owner,
+              repo,
+              run_id: workflowRun.id
+            });
+
+            // Find the job that outputs the release_branch_name
+            const createAndVersionJob = jobs.data.jobs.find(job => job.name === 'version');
+
+            if (createAndVersionJob && createAndVersionJob.steps) {
+              const setBranchNameStep = createAndVersionJob.steps.find(step => step.name === 'Set Release Branch Name');
+              if (setBranchNameStep && setBranchNameStep.outputs) {
+                const releaseBranchName = setBranchNameStep.outputs.branch;
+                console.log(`Retrieved release_branch_name: ${releaseBranchName}`);
+                core.setOutput('release_branch_name', releaseBranchName);
+              } else {
+                console.log('Outputs for "Set Release Branch Name" step not found.');
+              }
+            } else {
+              console.log('Job "create_and_version" not found or has no steps.');
+            }
+          result-encoding: 'json'
+
+      - name: Debug Output (for verification)
+        run: "echo Release Branch Name from previous workflow: ${{ steps.get_outputs.outputs.release_branch_name }}"
+
+      # Checkout the new release branch to ensure the PR is created from the correct state
+      - name: Checkout Release Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.get_outputs.outputs.release_branch_name }}
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: ${{ github.ref_name }}
+          # Use the branch name passed from the previous workflow's output
+          branch: ${{ steps.get_outputs.outputs.release_branch_name }}
           base: main
-          title: ${{ github.ref_name }}
+          title: 'Release ${{ steps.get_outputs.outputs.release_branch_name }}'
           body: |
-            This is a release PR for the ${{ github.ref_name }} release.
-            It will be merged into the main branch.
+            This is an automated release PR for ${{ steps.get_outputs.outputs.release_branch_name }}.
+            Please review and merge into the main branch.
           labels: release
           draft: true
+          # Ensure this token has 'pull-requests: write' and 'contents: write' permissions
+          token: ${{ secrets.GITHUB_TOKEN }}

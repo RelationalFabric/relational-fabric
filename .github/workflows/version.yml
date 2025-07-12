@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   version:
+    outputs:
+      branch: ${{ steps.version.outputs.branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,7 +20,9 @@ jobs:
         with:
           node-version: ">=20.0.0"
           cache: "npm"
-      - uses: bahulneel/action-version@v0.27.2
+      - uses: bahulneel/action-version@v0.28.0
+        id: version
         with:
           branch: ?1
           branch_deletion: prune
+        
