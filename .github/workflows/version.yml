@@ -21,3 +21,4 @@ jobs:
       - uses: bahulneel/action-version@v0.26.10
         with:
           branch: ?1
+          branch_deletion: prune
