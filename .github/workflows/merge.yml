@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - develop
-permissions:
-  contents: write
-  packages: write
 
 jobs:
   check:
@@ -49,11 +46,6 @@ jobs:
           VITEST_REPORTER_OPTIONS: summary,verbose
 
   version:
-    needs: [check, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # This ensures we get all commits for version analysis
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: bahulneel/action-version@v0.24.1
+      - run: echo "Skipped"

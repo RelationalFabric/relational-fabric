@@ -2,6 +2,11 @@ name: Merge Group
 
 on:
   merge_group:
+    branches:
+      - develop
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   check:
@@ -13,6 +18,11 @@ jobs:
     steps:
       - run: echo "Skipped"
   version:
+    needs: [check, test]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Skipped"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # This ensures we get all commits for version analysis
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: bahulneel/action-version@v0.24.1
