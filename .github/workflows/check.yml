@@ -1,9 +1,6 @@
 name: Check
 
 on:
-  push:
-    branches:
-      - feature/*
   pull_request:
     branches:
       - develop
@@ -30,3 +27,8 @@ jobs:
                 -name="tsc" \
                 -reporter=github-pr-review \
                 -fail-level=error
+  version:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Skipped until merge"
