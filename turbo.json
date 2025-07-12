@@ -25,6 +25,12 @@
         "build",
         "^test"
       ]
+    },
+    "deploy": {
+      "dependsOn": [
+        "build",
+        "^deploy"
+      ]
     }
   }
 }
