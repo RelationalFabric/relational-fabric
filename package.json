@@ -21,7 +21,8 @@
     "build": "turbo build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "deploy": "npm publish --workspaces"
   },
   "devDependencies": {
     "turbo": "^2.5.4",
