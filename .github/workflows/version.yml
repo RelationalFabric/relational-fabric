@@ -1,4 +1,4 @@
-name: Version
+name: Version & Open PR
 
 on:
   push:
@@ -25,4 +25,28 @@ jobs:
         with:
           branch: ?1
           branch_deletion: prune
-        
+
+  open-pr:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout the new release branch to ensure the PR is created from the correct state
+      - name: Checkout Release Branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.version.outputs.branch }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # Use the branch name passed from the previous workflow's output
+          branch: ${{ steps.version.outputs.branch }}
+          base: main
+          title: 'Release ${{ steps.version.outputs.branch }}'
+          body: |
+            This is an automated release PR for ${{ steps.version.outputs.branch }}.
+            Please review and merge into the main branch.
+          labels: release
+          draft: true
+          # Ensure this token has 'pull-requests: write' and 'contents: write' permissions
+          token: ${{ secrets.GITHUB_TOKEN }}
