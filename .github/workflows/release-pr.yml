@@ -1,7 +1,10 @@
 name: Release PR
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Version"]
+    types:
+      - completed
     branches:
       - release/*
 
