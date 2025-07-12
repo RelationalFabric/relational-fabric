@@ -1,6 +1,6 @@
 {
   "name": "@relational-fabric/filament",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Core types and utilities for Relational Fabric",
   "type": "module",
   "main": "./dist/index.js",
