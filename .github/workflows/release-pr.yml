@@ -25,6 +25,11 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success'
 
     steps:
+      - name: Debug GitHub Event Payload (CRITICAL DEBUG STEP)
+        run: |
+          echo "--- Full GitHub Event Payload ---"
+          echo "${{ toJson(github.event) }}"
+          echo "---------------------------------"
       - name: Download Workflow Artifacts (to get outputs from previous workflow)
         uses: actions/github-script@v7
         id: get_outputs
