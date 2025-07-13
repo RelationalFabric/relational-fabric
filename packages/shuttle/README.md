@@ -40,7 +40,7 @@ The fundamental primitives for making different data sources look identical:
 Making data flow connections visible and manipulable as data:
 
 - **Flow Capture**: Primitives for making connections between sources visible
-- **Flow Representation**: The fundamental patterns for representing flow as data (leveraging Filament for entity representation)
+- **Flow Representation**: The fundamental patterns for representing flow as data
 - **Flow Reconstruction**: Primitives for rebuilding flows from their data representation
 
 ### Boundary Abstraction
