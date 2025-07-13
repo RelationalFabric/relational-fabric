@@ -2,80 +2,71 @@
 
 > *The dynamic force that carries data between all parts of the system*
 
-Shuttle provides the foundational patterns and abstractions for managing data in motion within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that carries threads back and forth between the warp threads to create fabric, this library provides the essential primitives that enable coordination, communication, and flow control between all other components.
+Shuttle provides the foundational abstractions for data flow and coordination within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that carries threads back and forth between the warp threads to create fabric, this library provides the essential primitives that enable building any kind of coordination, communication, and flow control system.
 
 ## The Problem
 
-When building applications that need to coordinate data flow across different components, you constantly need the same foundational capabilities:
+When building applications that need to coordinate data flow, you constantly need the same foundational abstractions:
 
-- Event systems for coordinating between different parts of the application
-- Message passing patterns for reliable communication
-- Reactive stream management with proper flow control
-- Synchronization between reactive and non-reactive components
-- State coordination across different data sources
-- Batch coordination to prevent cascading updates
-- Backpressure management when data flows faster than it can be processed
+- Source and sink abstractions for data flow endpoints
+- Push and pull mechanisms for data movement
+- Subscription and notification patterns for change awareness
+- Queue and buffer primitives for flow control
+- Transform and filter abstractions for data manipulation in motion
+- Coordination signals for synchronization
+- Timing and scheduling primitives
 
-These primitives get rebuilt from scratch in every project, often with subtle timing bugs and memory leaks.
+These foundational abstractions get rebuilt from scratch in every project, making it hard to compose different flow patterns.
 
 ## The Solution
 
-Shuttle extracts these proven primitives from a working system and provides them as composable building blocks:
+Shuttle extracts these proven primitives from a working system and provides them as the foundational building blocks that enable building any data flow or coordination system:
 
-- **Event Coordination**: Systems for managing event flow and sequencing
-- **Message Passing**: Reliable communication patterns between components
-- **Reactive Streams**: Flow control and backpressure management
-- **Synchronization**: Coordination between different data flow paradigms
-- **State Coordination**: Managing consistency across multiple data sources
-- **Batch Control**: Preventing downstream reactions until operations complete
-- **Flow Control**: Managing data velocity and system capacity
+- **Source/Sink Abstractions**: The fundamental endpoints of any data flow
+- **Push/Pull Mechanisms**: The basic patterns for data movement
+- **Subscription Patterns**: The core abstractions for change notification
+- **Flow Control Primitives**: Basic building blocks for managing data velocity
+- **Transform Abstractions**: The fundamental patterns for data manipulation in motion
+- **Coordination Signals**: The basic primitives for synchronization
+- **Scheduling Primitives**: The foundational abstractions for timing control
 
 ## Core Concepts
 
-### Event Coordination
+### Source and Sink Abstractions
 
-The foundation of system coordination is managing event flow and sequencing:
+The fundamental endpoints of any data flow system:
 
-- **Event Ordering**: Ensure events are processed in the correct sequence
-- **Event Batching**: Group related events for efficient processing
-- **Event Filtering**: Route events only to interested components
-- **Event Transformation**: Convert events between different formats
+- **Source**: The basic abstraction for producing data
+- **Sink**: The basic abstraction for consuming data
+- **Composition**: How sources and sinks connect together
+- **Lifecycle**: How sources and sinks start, stop, and cleanup
 
-### Message Passing
+### Push and Pull Mechanisms
 
-Reliable communication between components requires clear patterns:
+The basic patterns for how data moves through a system:
 
-- **Async Messaging**: Non-blocking communication between components
-- **Message Queuing**: Buffer messages when consumers are busy
-- **Message Routing**: Direct messages to appropriate handlers
-- **Error Handling**: Manage failures and retries gracefully
+- **Push**: Producer-driven data movement
+- **Pull**: Consumer-driven data movement
+- **Hybrid**: Combinations of push and pull patterns
+- **Control**: How push/pull decisions are made
 
-### Reactive Streams
+### Subscription and Notification
 
-Managing flowing data requires sophisticated flow control:
+The core patterns for change awareness:
 
-- **Stream Creation**: Generate streams from various data sources
-- **Stream Transformation**: Map, filter, and combine streams
-- **Backpressure**: Handle when producers outpace consumers
-- **Stream Coordination**: Synchronize multiple streams
+- **Subscribe**: The basic pattern for expressing interest in changes
+- **Notify**: The basic pattern for broadcasting changes
+- **Unsubscribe**: The basic pattern for ending interest
+- **Filtering**: The fundamental abstractions for selective notification
 
-### Synchronization Primitives
+### Flow Control Primitives
 
-Different parts of the system need to coordinate their operations:
+Basic building blocks for managing data velocity:
 
-- **Locks and Mutexes**: Prevent concurrent access conflicts
-- **Semaphores**: Control access to limited resources
-- **Barriers**: Coordinate multiple operations to complete together
-- **Coordination Patterns**: Common patterns for system-wide coordination
-
-### State Coordination
-
-Managing consistency across multiple data sources:
-
-- **State Synchronization**: Keep multiple views of data consistent
-- **Conflict Resolution**: Handle when different sources disagree
-- **Change Propagation**: Efficiently broadcast state changes
-- **Consistency Guarantees**: Maintain system invariants
+- **Buffer**: The fundamental abstraction for temporary storage
+- **Token**: The basic building block for rate limiting
+- **Backpressure**: The primitive patterns for handling overflow
+- **Batching**: The core abstractions for grouping operations
 
 ## Installation
 
@@ -85,32 +76,32 @@ npm install @relational-fabric/shuttle
 
 ## Philosophy
 
-Shuttle embodies the principle that data flow and coordination are fundamental to any sophisticated system. The primitives are designed to be:
+Shuttle embodies the principle of providing the minimal abstractions that all data flow and coordination systems are built from. The primitives are designed to be:
 
-- **Asynchronous by Default**: Handle timing and coordination naturally
-- **Composable**: Combine different flow patterns as needed
-- **Resilient**: Handle failures and edge cases gracefully
-- **Observable**: Provide visibility into data flow for debugging
+- **Minimal**: The smallest possible building blocks
+- **Composable**: Combine to create any flow pattern
+- **Universal**: Work with any data type or system
+- **Configurable**: Enable building specific solutions through configuration
 
 ## Integration with the Ecosystem
 
 ### With Filament (Foundation)
 
-Shuttle uses Filament's entity primitives to provide type-safe event and message passing with consistent data representation.
+Shuttle uses Filament's entity primitives to ensure data flowing through the system maintains consistent representation and identity.
 
 ### With Weft (Data Leverage)
 
-Shuttle enables reactive query evaluation and incremental updates by coordinating data flow between pattern matchers and data sources.
+Shuttle provides the flow primitives that enable reactive query evaluation and incremental pattern matching updates.
 
 ### With Warp (Storage Foundation)
 
-Shuttle coordinates between in-memory operations and persistence operations, managing transaction coordination and change propagation.
+Shuttle provides the coordination primitives that enable transaction coordination and change propagation between memory and storage.
 
 ## Contributing
 
 Shuttle is part of the Relational Fabric ecosystem. See the [main repository](../../) for contribution guidelines.
 
-Since Shuttle is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on coordination patterns, flow control strategies, and reactive primitives.
+Since Shuttle is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on flow primitives, coordination abstractions, and foundational patterns.
 
 ## License
 
