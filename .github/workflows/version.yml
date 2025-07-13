@@ -43,7 +43,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_BRANCH: ${{ needs.version.outputs.branch }}
-          BASE_BRANCH: main
+          BASE_BRANCH: develop
         run: |
           echo "Checking if a PR from '$RELEASE_BRANCH' to '$BASE_BRANCH' already exists..."
           EXISTING_PR_NUMBER=$(gh pr list \
