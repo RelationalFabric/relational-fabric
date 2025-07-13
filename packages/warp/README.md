@@ -68,30 +68,7 @@ Warp aims to provide enterprise-grade performance while maintaining semantic ric
 - **Consistency**: ACID guarantees with configurable consistency levels
 - **Durability**: Multiple replication strategies and backup options
 
-## API Reference (Planned)
 
-### Storage Operations
-- `get<T>(id)` - Retrieve entity by ID
-- `put<T>(entity)` - Store entity with type safety
-- `delete(id)` - Remove entity
-- `batch(operations)` - Atomic batch operations
-- `transaction(fn)` - ACID transactions
-
-### Query Interface  
-- `query<T>(pattern)` - Execute semantic query patterns
-- `subscribe(pattern)` - Real-time pattern subscriptions
-- `explain(pattern)` - Get query execution plan
-
-### Index Management
-- `createIndex(type, options)` - Create optimized indexes
-- `dropIndex(name)` - Remove index
-- `reindex()` - Rebuild indexes
-- `getIndexStats()` - Performance metrics
-
-### Synchronization
-- `sync(peer, options)` - Sync with remote peer
-- `resolveConflicts(strategy)` - Handle merge conflicts
-- `getChanges(since)` - Get changes since timestamp
 
 ## Contributing
 

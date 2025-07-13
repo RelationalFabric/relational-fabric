@@ -87,29 +87,7 @@ Weft is built for real-world performance:
 - **Query Planning**: Cost-based optimization for complex patterns
 - **Hash-based Deduplication**: Avoid redundant computation and storage
 
-## API Reference
 
-### Core Functions
-- `matchPattern(pattern, data, bindings?)` - Match pattern against data
-- `runQuery(query, entities, args?)` - Execute query on entity collection  
-- `createQuery(queryPattern)` - Create optimized query from pattern
-- `variable<T>(name)` - Create typed logic variable
-
-### Pattern Builders
-- `patterns.or(...alternatives)` - Logical OR patterns
-- `patterns.not(pattern)` - Negation patterns
-- `patterns.maybe(pattern)` - Optional patterns  
-- `patterns.tuple(...elements)` - Sequential matching
-
-### Aggregation Functions
-- `aggregations.count()`, `aggregations.sum()`, `aggregations.avg()`
-- `aggregations.min()`, `aggregations.max()`, `aggregations.median()`
-- `aggregations.distinct()`, `aggregations.countDistinct()`
-
-### Utilities
-- `conditions.where(testFn)` - Custom test functions
-- `utilities.optimizePattern(pattern)` - Manual optimization
-- `bindings.*` - Variable binding management
 
 ## Contributing
 

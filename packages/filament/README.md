@@ -66,24 +66,7 @@ Support for domain-specific entity types and composable entity relationships.
 
 Factory functions with full type safety for creating entities with proper typing.
 
-## API Reference
 
-### Core Types
-
-- `EntityInterface` - Basic entity with id
-- `AnyThing` - Typed entity with __type field
-- `ThingRef<T>` - Generic reference type
-- `EntityRef`, `TombstoneRef`, `RetractRef` - Specific reference types
-
-### Utility Functions
-
-- `updateMap<K,V>(map, key, fn, defaultValue?)` - Functional map updates
-- `isIdentifierOnly(entity)` - Check if entity has only identifier fields
-- `isInternalObject(obj)` - Check if object is built-in JavaScript type
-
-### Type Guards
-
-- Additional type guards and assertion functions (see source for full API)
 
 ## Contributing
 
