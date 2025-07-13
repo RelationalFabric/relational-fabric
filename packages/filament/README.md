@@ -26,7 +26,7 @@ Filament provides the proven foundational primitives that enable building any da
 
 - **Deterministic Hashing**: Fast equality and consistent hashing primitives
 - **Object Metadata**: Runtime metadata systems with object and domain identity awareness
-- **Metaprogramming Primitives**: Primitives for adding capabilities to existing types retroactively
+- **Metaprogramming Primitives**: Primitives for programming against interfaces/expectations that can be implemented at different times and places
 - **Graphs**: Structural primitives for any graph representation
 - **Common Types**: Shared RelationalFabric types used across the ecosystem
 - **Utility Types**: TypeScript helpers for constructing RelationalFabric types
@@ -57,7 +57,7 @@ Runtime metadata systems with object and domain identity awareness:
 
 ### Metaprogramming Primitives
 
-Primitives for adding capabilities to existing types without modification:
+Primitives for programming against interfaces/expectations that can be implemented at different times and places:
 
 - **Protocol Definition**: Primitives for defining new capabilities/interfaces
 - **Retroactive Implementation**: Adding protocol implementations to existing types
