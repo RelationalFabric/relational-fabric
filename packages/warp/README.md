@@ -22,11 +22,11 @@ Warp is designed to solve the fundamental challenge of semantic data persistence
 
 Warp aims to eliminate these trade-offs by providing:
 
-- **Semantic-Native Storage**: Data models that embrace the full expressiveness of RDF/JSON-LD while maintaining high performance
-- **Pattern-Optimized Indexing**: Index structures specifically designed to accelerate the pattern matching operations that Weft performs
-- **Distributed-First Design**: Architecture that assumes distribution and collaboration from the ground up, not as an afterthought  
-- **Privacy-Preserving Foundations**: Storage mechanisms that support the granular privacy and access control required for collaborative applications
-- **Evolution-Friendly**: Storage that adapts and evolves with your data models without costly migrations
+- **Semantic-Native Storage**: Data models that embrace the full expressiveness of RDF/JSON-LD 
+- **Pattern-Optimized Indexing**: Index structures specifically designed to accelerate the operations that Weft performs
+- **Distributed-First Design**: Architecture that assumes distribution and collaboration from the ground up  
+- **Privacy-Preserving Foundations**: Storage mechanisms that support granular privacy and access control
+- **Evolution-Friendly**: Storage that adapts and evolves with your data models
 
 This foundation will enable the advanced capabilities envisioned in [Distributed Context-Sensitive Graph Stores](../../docs/whitepapers/Distributed%20Context-Sensitive%20Graph%20Store.md), providing the robust storage layer needed for semantic collaboration, data sovereignty, and distributed consensus.
 
@@ -58,15 +58,7 @@ Warp builds directly on Filament's type system for type-safe storage with semant
 
 Warp will be optimized specifically for Weft's query patterns, with storage engines that understand and optimize for common application data access patterns.
 
-## Performance Goals
 
-Warp aims to provide enterprise-grade performance while maintaining semantic richness:
-
-- **High Throughput**: >10K transactions/second for typical workloads
-- **Low Latency**: <1ms for indexed lookups, <10ms for complex patterns  
-- **Scalability**: Horizontal scaling across multiple nodes/peers
-- **Consistency**: ACID guarantees with configurable consistency levels
-- **Durability**: Multiple replication strategies and backup options
 
 
 
@@ -89,24 +81,23 @@ Since Warp is still in early development, this is an excellent time to contribut
 - [ ] Basic CRUD operations with type safety
 - [ ] Simple indexing for property lookups
 - [ ] Transaction support and ACID guarantees
-- [ ] Performance benchmarking framework
-- [ ] Memory management and garbage collection
+- [ ] Storage abstraction interfaces
+- [ ] Memory management patterns
 
 ### 📋 Advanced Indexing (High Priority)
 - [ ] Pattern-optimized index structures
 - [ ] Graph traversal indexes (adjacency lists, path indexes)
 - [ ] Full-text search integration
 - [ ] Semantic triple stores (RDF-specific indexes)
-- [ ] Automatic index selection and optimization
-- [ ] Index statistics and cost-based query planning
+- [ ] Index selection strategies
+- [ ] Query planning with index awareness
 
 ### 📋 Distributed Storage (Medium Priority)
 - [ ] Peer-to-peer synchronization protocols
 - [ ] Conflict-free replicated data types (CRDTs)
 - [ ] Distributed consensus mechanisms
-- [ ] Partition tolerance and availability
 - [ ] Cross-peer query federation
-- [ ] Network-aware optimization strategies
+- [ ] Network coordination patterns
 
 ### 🔮 Advanced Capabilities (Research)
 - [ ] JIT compilation for hot query paths (inspired by [Query Planner research](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md))
@@ -127,18 +118,18 @@ Since Warp is still in early development, this is an excellent time to contribut
 ### 📋 Privacy and Security (Future)
 - [ ] End-to-end encryption for stored data
 - [ ] Granular access control and permissions
-- [ ] Audit logging and compliance tools
-- [ ] Data sovereignty and residency controls
+- [ ] Audit logging patterns
+- [ ] Data sovereignty patterns
 - [ ] Privacy-preserving query execution
 - [ ] Integration with decentralized identity systems
 
 ### 🎯 Developer Experience (Ongoing)
-- [ ] Comprehensive API documentation
+- [ ] Comprehensive documentation
 - [ ] Visual storage and index inspection tools
-- [ ] Performance profiling and optimization guides
+- [ ] Integration patterns and examples
 - [ ] Migration tools and version management
-- [ ] Integration testing frameworks
-- [ ] Deployment and operational guides
+- [ ] Testing utilities and frameworks
+- [ ] Integration guides
 
 ---
 

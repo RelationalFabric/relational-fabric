@@ -77,15 +77,7 @@ Patterns themselves can be data, enabling powerful meta-programming where patter
 
 Weft provides comprehensive TypeScript support with strong type inference for all operations.
 
-## Performance and Optimization
 
-Weft is built for real-world performance:
-
-- **Pattern Optimization**: Automatic reordering and simplification  
-- **Efficient Binding**: Immutable data structures for fast variable management
-- **Lazy Evaluation**: Compute only what's needed when it's needed
-- **Query Planning**: Cost-based optimization for complex patterns
-- **Hash-based Deduplication**: Avoid redundant computation and storage
 
 
 
@@ -106,10 +98,10 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 ### 🚧 Application Data Leverage (In Progress)
 - [ ] Reactive view materialization and automatic updates
 - [ ] Cross-domain querying (objects, state, APIs as one data source)
-- [ ] Performance optimization for large in-memory datasets
+- [ ] Strategies for large in-memory datasets
 - [ ] Rules engine integration with existing application state
 - [ ] Enhanced pattern matching capabilities (OR, NOT, MAYBE, TUPLE)
-- [ ] Query compilation and caching for repeated operations
+- [ ] Query compilation and caching patterns
 
 ### 📋 Semantic Integration (Planned)
 - [ ] RDF/JSON-LD native support
@@ -123,17 +115,16 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 - [ ] Cost-based query optimization
 - [ ] Advanced index utilization hints
 - [ ] Query plan visualization and debugging
-- [ ] Pattern compilation and execution optimization
-- [ ] Performance benchmarking and profiling tools
-- [ ] Intelligent query rewriting and optimization
+- [ ] Pattern compilation strategies
+- [ ] Query rewriting patterns
 
 ### 📋 Distributed Operations (Future)
 - [ ] Distributed data transformation pipelines
 - [ ] Remote operation execution protocols
-- [ ] Distributed aggregation and reduction strategies
+- [ ] Distributed aggregation patterns
 - [ ] Streaming data processing across peers
 - [ ] Cross-peer operation sharing and versioning
-- [ ] Federated query planning and execution
+- [ ] Federated query planning
 
 ### 🔮 Advanced Capabilities (Research)
 - [ ] JIT compilation for hot patterns (inspired by [Query Planner research](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md))
@@ -148,7 +139,6 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 - [ ] Visual query builder interface
 - [ ] Pattern library and marketplace
 - [ ] Documentation and tutorial improvements
-- [ ] Performance monitoring and optimization guides
 - [ ] IDE extensions and developer tooling
 
 ---

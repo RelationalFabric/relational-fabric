@@ -88,7 +88,7 @@ Since Filament provides foundational types used throughout the ecosystem, change
 - [ ] Versioning and temporal type support
 - [ ] Schema validation and type checking utilities
 - [ ] Enhanced reference resolution utilities
-- [ ] Immutable data structure helpers
+- [ ] Immutable data structure patterns
 - [ ] Type-safe event and change tracking
 
 ### 📋 Semantic Extensions (Planned)
@@ -119,7 +119,6 @@ Since Filament provides foundational types used throughout the ecosystem, change
 - [ ] Enhanced TypeScript integration and IDE support
 - [ ] Comprehensive documentation with examples
 - [ ] Type-safe testing utilities and fixtures
-- [ ] Performance optimization and profiling
 - [ ] Code generation and scaffolding tools
 - [ ] Migration utilities for type evolution
 
