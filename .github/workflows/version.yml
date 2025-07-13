@@ -33,6 +33,9 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.branch }}
       - name: Debug Branch Name from Previous Job
         run: "echo Release Branch Name received: ${{ needs.version.outputs.branch }}"
       
