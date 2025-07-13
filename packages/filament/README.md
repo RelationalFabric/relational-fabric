@@ -55,7 +55,7 @@ Runtime metadata systems with object and domain identity awareness:
 - **Metadata Queries**: Primitives for discovering and working with applied metadata
 - **Metadata Inheritance**: Primitives for metadata inheritance and composition
 
-### Protocol Extensibility
+### Metaprogramming Primitives
 
 Primitives for adding capabilities to existing types without modification:
 
