@@ -21,7 +21,7 @@ These foundational abstractions get rebuilt from scratch in every storage system
 
 Warp provides the proven foundational primitives that enable building any storage system:
 
-- **State Graph Primitives**: Ontological requirements for graphs that work with Warp operations
+- **Storage Ontology**: The ontological framework that defines what kinds of graphs can work with Warp operations
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions
 - **Identity Resolution**: Primitives for handling different ID types and reference patterns
 - **Graph Transformation**: Primitives for moving data between any representations (`data over here <=transform=> data over there`)
@@ -29,9 +29,9 @@ Warp provides the proven foundational primitives that enable building any storag
 
 ## Core Concepts
 
-### State Graph Primitives
+### Storage Ontology
 
-The ontological requirements that define what kinds of graphs can work with Warp operations:
+The ontological framework that defines what kinds of graphs can work with Warp operations:
 
 - **State Graph Schema**: Defining what constitutes valid state representation
 - **Entity vs Value Distinction**: Ontological patterns for distinguishing entities from values
