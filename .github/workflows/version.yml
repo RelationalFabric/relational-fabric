@@ -1,0 +1,71 @@
+name: Version & Open PR
+
+on:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  version:
+    outputs:
+      branch: ${{ steps.version.outputs.branch }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ">=20.0.0"
+          cache: "npm"
+      - uses: bahulneel/action-version@v0.28.6
+        id: version
+        with:
+          branch: ?1
+          branch_deletion: prune
+        
+  open-pr:
+    needs: version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.branch }}
+      - name: Debug Branch Name from Previous Job
+        run: "echo Release Branch Name received: ${{ needs.version.outputs.branch }}"
+      
+      - name: Create Pull Request to Main using GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_BRANCH: ${{ needs.version.outputs.branch }}
+          BASE_BRANCH: main
+        run: |
+          echo "Checking if a PR from '$RELEASE_BRANCH' to '$BASE_BRANCH' already exists..."
+          EXISTING_PR_NUMBER=$(gh pr list \
+            --head "$RELEASE_BRANCH" \
+            --base "$BASE_BRANCH" \
+            --state open \
+            --json number \
+            -q '.[0].number')
+
+          if [ -n "$EXISTING_PR_NUMBER" ]; then
+            echo "INFO: A pull request from '$RELEASE_BRANCH' to '$BASE_BRANCH' (PR #$EXISTING_PR_NUMBER) already exists and is open. Skipping PR creation."
+            # You could add further steps here, like:
+            # gh pr edit "$EXISTING_PR_NUMBER" --add-label "workflow-retriggered"
+            # gh pr comment "$EXISTING_PR_NUMBER" --body "Workflow re-triggered for this release branch."
+          else
+            echo "No existing pull request found from '$RELEASE_BRANCH' to '$BASE_BRANCH'. Creating new PR..."
+            gh pr create \
+              --title "Release PR for $RELEASE_BRANCH" \
+              --body "This is an automated release PR for $RELEASE_BRANCH. Please review and merge into the $BASE_BRANCH branch." \
+              --base "$BASE_BRANCH" \
+              --head "$RELEASE_BRANCH" \
+              --label "release" \
+              --draft
+            echo "SUCCESS: Pull Request from '$RELEASE_BRANCH' to '$BASE_BRANCH' created."
+          fi

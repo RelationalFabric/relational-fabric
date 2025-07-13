@@ -1,6 +1,6 @@
 {
   "name": "@relational-fabric/relational-fabric",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Weave your own data fabric",
   "type": "module",
   "packageManager": "npm@10.9.0",
@@ -22,7 +22,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "clean": "turbo run clean",
-    "deploy": "npm publish --workspaces"
+    "deploy": "turbo run deploy"
   },
   "devDependencies": {
     "turbo": "^2.5.4",
