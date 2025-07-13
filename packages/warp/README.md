@@ -2,78 +2,89 @@
 
 > *The structural foundation that provides strength and stability*
 
-Warp provides the foundational patterns and abstractions for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems, indexing strategies, and data persistence solutions.
+Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time.
 
 ## The Problem
 
-When building applications that need to persist and index data, you constantly need the same foundational capabilities:
+When building storage systems that need to handle state evolution, you constantly need the same foundational capabilities:
 
-- Transaction logs for tracking changes and enabling synchronization
-- In-memory indexing strategies for fast data access
-- Object graph diff algorithms for efficient updates
-- Merge semantics for handling concurrent modifications
-- Incremental update patterns for large datasets
-- Change detection and notification systems
+- Defining what kinds of graphs can represent valid state (ontological requirements)
+- Representing changes and deltas in a consistent way
+- Handling different types of identity and references (tempIds, derived IDs, anonymous IDs, tombstones)
+- Moving data between different representations while preserving semantics
+- Controlling visibility and access to different parts of the graph
+- Working with both owned data (in graph form) and external data (as opaque references)
 
-These primitives get rebuilt from scratch in every project, often with subtle bugs and performance issues.
+These foundational abstractions get rebuilt from scratch in every storage system, leading to incompatible approaches and subtle bugs.
 
 ## The Solution
 
-Warp extracts these proven primitives from a working system and provides them as composable building blocks:
+Warp provides the proven foundational primitives that enable building any storage system:
 
-- **Transaction Logging**: Immutable append-only logs for tracking all data changes
-- **In-Memory Indexing**: High-performance indexing strategies for different data access patterns
-- **Object Graph Diffs**: Efficient algorithms for detecting and representing changes
-- **Merge Semantics**: Consistent handling of concurrent modifications and conflict resolution
-- **Incremental Updates**: Patterns for handling large datasets with minimal overhead
-- **Change Detection**: Systems for efficiently detecting and broadcasting changes
+- **State Graph Primitives**: Ontological requirements for graphs that work with Warp operations
+- **Change Representation**: Primitives for representing deltas, edits, and state transitions
+- **Identity Resolution**: Primitives for handling different ID types and reference patterns
+- **Graph Transformation**: Primitives for moving data between any representations (`data over here <=transform=> data over there`)
+- **Visibility Primitives**: Primitives for controlling node/edge access based on context and permissions
 
 ## Core Concepts
 
-### Transaction Logging
+### State Graph Primitives
 
-The foundation of reliable data persistence is maintaining an immutable record of all changes:
+The ontological requirements that define what kinds of graphs can work with Warp operations:
 
-- **Append-Only**: Changes are recorded sequentially without modifying past entries
-- **Immutable**: Once written, transaction entries cannot be altered
-- **Ordered**: Changes maintain a clear chronological sequence
-- **Recoverable**: System state can be reconstructed from the transaction log
+- **State Graph Schema**: Defining what constitutes valid state representation
+- **Entity vs Value Distinction**: Ontological patterns for distinguishing entities from values
+- **Reference Semantics**: Defining how references work within the state model
+- **Change Semantics**: Defining what constitutes valid changes to state
+- **Transformation Invariants**: Defining what transformations preserve semantic meaning
 
-### In-Memory Indexing
+### Change Representation
 
-Fast data access requires sophisticated indexing strategies:
+Primitives for representing deltas, edits, and state transitions:
 
-- **Primary Indexes**: Fast lookup by entity identity
-- **Secondary Indexes**: Efficient queries by property values
-- **Composite Indexes**: Multi-property indexing for complex queries
-- **Incremental Maintenance**: Keeping indexes up-to-date as data changes
+- **Delta Primitives**: Core abstractions for representing "what changed"
+- **State Transition**: Primitives for `state now + edits + time => state then`
+- **Change Composition**: Primitives for combining and sequencing changes
+- **Change Inversion**: Primitives for undoing or reversing changes
 
-### Object Graph Diffs
+### Identity Resolution
 
-Efficient change detection is crucial for performance:
+Primitives for handling different ID types and reference patterns:
 
-- **Minimal Diffs**: Generate the smallest possible representation of changes
-- **Structural Awareness**: Understand nested objects and collections
-- **Type-Aware**: Handle different data types appropriately
-- **Batch Operations**: Process multiple changes efficiently
+- **Temporary IDs**: Primitives for IDs that resolve later (`tempId()` → actual ID)
+- **Derived IDs**: Primitives for IDs computed from other data
+- **Anonymous IDs**: Primitives for content-addressable identity
+- **Tombstone References**: Primitives for references to deleted/retracted entities
+- **Reference Resolution**: Primitives for resolving any reference type to its target
 
-### Merge Semantics
+### Graph Transformation
 
-Handling concurrent modifications requires clear, consistent rules:
+The central primitive for moving data between any representations:
 
-- **Conflict Detection**: Identify when concurrent changes conflict
-- **Resolution Strategies**: Consistent algorithms for resolving conflicts
-- **Merge Algorithms**: Combine changes from multiple sources
-- **Consistency Guarantees**: Ensure data integrity is maintained
+- **Representation Mapping**: Primitives for `data over here <=transform=> data over there`
+- **Persistence Transformation**: Memory ↔ storage representations
+- **Network Transformation**: Local ↔ remote representations  
+- **Temporal Transformation**: State at different time points
+- **Format Transformation**: Between different data formats while preserving semantics
+- **Selective Transformation**: Choosing what to transform vs keep as opaque references
 
-### Incremental Updates
+### Visibility Primitives
 
-Working with large datasets requires efficient update patterns:
+Primitives for controlling node/edge access based on context and permissions:
 
-- **Lazy Loading**: Load data only when needed
-- **Partial Updates**: Modify only changed portions
-- **Streaming Updates**: Handle continuous data changes
-- **Memory Management**: Efficient use of available memory
+- **Access Control**: Primitives for permission-based visibility
+- **Context Filtering**: Primitives for context-sensitive graph views
+- **Audience Stratification**: Primitives for audience-based data access
+- **Privacy Boundaries**: Primitives for data sovereignty and privacy controls
+
+## Design Principles
+
+**Selective Graph Usage**: Use graphs for data you own and control. Keep opaque references for external data that doesn't naturally fit your entity model. Avoid unnecessary serialization costs and worst-case access patterns by only converting to graph representation when it provides clear benefits.
+
+**Semantic Preservation**: All transformations should preserve the semantic meaning of the data, even when changing its representation or location.
+
+**Identity Agnostic**: Support any identity pattern - temporary, derived, anonymous, or explicit - through consistent resolution primitives.
 
 ## Installation
 
@@ -83,28 +94,33 @@ npm install @relational-fabric/warp
 
 ## Philosophy
 
-Warp embodies the principle of providing building blocks rather than complete solutions. The primitives are designed to be:
+Warp embodies the principle that storage is fundamentally about controlled transformation. Whether you're persisting to disk, syncing with peers, taking snapshots, or applying changes over time - it's all graph transformation with different constraints and contexts.
 
-- **Composable**: Combine in different ways to build various storage systems
-- **Flexible**: Adapt to different data models and access patterns
-- **Performant**: Optimized for common operations while remaining general
-- **Testable**: Each primitive can be tested and validated independently
+These primitives enable:
+- **Universal Storage Patterns**: Build any storage system from the same foundational primitives
+- **Semantic Consistency**: Maintain meaning across all transformations and representations
+- **Flexible Identity**: Work with any identity pattern through consistent resolution
+- **Controlled Access**: Fine-grained control over data visibility and permissions
 
 ## Integration with the Ecosystem
 
-### With Filament (Foundation)
+### Built on Filament
 
-Warp builds on Filament's entity primitives to provide type-safe storage building blocks that understand entity identity and relationships.
+Warp builds on Filament's graph primitives and ontological foundations, extending them with storage-specific semantics and operations.
 
 ### With Weft (Data Leverage)
 
-Warp and Weft are designed to work naturally together, with Warp's storage building blocks complementing Weft's pattern matching and query capabilities. The transaction log provides a foundation for incremental query evaluation.
+Warp provides the storage foundations that enable Weft's pattern matching to work with persisted and evolving data structures.
+
+### With Shuttle (Data Flow)
+
+Warp's graph transformation primitives enable Shuttle's flow abstractions to work with persisted state and cross-boundary data movement.
 
 ## Contributing
 
 Warp is part of the Relational Fabric ecosystem. See the [main repository](../../) for contribution guidelines.
 
-Since Warp is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on storage primitives, indexing patterns, and foundational abstractions.
+Since Warp is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on storage primitives, transformation patterns, and ontological requirements.
 
 ## License
 
