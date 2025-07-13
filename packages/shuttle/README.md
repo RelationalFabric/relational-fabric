@@ -18,62 +18,38 @@ Each requires different APIs, different error handling, different timing models.
 
 ## The Solution
 
-Shuttle provides the fundamental abstractions that make all data sources look uniform and make the resulting data flow graphs themselves manipulable as first-class data:
+Shuttle provides the fundamental abstractions that make heterogeneous data sources uniform and make data flow itself visible and manipulable:
 
-- **Source Adaptation**: Primitives that normalize any data source into a uniform interface
-- **Flow Graph Representation**: Making data flow connections visible and manipulable as data
-- **Graph Serialization**: Primitives for converting flow graphs to/from data representations
-- **Graph Transformation**: Primitives for manipulating flow graphs (carving, inserting boundaries, etc.)
-- **Boundary Insertion**: Primitives for adding network, time, or other boundaries transparently
-- **Flow Composition**: Primitives for connecting adapted sources without knowing their underlying types
+- **Source Abstraction**: Primitives for making different data sources look identical
+- **Flow Reification**: Primitives for making data flow connections visible as data
+- **Boundary Abstraction**: Primitives for transparent boundary insertion in flows
 
 ## Core Concepts
 
-### Source Adaptation
+### Source Abstraction
 
 The fundamental primitives for making different data sources look identical:
 
-- **Adapter Interface**: The uniform interface that all sources expose
-- **Reactive Adaptation**: Making push-based sources (Vue refs, WebSockets) look uniform
-- **Iterator Adaptation**: Making pull-based sources (generators, streams) look uniform
-- **Async Adaptation**: Making callback-based sources look uniform
-- **Error Normalization**: Making different error patterns look uniform
+- **Source Normalization**: The core patterns for wrapping different source types
+- **Push/Pull Unification**: Primitives for making push and pull sources interchangeable  
+- **Error Abstraction**: Primitives for normalizing different error patterns
+- **Lifecycle Abstraction**: Primitives for uniform start/stop/cleanup patterns
 
-### Flow Graph Representation
+### Flow Reification
 
-Making data flow connections visible and manipulable:
+Making data flow connections visible and manipulable as data:
 
-- **Graph Nodes**: Representing sources, sinks, and transformations as data
-- **Graph Edges**: Representing connections between nodes as data
-- **Graph Metadata**: Capturing timing, error handling, and other flow properties
-- **Graph Identity**: Ensuring flow graphs can be identified and referenced
+- **Flow Capture**: Primitives for making connections between sources visible
+- **Flow Representation**: The fundamental patterns for representing flow as data
+- **Flow Reconstruction**: Primitives for rebuilding flows from their data representation
 
-### Graph Serialization
+### Boundary Abstraction
 
-Converting flow graphs to and from data representations:
+Primitives for transparent boundary insertion:
 
-- **Graph Schema**: The data structure for representing flow graphs
-- **Serialization**: Converting live flow graphs to data
-- **Deserialization**: Reconstructing flow graphs from data
-- **Partial Serialization**: Capturing subgraphs for manipulation
-
-### Graph Transformation
-
-Primitives for manipulating flow graphs as data:
-
-- **Graph Splitting**: Carving flow graphs into separate pieces
-- **Boundary Insertion**: Adding network, persistence, or time boundaries
-- **Graph Merging**: Combining separate flow graphs
-- **Graph Rewriting**: Transforming flow patterns
-
-### Transparent Boundaries
-
-Inserting different types of boundaries without changing the flow logic:
-
-- **Network Boundaries**: Making remote sources look local
-- **Time Boundaries**: Adding replay, delay, or scheduling
-- **Persistence Boundaries**: Adding durability without changing flow
-- **Security Boundaries**: Adding encryption/decryption transparently
+- **Boundary Detection**: Primitives for identifying where boundaries can be inserted
+- **Boundary Insertion**: The fundamental patterns for adding boundaries transparently
+- **Boundary Types**: Primitives for different boundary categories (network, time, persistence)
 
 ## Installation
 
