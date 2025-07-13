@@ -56,7 +56,7 @@ Warp builds directly on Filament's type system for type-safe storage with semant
 
 ### With Weft (Data Leverage)
 
-Warp will be optimized specifically for Weft's query patterns, with storage engines that understand and optimize for common application data access patterns.
+Warp and Weft are designed to work naturally together, with Warp's storage capabilities complementing Weft's data leverage patterns. While each library has its own independent purpose, they share common foundations that enable seamless integration.
 
 
 
