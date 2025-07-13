@@ -38,150 +38,33 @@ npm install @relational-fabric/filament
 
 ### Entity Model
 
-The foundation of Filament's type system is a rich entity model that supports identity, typing, and lifecycle management:
-
-```typescript
-import type { EntityInterface, AnyThing } from '@relational-fabric/filament'
-
-// Basic entity interface
-interface User extends EntityInterface {
-  id: string
-  name: string
-  email: string
-}
-
-// Typed entities with semantic information
-interface Task extends AnyThing {
-  __type: 'Task'
-  id: string
-  title: string
-  assignee: string
-  status: 'pending' | 'active' | 'completed'
-}
-```
+The foundation of Filament's type system is a rich entity model that supports identity, typing, and lifecycle management.
 
 ### Reference Types and Semantics
 
 Filament provides sophisticated reference types that enable advanced data lifecycle management:
 
-```typescript
-import type { EntityRef, TombstoneRef, RetractRef } from '@relational-fabric/filament'
-
-// Entity references for linking
-const userRef: EntityRef = { __ref: ['$entity$', 'user-123'] }
-
-// Tombstone references for soft deletion
-const deletedTaskRef: TombstoneRef = { __ref: ['$tombstone$', 'task-456'] }
-
-// Retraction references for semantic removal
-const retractedClaimRef: RetractRef = { __ref: ['$retract$', 'claim-789'] }
-```
-
-These reference types enable sophisticated patterns like:
 - **Soft Deletion**: Tombstones mark entities as deleted while preserving referential integrity
 - **Semantic Retraction**: Explicit retraction of claims or assertions in collaborative environments  
 - **Entity Linking**: Type-safe references between entities across different contexts
 
 ### Utility Functions
 
-Core utilities for working with entities and data structures:
-
-```typescript
-import { updateMap, isIdentifierOnly, isInternalObject } from '@relational-fabric/filament'
-
-// Functional map updates
-const counts = new Map<string, number>()
-updateMap(counts, 'tasks', (current = 0) => current + 1)
-
-// Entity analysis
-const entity = { id: 'user-123', name: 'Alice' }
-const isMinimal = isIdentifierOnly({ id: 'user-123' }) // true
-const isBuiltIn = isInternalObject(new Date()) // true
-```
+Core utilities for working with entities and data structures including functional map updates and entity analysis.
 
 ## Type System Integration
 
-Filament's types are designed to work seamlessly with TypeScript's type system:
-
-```typescript
-// Generic entity handling
-function processEntity<T extends EntityInterface>(entity: T): T {
-  // Type-safe operations on any entity
-  console.log(`Processing entity: ${entity.id}`)
-  return entity
-}
-
-// Reference type discrimination
-function handleReference(ref: ThingRef) {
-  switch (ref.__ref[0]) {
-    case '$entity$':
-      // Handle live entity reference
-      break
-    case '$tombstone$':
-      // Handle deleted entity
-      break  
-    case '$retract$':
-      // Handle retracted assertion
-      break
-  }
-}
-```
+Filament's types are designed to work seamlessly with TypeScript's type system for generic entity handling and reference type discrimination.
 
 ## Advanced Patterns
 
 ### Entity Extension and Composition
 
-```typescript
-// Domain-specific entity types
-interface Patient extends AnyThing {
-  __type: 'Patient'
-  id: string
-  medicalRecordNumber: string
-  conditions: EntityRef[]
-}
-
-interface Diagnosis extends AnyThing {
-  __type: 'Diagnosis'
-  id: string
-  patient: EntityRef
-  condition: string
-  diagnosedDate: string
-  confidence: number
-}
-
-// Composable entity relationships
-const patient: Patient = {
-  __type: 'Patient',
-  id: 'patient-123',
-  medicalRecordNumber: 'MRN-456',
-  conditions: [
-    { __ref: ['$entity$', 'diagnosis-789'] }
-  ]
-}
-```
+Support for domain-specific entity types and composable entity relationships.
 
 ### Type-Safe Entity Factories
 
-```typescript
-// Factory functions with type safety
-function createEntity<T extends AnyThing>(
-  type: T['__type'], 
-  id: string, 
-  data: Omit<T, '__type' | 'id'>
-): T {
-  return {
-    __type: type,
-    id,
-    ...data
-  } as T
-}
-
-const task = createEntity('Task', 'task-123', {
-  title: 'Review documents',
-  assignee: 'alice',
-  status: 'pending' as const
-})
-```
+Factory functions with full type safety for creating entities with proper typing.
 
 ## API Reference
 
@@ -210,12 +93,12 @@ Since Filament provides foundational types used throughout the ecosystem, change
 
 ## Roadmap
 
-### ✅ Foundation (Current)
-- [x] Core entity interfaces (EntityInterface, AnyThing)
-- [x] Reference type system (EntityRef, TombstoneRef, RetractRef)
-- [x] Basic utility functions (updateMap, type checking)
-- [x] TypeScript integration with strong type safety
-- [x] Minimal dependency footprint
+### 📋 Foundation
+- [ ] Core entity interfaces (EntityInterface, AnyThing)
+- [ ] Reference type system (EntityRef, TombstoneRef, RetractRef)
+- [ ] Basic utility functions (updateMap, type checking)
+- [ ] TypeScript integration with strong type safety
+- [ ] Minimal dependency footprint
 
 ### 🚧 Enhanced Type System (In Progress)
 - [ ] Advanced entity lifecycle management

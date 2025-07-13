@@ -45,172 +45,37 @@ This foundation enables applications to work more intelligently with all their d
 npm install @relational-fabric/weft
 ```
 
-## Quick Start
-
-```typescript
-import { matchPattern, runQuery, createQuery, variable } from '@relational-fabric/weft'
-
-// Define your data
-const entities = [
-  { id: '1', type: 'Task', priority: 'high', assignee: 'alice' },
-  { id: '2', type: 'Task', priority: 'low', assignee: 'bob' },
-  { id: '3', type: 'Event', priority: 'medium', organizer: 'alice' }
-]
-
-// Create typed variables
-const taskId = variable<string>('taskId')
-const assignee = variable<string>('assignee')
-
-// Build and execute queries
-const highPriorityTasks = createQuery({
-  return: [taskId, assignee],
-  where: { 
-    id: taskId,
-    type: 'Task', 
-    priority: 'high',
-    assignee: assignee
-  }
-})
-
-const results = runQuery(highPriorityTasks, entities)
-// Results: [['1', 'alice']]
-```
-
 ## Core Concepts
 
 ### Pattern Matching with Logic Variables
 
-Patterns use logic variables (prefixed with `?`) to capture and bind values:
+Patterns use logic variables (prefixed with `?`) to capture and bind values from your application data.
 
-```typescript
-// Simple variable binding
-const pattern = { name: '?name', status: 'active' }
-const data = { name: 'Alice', status: 'active', role: 'admin' }
-matchPattern(pattern, data) // [{ '?name': 'Alice' }]
+### Query Structure and Composition  
 
-// Complex nested patterns
-const pattern = { 
-  user: { id: '?userId', name: '?userName' }, 
-  permissions: { role: 'admin' }
-}
-```
-
-### Query Structure and Composition
-
-Queries are declarative specifications with three main components:
-
-```typescript
-const query = createQuery({
-  return: ['?name', aggregations.count('?task')],  // What to return
-  where: {                                         // Pattern to match
-    name: '?name', 
-    tasks: { id: '?task', status: 'active' }
-  },
-  in: [['?department']]                           // Input parameters
-})
-```
+Queries are declarative specifications that describe what you want to extract from your data.
 
 ### Pattern Modifiers
 
-Express complex logical conditions with intuitive modifiers:
-
-```typescript
-import { patterns } from '@relational-fabric/weft'
-
-// Match any of several alternatives
-patterns.or({ type: 'Task' }, { type: 'Event' })
-
-// Exclude specific patterns  
-patterns.not({ status: 'deleted' })
-
-// Optional matching
-patterns.maybe({ metadata: { priority: '?priority' } })
-
-// Sequential array matching
-patterns.tuple('?first', '?second', '?third')
-```
+Express complex logical conditions with intuitive modifiers like OR, NOT, MAYBE, and TUPLE patterns.
 
 ### Aggregation and Analysis
 
-Built-in statistical and collection functions:
-
-```typescript
-import { aggregations } from '@relational-fabric/weft'
-
-// Statistical aggregations
-aggregations.count('?item')
-aggregations.sum('?value') 
-aggregations.avg('?score')
-aggregations.distinct('?category')
-
-// Use in queries
-const departmentStats = createQuery({
-  return: ['?dept', aggregations.avg('?salary'), aggregations.count('?employee')],
-  where: { 
-    department: '?dept',
-    employees: { id: '?employee', salary: '?salary' }
-  }
-})
-```
+Built-in statistical and collection functions for summarizing and analyzing your application data.
 
 ## Advanced Features
 
 ### Test Functions and Custom Logic
 
-Embed custom validation and filtering logic directly in patterns:
-
-```typescript
-import { conditions } from '@relational-fabric/weft'
-
-const pattern = [
-  { score: '?score', threshold: '?threshold' },
-  conditions.where(({ score, threshold }) => score > threshold)
-]
-```
+Embed custom validation and filtering logic directly in patterns.
 
 ### Dynamic Patterns and Meta-Programming
 
-Patterns themselves can be data, enabling powerful meta-programming:
-
-```typescript
-// Patterns can be stored, versioned, and shared
-const savedPatterns = {
-  highValueCustomers: {
-    return: ['?name', '?totalSpent'],
-    where: { 
-      name: '?name', 
-      orders: { amount: '?amount' }
-    },
-    // Custom logic can be added via test functions
-    filter: conditions.where(({ totalSpent }) => totalSpent > 1000)
-  }
-}
-```
+Patterns themselves can be data, enabling powerful meta-programming where patterns can be stored, versioned, and shared.
 
 ## TypeScript Integration
 
-Weft provides comprehensive TypeScript support with strong type inference:
-
-```typescript
-interface User {
-  id: string
-  name: string
-  department: 'Engineering' | 'Sales' | 'Marketing'
-  skills: string[]
-}
-
-const engineeringQuery = createQuery<User>({
-  return: ['?name', '?skills'],
-  where: { 
-    name: '?name',
-    department: 'Engineering',
-    skills: '?skills'
-  }
-})
-
-// TypeScript infers return type: [string, string[]][]
-const results = runQuery(engineeringQuery, users)
-```
+Weft provides comprehensive TypeScript support with strong type inference for all operations.
 
 ## Performance and Optimization
 
@@ -252,13 +117,13 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 
 ## Roadmap
 
-### ✅ Foundation (Current)
-- [x] Core APIs for querying JavaScript objects and application state
-- [x] Pattern matching with logic variables for nested data extraction
-- [x] Variable binding and resolution mechanisms  
-- [x] Built-in aggregation functions for in-memory data
-- [x] TypeScript integration with strong type inference
-- [x] Functional composition for building complex queries
+### 📋 Foundation
+- [ ] Core APIs for querying JavaScript objects and application state
+- [ ] Pattern matching with logic variables for nested data extraction
+- [ ] Variable binding and resolution mechanisms  
+- [ ] Built-in aggregation functions for in-memory data
+- [ ] TypeScript integration with strong type inference
+- [ ] Functional composition for building complex queries
 
 ### 🚧 Application Data Leverage (In Progress)
 - [ ] Reactive view materialization and automatic updates

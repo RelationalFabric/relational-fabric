@@ -34,141 +34,29 @@ This foundation will enable the advanced capabilities envisioned in [Distributed
 
 ⚠️ **Early Development**: Warp is currently in the early design and prototyping phase. The basic index state interface exists, but most functionality is planned for future implementation.
 
-```typescript
-// Current basic interface (packages/warp/src/index.ts)
-import type { EntityInterface } from '@relational-fabric/filament'
-
-export interface IndexState {
-  entity: Map<string, Map<string, EntityInterface>>
-  version: Map<string, Map<string, number>>
-  basisT: number
-  // searchIndex: any // To be implemented
-}
-
-export function createIndexState(): IndexState {
-  return {
-    entity: new Map(),
-    version: new Map(),
-    basisT: 0,
-  }
-}
-```
-
 ## Planned Architecture
 
 ### Storage Engine
 
-The core storage engine will provide:
-
-```typescript
-// Planned storage interface
-interface StorageEngine {
-  // Basic CRUD operations
-  get<T extends EntityInterface>(id: string): Promise<T | null>
-  put<T extends EntityInterface>(entity: T): Promise<void>
-  delete(id: string): Promise<void>
-  
-  // Batch operations for efficiency
-  batch(operations: Operation[]): Promise<void>
-  
-  // Transaction support
-  transaction<T>(fn: (tx: Transaction) => Promise<T>): Promise<T>
-  
-  // Semantic querying
-  query<T>(pattern: QueryPattern): AsyncIterable<T>
-  
-  // Subscription for real-time updates
-  subscribe(pattern: QueryPattern): AsyncIterable<Change<T>>
-}
-```
+The core storage engine will provide basic CRUD operations, batch operations for efficiency, transaction support, semantic querying, and subscription for real-time updates.
 
 ### Indexing Framework
 
-Advanced indexing strategies optimized for semantic data:
-
-```typescript
-// Planned indexing interface
-interface IndexManager {
-  // Create indexes optimized for specific patterns
-  createPatternIndex(pattern: QueryPattern, options?: IndexOptions): Promise<void>
-  
-  // Graph-specific indexes
-  createPropertyIndex(property: string): Promise<void>
-  createPathIndex(path: PropertyPath): Promise<void>
-  createFullTextIndex(properties: string[]): Promise<void>
-  
-  // Semantic indexes for RDF data
-  createTripleIndex(): Promise<void>
-  createEntityIndex(): Promise<void>
-  createTypeIndex(): Promise<void>
-  
-  // Get query execution plan
-  getQueryPlan(pattern: QueryPattern): QueryPlan
-}
-```
+Advanced indexing strategies optimized for semantic data including pattern-optimized indexes, graph-specific indexes, and semantic indexes for RDF data.
 
 ### Distributed Synchronization
 
-Support for peer-to-peer data synchronization:
-
-```typescript
-// Planned sync interface  
-interface SyncEngine {
-  // Connect to remote peers
-  connectToPeer(peerId: string): Promise<PeerConnection>
-  
-  // Sync specific data subsets
-  sync(filter: SyncFilter): Promise<SyncResult>
-  
-  // Real-time synchronization
-  startRealtimeSync(options: SyncOptions): Promise<void>
-  
-  // Conflict resolution
-  resolveConflicts(strategy: ConflictResolutionStrategy): Promise<void>
-}
-```
+Support for peer-to-peer data synchronization including connecting to remote peers, syncing specific data subsets, real-time synchronization, and conflict resolution.
 
 ## Integration with the Ecosystem
 
 ### With Filament (Foundation)
 
-Warp builds directly on Filament's type system:
+Warp builds directly on Filament's type system for type-safe storage with semantic awareness.
 
-```typescript
-// Using Filament types in storage
-import type { EntityInterface, AnyThing } from '@relational-fabric/filament'
+### With Weft (Data Leverage)
 
-class SemanticStorage implements StorageEngine {
-  async put<T extends EntityInterface>(entity: T): Promise<void> {
-    // Store with full type safety and semantic awareness
-  }
-}
-```
-
-### With Weft (Pattern Matching)
-
-Warp will be optimized specifically for Weft's query patterns:
-
-```typescript
-// Optimized storage for pattern matching
-import { createQuery } from '@relational-fabric/weft'
-import { SemanticStorage } from '@relational-fabric/warp'
-
-const storage = new SemanticStorage()
-
-// Warp indexes will be optimized for these patterns
-const query = createQuery({
-  return: ['?name', '?department'],
-  where: { 
-    name: '?name', 
-    department: '?department',
-    status: 'active' 
-  }
-})
-
-// Storage engine understands and optimizes for this pattern
-const results = await storage.query(query)
-```
+Warp will be optimized specifically for Weft's query patterns, with storage engines that understand and optimize for common application data access patterns.
 
 ## Performance Goals
 
@@ -213,11 +101,11 @@ Since Warp is still in early development, this is an excellent time to contribut
 
 ## Roadmap
 
-### ✅ Foundation (Current)
-- [x] Basic index state interface
-- [x] Integration with Filament types
-- [x] Project structure and build setup
-- [x] Initial architecture documentation
+### 📋 Foundation
+- [ ] Basic index state interface
+- [ ] Integration with Filament types
+- [ ] Project structure and build setup
+- [ ] Initial architecture documentation
 
 ### 🚧 Core Storage Engine (Next Priority)
 - [ ] Local storage implementation (IndexedDB/SQLite)
