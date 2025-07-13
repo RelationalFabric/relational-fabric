@@ -27,26 +27,29 @@ jobs:
           branch_deletion: prune
         
   open-pr:
-    runs-on: ubuntu-latest
     needs: version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      # Checkout the new release branch to ensure the PR is created from the correct state
-      - name: Checkout Release Branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.version.outputs.branch }}
+      - name: Debug Branch Name from Previous Job
+        run: "echo Release Branch Name received: ${{ needs.version.outputs.branch }}"
+      
+      - name: Create Pull Request to Main using GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Authenticate GitHub CLI with the GITHUB_TOKEN
+        run: |
+          RELEASE_BRANCH="${{ needs.version.outputs.branch }}"
+          echo "Attempting to create PR from $RELEASE_BRANCH to main"
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          # Use the branch name passed from the previous workflow's output
-          branch: ${{ needs.version.outputs.branch }}
-          base: main
-          title: 'Release ${{ needs.version.outputs.branch }}'
-          body: |
-            This is an automated release PR for ${{ needs.version.outputs.branch }}.
-            Please review and merge into the main branch.
-          labels: release
-          draft: true
-          # Ensure this token has 'pull-requests: write' and 'contents: write' permissions
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use gh pr create command
+          gh pr create \
+            --title "Release PR for $RELEASE_BRANCH" \
+            --body "This is an automated release PR for $RELEASE_BRANCH. Please review and merge into the main branch." \
+            --base "main" \
+            --head "$RELEASE_BRANCH" \
+            --label "release" \
+            --draft # Keep it as a draft PR
+
+          echo "Pull Request creation command executed."
