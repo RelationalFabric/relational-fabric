@@ -65,13 +65,13 @@ When objects change, determine the minimal set of changes needed:
 
 ### Graph Representation
 
-The foundational primitives for representing graph structures as data:
+The foundational primitives for what you can say or do with any graph structure:
 
-- **Node Identity**: Primitives for uniquely identifying vertices
-- **Edge Identity**: Primitives for uniquely identifying connections between nodes
-- **Property Attachment**: Primitives for associating data with nodes and edges
-- **Reference Semantics**: Primitives for how nodes refer to other nodes
-- **Graph Boundaries**: Primitives for determining what belongs to a graph structure
+- **Assert Existence**: Primitives for stating that something exists in the graph
+- **Assert Association**: Primitives for stating that things are connected or related
+- **Assert Attribution**: Primitives for stating that something has properties or data
+- **Assert Containment**: Primitives for stating that things belong together or are grouped
+- **Navigate Structure**: Primitives for moving through and traversing graph relationships
 
 ## Installation
 
