@@ -68,7 +68,7 @@ When objects change, determine the minimal set of changes needed:
 The foundational structural primitives that enable any graph representation:
 
 - **Nodes and Edges**: The atomic building blocks of any graph structure
-- **Composite Nodes**: Primitives for nodes that contain or group other nodes (named graphs, hyper-edges)
+- **Composite Nodes & Edges**: Primitives for nodes/edges that contain or group other nodes/edges (named graphs, hyper-edges, aggregate edges)
 - **Inter-Graph References**: Primitives for references that span across different graph structures
 - **Graph Interpretation**: Primitives for viewing the same structure as different graph types (RDF, LPG, etc.)
 - **Navigation Abstractions**: Primitives for traversal patterns across different graph interpretations
