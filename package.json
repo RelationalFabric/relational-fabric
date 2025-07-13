@@ -1,6 +1,6 @@
 {
   "name": "@relational-fabric/relational-fabric",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Weave your own data fabric",
   "type": "module",
   "packageManager": "npm@10.9.0",
