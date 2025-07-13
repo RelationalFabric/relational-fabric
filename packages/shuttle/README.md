@@ -2,71 +2,78 @@
 
 > *The dynamic force that carries data between all parts of the system*
 
-Shuttle provides the foundational abstractions for data flow and coordination within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that carries threads back and forth between the warp threads to create fabric, this library provides the essential primitives that enable building any kind of coordination, communication, and flow control system.
+Shuttle provides the foundational abstractions for data flow uniformity and meta-manipulation within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that seamlessly carries different threads between warp threads, this library provides the essential primitives that make Vue refs, JS generators, WebSockets, and any other data source look identical to the developer.
 
 ## The Problem
 
-When building applications that need to coordinate data flow, you constantly need the same foundational abstractions:
+Modern applications deal with wildly different data sources and flow patterns:
 
-- Source and sink abstractions for data flow endpoints
-- Push and pull mechanisms for data movement
-- Subscription and notification patterns for change awareness
-- Queue and buffer primitives for flow control
-- Transform and filter abstractions for data manipulation in motion
-- Coordination signals for synchronization
-- Timing and scheduling primitives
+- Vue refs have reactive semantics
+- JS generators have pull-based iteration 
+- WebSockets have async push-based messaging
+- Databases have query-response patterns
+- File streams have different buffering behaviors
 
-These foundational abstractions get rebuilt from scratch in every project, making it hard to compose different flow patterns.
+Each requires different APIs, different error handling, different timing models. You can't easily connect them together or treat them uniformly. And once you do connect them, the resulting flow graph is invisible - you can't inspect it, serialize it, or manipulate it.
 
 ## The Solution
 
-Shuttle extracts these proven primitives from a working system and provides them as the foundational building blocks that enable building any data flow or coordination system:
+Shuttle provides the fundamental abstractions that make all data sources look uniform and make the resulting data flow graphs themselves manipulable as first-class data:
 
-- **Source/Sink Abstractions**: The fundamental endpoints of any data flow
-- **Push/Pull Mechanisms**: The basic patterns for data movement
-- **Subscription Patterns**: The core abstractions for change notification
-- **Flow Control Primitives**: Basic building blocks for managing data velocity
-- **Transform Abstractions**: The fundamental patterns for data manipulation in motion
-- **Coordination Signals**: The basic primitives for synchronization
-- **Scheduling Primitives**: The foundational abstractions for timing control
+- **Source Adaptation**: Primitives that normalize any data source into a uniform interface
+- **Flow Graph Representation**: Making data flow connections visible and manipulable as data
+- **Graph Serialization**: Primitives for converting flow graphs to/from data representations
+- **Graph Transformation**: Primitives for manipulating flow graphs (carving, inserting boundaries, etc.)
+- **Boundary Insertion**: Primitives for adding network, time, or other boundaries transparently
+- **Flow Composition**: Primitives for connecting adapted sources without knowing their underlying types
 
 ## Core Concepts
 
-### Source and Sink Abstractions
+### Source Adaptation
 
-The fundamental endpoints of any data flow system:
+The fundamental primitives for making different data sources look identical:
 
-- **Source**: The basic abstraction for producing data
-- **Sink**: The basic abstraction for consuming data
-- **Composition**: How sources and sinks connect together
-- **Lifecycle**: How sources and sinks start, stop, and cleanup
+- **Adapter Interface**: The uniform interface that all sources expose
+- **Reactive Adaptation**: Making push-based sources (Vue refs, WebSockets) look uniform
+- **Iterator Adaptation**: Making pull-based sources (generators, streams) look uniform
+- **Async Adaptation**: Making callback-based sources look uniform
+- **Error Normalization**: Making different error patterns look uniform
 
-### Push and Pull Mechanisms
+### Flow Graph Representation
 
-The basic patterns for how data moves through a system:
+Making data flow connections visible and manipulable:
 
-- **Push**: Producer-driven data movement
-- **Pull**: Consumer-driven data movement
-- **Hybrid**: Combinations of push and pull patterns
-- **Control**: How push/pull decisions are made
+- **Graph Nodes**: Representing sources, sinks, and transformations as data
+- **Graph Edges**: Representing connections between nodes as data
+- **Graph Metadata**: Capturing timing, error handling, and other flow properties
+- **Graph Identity**: Ensuring flow graphs can be identified and referenced
 
-### Subscription and Notification
+### Graph Serialization
 
-The core patterns for change awareness:
+Converting flow graphs to and from data representations:
 
-- **Subscribe**: The basic pattern for expressing interest in changes
-- **Notify**: The basic pattern for broadcasting changes
-- **Unsubscribe**: The basic pattern for ending interest
-- **Filtering**: The fundamental abstractions for selective notification
+- **Graph Schema**: The data structure for representing flow graphs
+- **Serialization**: Converting live flow graphs to data
+- **Deserialization**: Reconstructing flow graphs from data
+- **Partial Serialization**: Capturing subgraphs for manipulation
 
-### Flow Control Primitives
+### Graph Transformation
 
-Basic building blocks for managing data velocity:
+Primitives for manipulating flow graphs as data:
 
-- **Buffer**: The fundamental abstraction for temporary storage
-- **Token**: The basic building block for rate limiting
-- **Backpressure**: The primitive patterns for handling overflow
-- **Batching**: The core abstractions for grouping operations
+- **Graph Splitting**: Carving flow graphs into separate pieces
+- **Boundary Insertion**: Adding network, persistence, or time boundaries
+- **Graph Merging**: Combining separate flow graphs
+- **Graph Rewriting**: Transforming flow patterns
+
+### Transparent Boundaries
+
+Inserting different types of boundaries without changing the flow logic:
+
+- **Network Boundaries**: Making remote sources look local
+- **Time Boundaries**: Adding replay, delay, or scheduling
+- **Persistence Boundaries**: Adding durability without changing flow
+- **Security Boundaries**: Adding encryption/decryption transparently
 
 ## Installation
 
@@ -76,32 +83,36 @@ npm install @relational-fabric/shuttle
 
 ## Philosophy
 
-Shuttle embodies the principle of providing the minimal abstractions that all data flow and coordination systems are built from. The primitives are designed to be:
+Shuttle embodies two key principles:
 
-- **Minimal**: The smallest possible building blocks
-- **Composable**: Combine to create any flow pattern
-- **Universal**: Work with any data type or system
-- **Configurable**: Enable building specific solutions through configuration
+1. **Uniform Abstraction**: All data sources should look the same to the developer
+2. **Flow as Data**: Data flow graphs should themselves be manipulable as data
+
+This enables:
+- **Source Agnostic**: Write flow logic once, work with any data source
+- **Graph Manipulation**: Treat data flows as data that can be transformed
+- **Transparent Scaling**: Insert network or persistence boundaries without code changes
+- **Flow Reusability**: Serialize, store, and recreate flow patterns
 
 ## Integration with the Ecosystem
 
 ### With Filament (Foundation)
 
-Shuttle uses Filament's entity primitives to ensure data flowing through the system maintains consistent representation and identity.
+Shuttle uses Filament's entity primitives to represent flow graph nodes and ensure data flowing through adapted sources maintains consistent identity.
 
 ### With Weft (Data Leverage)
 
-Shuttle provides the flow primitives that enable reactive query evaluation and incremental pattern matching updates.
+Shuttle enables treating query results as uniform data sources, allowing pattern matching outputs to be connected to any other data flow.
 
 ### With Warp (Storage Foundation)
 
-Shuttle provides the coordination primitives that enable transaction coordination and change propagation between memory and storage.
+Shuttle enables transparent persistence boundaries, allowing any data flow to be made durable without changing the flow logic.
 
 ## Contributing
 
 Shuttle is part of the Relational Fabric ecosystem. See the [main repository](../../) for contribution guidelines.
 
-Since Shuttle is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on flow primitives, coordination abstractions, and foundational patterns.
+Since Shuttle is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on adaptation patterns, graph representation, and boundary insertion strategies.
 
 ## License
 
