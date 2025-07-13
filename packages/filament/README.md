@@ -2,68 +2,57 @@
 
 > *The fundamental fiber that everything builds upon*
 
-Filament provides the foundational primitives for data representation and entity modeling that form the core of the Relational Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together seamlessly.
+Filament provides the foundational primitives that form the core of the Relational Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together seamlessly.
 
 ## The Problem
 
-When building data-driven applications, you constantly need the same foundational capabilities:
+When building sophisticated data systems, you constantly need the same foundational capabilities:
 
-- A way to normalize data to a consistent information model with typed entities
-- A way to reason about entity types progressively (initially just knowing an ID, then learning it's a Foo, later discovering it's specifically a Bar that extends Foo)
-- A way to flatten object trees for indexing while avoiding cycles
-- A way to reify flattened objects back to their original form
-- A way to generate minimal diffs when objects change
-- A way to apply consistent collection semantics to arrays of anything
+- Fast equality checks and consistent hashing across different data representations
+- Metadata systems for extending objects, classes, and types with custom behavior
+- Graph structures that can represent everything from simple trees to complex hyper-graphs
+- Shared types that work consistently across the entire ecosystem
+- TypeScript utilities for constructing complex, composable types
+- Patterns for common use cases like entity builders, fluent APIs, and type guards
+- Handling incomplete information that resolves over time (forward references, progressive type discovery)
+- Normalizing access across different information models (id vs @id, different collection semantics)
 
-These primitives get rebuilt from scratch in every project, often inconsistently and incompletely.
+These foundational abstractions get rebuilt from scratch in every project, leading to incompatible approaches and wasted effort.
 
 ## The Solution
 
-Filament extracts these proven primitives from a working system and provides them as composable building blocks:
+Filament provides the proven foundational primitives that enable building any data system:
 
-- **Entity Normalization**: Core abstractions for converting arbitrary data into typed entities
-- **Progressive Type Discovery**: Mechanisms for learning about entity types gradually as more information becomes available
-- **Object Flattening/Reification**: Bidirectional transformation between nested objects and flat, indexed representations
-- **Minimal Diff Generation**: Efficient algorithms for determining what actually changed between object states
-- **Collection Semantics**: Consistent handling of arrays and collections regardless of content type
+- **Deterministic Hashing**: Fast equality and consistent hashing primitives
+- **Object Metadata**: Primitives for extending objects and types with custom metadata
+- **Graphs**: Structural primitives for any graph representation
+- **Common Types**: Shared RelationalFabric types used across the ecosystem
+- **Utility Types**: TypeScript helpers for constructing RelationalFabric types
+- **Type Patterns**: Specific patterns for common use cases (builders, guards, etc.)
+- **Incomplete & Deferred Knowledge**: Primitives for working with partial/evolving information
+- **Information Model Abstraction**: Primitives for defining how your information model works
 
 ## Core Concepts
 
-### Entity Normalization
+### Deterministic Hashing
 
-The foundation of consistent data handling is normalizing arbitrary input into a structured entity model. This involves:
+Primitives for fast equality and consistent hashing:
 
-- Converting raw data into entities with stable identities
-- Ensuring consistent property access patterns
-- Handling missing or partial data gracefully
+- **Fast Equality**: Hash-based equality checks before expensive deep comparisons
+- **Custom Hash Implementation**: Support for objects defining their own hash logic (`implements Hashable`)
+- **Consistent Hashing**: Deterministic hashing across different representations
+- **Content Addressing**: Identity based on content rather than memory location
 
-### Progressive Type Discovery
+### Object Metadata
 
-Rather than requiring complete type information upfront, Filament enables gradual type learning:
+Primitives for extending objects and types with custom behavior:
 
-- Start with just an entity ID
-- Learn that it's a `Foo` when more data arrives
-- Discover it's specifically a `Bar extends Foo` as the type hierarchy becomes clear
-- Handle type refinement without breaking existing references
+- **Metadata Definition**: Primitives for defining custom metadata schemas
+- **Metadata Application**: Primitives for applying metadata to objects, classes, and types
+- **Metadata Queries**: Primitives for discovering and working with applied metadata
+- **Metadata Inheritance**: Primitives for metadata inheritance and composition
 
-### Object Flattening and Reification
-
-For efficient indexing and cycle avoidance, nested objects need to be flattened while preserving the ability to reconstruct them:
-
-- **Flattening**: Convert nested object graphs into flat, indexed structures
-- **Reification**: Reconstruct original object graphs from flattened representations
-- **Cycle Detection**: Handle circular references safely
-- **Incremental Updates**: Support partial updates and merging semantics
-
-### Minimal Diff Generation
-
-When objects change, determine the minimal set of changes needed:
-
-- Generate precise diffs showing only what actually changed
-- Support various diff granularities (property-level, collection-level, etc.)
-- Optimize for common update patterns
-
-### Graph Representation
+### Graphs
 
 The foundational structural primitives that enable any graph representation:
 
@@ -73,11 +62,65 @@ The foundational structural primitives that enable any graph representation:
 - **Graph Interpretation**: Primitives for viewing the same structure as different graph types (RDF, LPG, etc.)
 - **Navigation Abstractions**: Primitives for traversal patterns across different graph interpretations
 
+### Common Types
+
+Shared RelationalFabric types used across the ecosystem:
+
+- **Identity Types**: Common patterns for entity identity and references
+- **Graph Types**: Shared types for nodes, edges, and graph structures
+- **Collection Types**: Consistent collection semantics and types
+- **Temporal Types**: Shared patterns for time-based data and versioning
+
+### Utility Types
+
+TypeScript helpers for constructing RelationalFabric types:
+
+- **Type Construction**: Utilities for building complex, composable types
+- **Type Manipulation**: Utilities for transforming and combining existing types
+- **Type Safety**: Utilities for ensuring type safety across complex operations
+- **Generic Helpers**: Reusable generic patterns for common type operations
+
+### Type Patterns
+
+Specific patterns with intended use cases:
+
+- **Entity Patterns**: Common patterns for building entity types and builders
+- **Builder Patterns**: Fluent API and builder pattern primitives
+- **Guard Patterns**: Type guard and validation pattern primitives
+- **Factory Patterns**: Patterns for type-safe object construction
+
+### Incomplete & Deferred Knowledge
+
+Primitives for working with partial/evolving/delayed information:
+
+- **Forward References**: Support for references that resolve later (`tempId()` → actual ID)
+- **Progressive Resolution**: Primitives for values that become available over time
+- **Dependency Tracking**: Understanding resolution order when pieces depend on each other
+- **Partial Type Discovery**: Working with objects where type information evolves
+
+### Information Model Abstraction
+
+Primitives for defining how your information model works:
+
+- **Access Pattern Normalization**: Primitives for normalizing access to identity, type, properties across different object shapes
+- **Collection Semantics**: Primitives for defining how arrays/sets/collections behave in your model
+- **Type Compatibility Rules**: Primitives for defining what type evolution/discovery is permissible
+- **Cross-Model Interoperability**: Primitives for different information models working together
+
 ## Installation
 
 ```bash
 npm install @relational-fabric/filament
 ```
+
+## Philosophy
+
+Filament embodies the principle of providing the minimal foundational abstractions that all sophisticated data systems need. These primitives enable:
+
+- **Consistent Representation**: All libraries work with the same foundational types
+- **Flexible Information Models**: Define your own model while maintaining interoperability
+- **Performance by Default**: Built-in optimizations through hashing and lazy evaluation
+- **Incomplete Knowledge Handling**: Graceful handling of partial and evolving information
 
 ## Contributing
 
