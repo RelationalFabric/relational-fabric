@@ -63,6 +63,15 @@ When objects change, determine the minimal set of changes needed:
 - Support various diff granularities (property-level, collection-level, etc.)
 - Optimize for common update patterns
 
+### Graph Representation
+
+The foundational primitives for representing graph structures as data:
+
+- **Graph Nodes**: Representing vertices and their properties as entities
+- **Graph Edges**: Representing connections between nodes as entities
+- **Graph Identity**: Ensuring graphs can be identified and referenced consistently
+- **Graph Metadata**: Capturing graph-level properties and constraints
+
 ## Installation
 
 ```bash
