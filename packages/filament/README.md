@@ -68,9 +68,13 @@ When objects change, determine the minimal set of changes needed:
 The foundational primitives for representing graph structures as data:
 
 - **Graph Nodes**: Representing vertices and their properties as entities
-- **Graph Edges**: Representing connections between nodes as entities
+- **Graph Edges**: Representing connections between nodes as entities  
 - **Graph Identity**: Ensuring graphs can be identified and referenced consistently
 - **Graph Metadata**: Capturing graph-level properties and constraints
+- **Named Graph Contexts**: Primitives for contextual partitioning and logical stratification
+- **Quad Representation**: Support for subject-predicate-object-graph structures (RDF-style)
+- **Graph Temporal Identity**: Primitives for versioning and temporal graph references
+- **Graph Ownership**: Primitives for representing ownership and authorization metadata
 
 ## Installation
 
