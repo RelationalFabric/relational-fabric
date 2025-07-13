@@ -2,30 +2,42 @@
 
 > *The creative expression that brings data to life*
 
-Weft is the data leverage and analysis library of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your data to extract insights, find patterns, and make information useful with maximum efficiency.
+Weft is the data leverage library of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your existing application data - your objects, state, and models - to make them more useful without writing bespoke code.
 
 ## Introduction
 
-In the textile metaphor of Relational Fabric, Weft represents the creative and expressive dimension of data processing. While Warp provides the structural foundation of storage and indexing, Weft brings that data to life through:
+In the textile metaphor of Relational Fabric, Weft represents the creative and expressive dimension - the tools that make your existing data work harder for you. While Warp provides the structural foundation of storage and indexing, Weft operates on the data you already have:
 
-- **Data Transformation**: Rich APIs for reshaping and manipulating data structures
-- **Aggregation and Analysis**: Statistical functions and data summarization capabilities
-- **Pattern Matching**: Declarative tools for finding and extracting specific data patterns
-- **Binding Management**: Efficient mechanisms for working with variable data relationships
-- **Functional Operations**: Composable operations that can be chained and combined
+- **Object Querying**: Treat your JavaScript objects, application state, and in-memory models like a queryable data store
+- **Uniform Data Access**: Work with persisted data, reactive state, and static objects using the same APIs
+- **Pattern Matching**: Find and extract information from complex nested structures without custom traversal code
+- **Reactive Views**: Turn changing data into performant materialized views that update automatically
+- **Rules Integration**: Add business logic and rules engines on top of your existing application state
 
-Weft is designed as a foundational building block for working with data at rest. Whether you're performing simple transformations, complex aggregations, or sophisticated pattern matching, Weft provides the tools to express your intentions clearly and execute them efficiently. As the library evolves, it will incorporate more advanced capabilities like query planning and optimization that will eventually support [Distributed Context-Sensitive Graph Stores](../../docs/whitepapers/Distributed%20Context-Sensitive%20Graph%20Store.md) and [Advanced Query Planning for Object Patterns](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md).
+Weft solves the fundamental problem of application data leverage: **how do you make the data you already have more useful without writing bespoke code every time?**
+
+### Common Problems Weft Solves
+
+- **Stop writing custom traversal functions**: Your JS objects are just data - query them like data
+- **Model-driven development**: Start treating all your application data uniformly, whether it's persisted or in-memory
+- **Cross-domain querying**: Query across different data sources as if they were one massive relational store  
+- **Reactive materialization**: Turn your reactive data streams into performant, cached views
+- **Embedded rules**: Build business logic and validation rules on top of existing application state
+
+As the library evolves, it will incorporate advanced capabilities like query planning and optimization that will eventually support [Distributed Context-Sensitive Graph Stores](../../docs/whitepapers/Distributed%20Context-Sensitive%20Graph%20Store.md) and [Advanced Query Planning for Object Patterns](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md).
 
 ### Philosophical Approach
 
-Traditional data processing often requires verbose, imperative code that focuses on *how* to manipulate data rather than *what* you want to achieve. Weft emphasizes declarative, expressive operations that let you focus on intent rather than implementation. This approach is particularly powerful for:
+Traditional application development treats different types of data differently - you write SQL for databases, custom functions for object traversal, specialized code for state management, and different patterns for each data source. Weft takes a different approach: **all data is just data**.
 
-- **Evolving Data Models**: Operations adapt gracefully as your data structure changes
-- **Complex Transformations**: Compose simple operations to achieve sophisticated results  
-- **Functional Programming**: Immutable operations that are predictable and testable
-- **Expressive APIs**: Code that reads like a description of what you want to accomplish
+Whether it's a JavaScript object, application state, persisted records, or reactive streams, Weft lets you work with it using the same declarative, query-like operations. This "data is data" philosophy is particularly powerful for:
 
-This foundation enables applications to work more intelligently with data, setting the stage for advanced capabilities like distributed query planning and semantic collaboration.
+- **Consistent Mental Model**: The same patterns work whether you're querying a database or filtering an array
+- **Reduced Cognitive Load**: One set of APIs to learn instead of dozens of different data access patterns
+- **Evolutionary Architecture**: Your data operations adapt as your application grows and changes
+- **Composition Over Custom Code**: Combine simple, well-tested operations instead of writing bespoke traversal logic
+
+This foundation enables applications to work more intelligently with all their data, setting the stage for advanced capabilities like distributed query planning and semantic collaboration.
 
 ## Installation
 
@@ -241,20 +253,20 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 ## Roadmap
 
 ### ✅ Foundation (Current)
-- [x] Core data transformation and manipulation APIs
-- [x] Pattern matching with logic variables
+- [x] Core APIs for querying JavaScript objects and application state
+- [x] Pattern matching with logic variables for nested data extraction
 - [x] Variable binding and resolution mechanisms  
-- [x] Built-in aggregation and analysis functions
+- [x] Built-in aggregation functions for in-memory data
 - [x] TypeScript integration with strong type inference
-- [x] Functional composition and chaining operations
+- [x] Functional composition for building complex queries
 
-### 🚧 Enhanced Data Operations (In Progress)
-- [ ] Advanced aggregation pipelines and streaming
-- [ ] Performance optimization for large datasets
-- [ ] Memory-efficient processing strategies
-- [ ] Expanded transformation function library
+### 🚧 Application Data Leverage (In Progress)
+- [ ] Reactive view materialization and automatic updates
+- [ ] Cross-domain querying (objects, state, APIs as one data source)
+- [ ] Performance optimization for large in-memory datasets
+- [ ] Rules engine integration with existing application state
 - [ ] Enhanced pattern matching capabilities (OR, NOT, MAYBE, TUPLE)
-- [ ] Query compilation and caching
+- [ ] Query compilation and caching for repeated operations
 
 ### 📋 Semantic Integration (Planned)
 - [ ] RDF/JSON-LD native support

@@ -40,9 +40,9 @@ Essential types, interfaces, and utilities that form the foundation of the ecosy
 
 **Status**: 🏗️ *In Development*
 
-### [@relational-fabric/weft](./packages/weft) - Data Leverage & Analysis  
+### [@relational-fabric/weft](./packages/weft) - Data Leverage  
 
-Tools for extracting maximum value from data at rest - making your data useful, fast.
+Tools for making the data you already have more useful - query your objects, state, and models without writing bespoke traversal code.
 
 **Status**: 🚧 *Active Development*
 
@@ -58,11 +58,11 @@ High-performance storage, indexing strategies, and data persistence.
 
 RelationalFabric is designed with a clear progression toward advanced distributed data capabilities:
 
-### Current Focus: Data Transformation Foundation
-- ✅ Core data transformation and manipulation APIs
-- ✅ Aggregation and analysis functions
-- 🚧 Advanced data operations and streaming
-- 🚧 Pattern matching and query capabilities
+### Current Focus: Application Data Leverage Foundation
+- ✅ Core APIs for querying JavaScript objects and application state
+- ✅ Pattern matching for complex nested structures
+- 🚧 Reactive view materialization and caching
+- 🚧 Cross-domain data querying capabilities
 
 ### Next Phase: Storage & Distribution  
 - 📋 Efficient data storage and indexing (Warp)
