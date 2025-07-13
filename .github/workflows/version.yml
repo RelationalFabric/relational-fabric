@@ -38,18 +38,31 @@ jobs:
       
       - name: Create Pull Request to Main using GitHub CLI
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Authenticate GitHub CLI with the GITHUB_TOKEN
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_BRANCH: ${{ needs.version.outputs.branch }}
+          BASE_BRANCH: main
         run: |
-          RELEASE_BRANCH="${{ needs.version.outputs.branch }}"
-          echo "Attempting to create PR from $RELEASE_BRANCH to main"
-
-          # Use gh pr create command
-          gh pr create \
-            --title "Release PR for $RELEASE_BRANCH" \
-            --body "This is an automated release PR for $RELEASE_BRANCH. Please review and merge into the main branch." \
-            --base "main" \
+          echo "Checking if a PR from '$RELEASE_BRANCH' to '$BASE_BRANCH' already exists..."
+          EXISTING_PR_NUMBER=$(gh pr list \
             --head "$RELEASE_BRANCH" \
-            --label "release" \
-            --draft # Keep it as a draft PR
+            --base "$BASE_BRANCH" \
+            --state open \
+            --json number \
+            -q '.[0].number')
 
-          echo "Pull Request creation command executed."
+          if [ -n "$EXISTING_PR_NUMBER" ]; then
+            echo "INFO: A pull request from '$RELEASE_BRANCH' to '$BASE_BRANCH' (PR #$EXISTING_PR_NUMBER) already exists and is open. Skipping PR creation."
+            # You could add further steps here, like:
+            # gh pr edit "$EXISTING_PR_NUMBER" --add-label "workflow-retriggered"
+            # gh pr comment "$EXISTING_PR_NUMBER" --body "Workflow re-triggered for this release branch."
+          else
+            echo "No existing pull request found from '$RELEASE_BRANCH' to '$BASE_BRANCH'. Creating new PR..."
+            gh pr create \
+              --title "Release PR for $RELEASE_BRANCH" \
+              --body "This is an automated release PR for $RELEASE_BRANCH. Please review and merge into the $BASE_BRANCH branch." \
+              --base "$BASE_BRANCH" \
+              --head "$RELEASE_BRANCH" \
+              --label "release" \
+              --draft
+            echo "SUCCESS: Pull Request from '$RELEASE_BRANCH' to '$BASE_BRANCH' created."
+          fi
