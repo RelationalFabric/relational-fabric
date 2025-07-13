@@ -1,30 +1,31 @@
 # Weft
 
-> *The creative expression that brings patterns to life*
+> *The creative expression that brings data to life*
 
-Weft is the pattern matching and query planning engine of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your data to find complex patterns, execute sophisticated queries, and transform information with expressive power.
+Weft is the data transformation and manipulation library of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your data to transform, analyze, and reshape information with expressive power.
 
 ## Introduction
 
 In the textile metaphor of Relational Fabric, Weft represents the creative and expressive dimension of data processing. While Warp provides the structural foundation of storage and indexing, Weft brings that data to life through:
 
-- **Declarative Pattern Matching**: Express what you're looking for, not how to find it
-- **Logic Variables**: Powerful binding mechanisms that capture relationships and structure  
-- **Query Planning**: Intelligent optimization for complex data traversal and aggregation
-- **Semantic Understanding**: Native support for rich, interconnected data models
+- **Data Transformation**: Rich APIs for reshaping and manipulating data structures
+- **Aggregation and Analysis**: Statistical functions and data summarization capabilities
+- **Pattern Matching**: Declarative tools for finding and extracting specific data patterns
+- **Binding Management**: Efficient mechanisms for working with variable data relationships
+- **Functional Operations**: Composable operations that can be chained and combined
 
-Weft is designed as a foundational building block toward more sophisticated capabilities like distributed query planning across graph networks, context-sensitive data access, and collaborative semantic applications. It provides the pattern matching primitives that will eventually power [Distributed Context-Sensitive Graph Stores](../../docs/whitepapers/Distributed%20Context-Sensitive%20Graph%20Store.md) and [Advanced Query Planning for Object Patterns](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md).
+Weft is designed as a foundational building block for working with data at rest. Whether you're performing simple transformations, complex aggregations, or sophisticated pattern matching, Weft provides the tools to express your intentions clearly and execute them efficiently. As the library evolves, it will incorporate more advanced capabilities like query planning and optimization that will eventually support [Distributed Context-Sensitive Graph Stores](../../docs/whitepapers/Distributed%20Context-Sensitive%20Graph%20Store.md) and [Advanced Query Planning for Object Patterns](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md).
 
 ### Philosophical Approach
 
-Traditional databases require you to know the structure of your data in advance and express queries in terms of that structure. Weft inverts this relationship - you express the patterns you're interested in, and the system figures out how to find them. This approach is particularly powerful for:
+Traditional data processing often requires verbose, imperative code that focuses on *how* to manipulate data rather than *what* you want to achieve. Weft emphasizes declarative, expressive operations that let you focus on intent rather than implementation. This approach is particularly powerful for:
 
-- **Evolving Data Models**: Patterns adapt as your data structure changes
-- **Complex Relationships**: Express multi-hop traversals and conditional logic naturally  
-- **Semantic Queries**: Match based on meaning and relationships, not just structure
-- **Collaborative Systems**: Share pattern definitions as first-class, versioned entities
+- **Evolving Data Models**: Operations adapt gracefully as your data structure changes
+- **Complex Transformations**: Compose simple operations to achieve sophisticated results  
+- **Functional Programming**: Immutable operations that are predictable and testable
+- **Expressive APIs**: Code that reads like a description of what you want to accomplish
 
-This foundation enables applications to work more intelligently with data, setting the stage for distributed semantic collaboration and context-aware data sovereignty.
+This foundation enables applications to work more intelligently with data, setting the stage for advanced capabilities like distributed query planning and semantic collaboration.
 
 ## Installation
 
@@ -240,20 +241,20 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 ## Roadmap
 
 ### ✅ Foundation (Current)
-- [x] Core pattern matching engine
-- [x] Logic variable binding and resolution
-- [x] Basic query execution and optimization
-- [x] TypeScript integration with type inference
-- [x] Pattern modifiers (OR, NOT, MAYBE, TUPLE)
-- [x] Built-in aggregation functions
+- [x] Core data transformation and manipulation APIs
+- [x] Pattern matching with logic variables
+- [x] Variable binding and resolution mechanisms  
+- [x] Built-in aggregation and analysis functions
+- [x] TypeScript integration with strong type inference
+- [x] Functional composition and chaining operations
 
-### 🚧 Enhanced Query Planning (In Progress)
-- [ ] Cost-based query optimization
-- [ ] Advanced index utilization hints  
-- [ ] Pattern compilation and caching
-- [ ] Query plan visualization and debugging
-- [ ] Performance benchmarking and profiling tools
-- [ ] Advanced aggregation pipelines
+### 🚧 Enhanced Data Operations (In Progress)
+- [ ] Advanced aggregation pipelines and streaming
+- [ ] Performance optimization for large datasets
+- [ ] Memory-efficient processing strategies
+- [ ] Expanded transformation function library
+- [ ] Enhanced pattern matching capabilities (OR, NOT, MAYBE, TUPLE)
+- [ ] Query compilation and caching
 
 ### 📋 Semantic Integration (Planned)
 - [ ] RDF/JSON-LD native support
@@ -263,13 +264,21 @@ Weft is part of the Relational Fabric ecosystem. See the [main repository](../..
 - [ ] Graph traversal optimization
 - [ ] Context-sensitive pattern resolution
 
-### 📋 Distributed Query Foundation (Future)
-- [ ] Pattern distribution and federation
-- [ ] Remote query execution protocols
-- [ ] Distributed aggregation strategies
-- [ ] Query result streaming and pagination
-- [ ] Cross-peer pattern sharing and versioning
-- [ ] Distributed query planning algorithms
+### 📋 Query Planning & Optimization (Planned)
+- [ ] Cost-based query optimization
+- [ ] Advanced index utilization hints
+- [ ] Query plan visualization and debugging
+- [ ] Pattern compilation and execution optimization
+- [ ] Performance benchmarking and profiling tools
+- [ ] Intelligent query rewriting and optimization
+
+### 📋 Distributed Operations (Future)
+- [ ] Distributed data transformation pipelines
+- [ ] Remote operation execution protocols
+- [ ] Distributed aggregation and reduction strategies
+- [ ] Streaming data processing across peers
+- [ ] Cross-peer operation sharing and versioning
+- [ ] Federated query planning and execution
 
 ### 🔮 Advanced Capabilities (Research)
 - [ ] JIT compilation for hot patterns (inspired by [Query Planner research](../../docs/research/Query%20Planner%20for%20Object%20Patterns_.md))

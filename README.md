@@ -40,9 +40,9 @@ Essential types, interfaces, and utilities that form the foundation of the ecosy
 
 **Status**: 🏗️ *In Development*
 
-### [@relational-fabric/weft](./packages/weft) - Pattern Matching & Query Planning  
+### [@relational-fabric/weft](./packages/weft) - Data Transformation & Manipulation  
 
-Declarative pattern matching with logic variables, aggregations, and query optimization.
+Tools for working with and transforming data at rest - from simple operations to complex aggregations.
 
 **Status**: 🚧 *Active Development*
 
@@ -63,43 +63,37 @@ npm install @relational-fabric/filament
 ```
 
 ```typescript
-import { matchPattern, createQuery, variable } from '@relational-fabric/weft'
+import { transform, aggregate, filter, variable } from '@relational-fabric/weft'
 
 // Define your data
 const entities = [
-  { id: '1', type: 'User', name: 'Alice', department: 'Engineering' },
-  { id: '2', type: 'User', name: 'Bob', department: 'Engineering' },
-  { id: '3', type: 'Project', name: 'Alpha', team: ['1', '2'] }
+  { id: '1', type: 'User', name: 'Alice', department: 'Engineering', salary: 120000 },
+  { id: '2', type: 'User', name: 'Bob', department: 'Engineering', salary: 115000 },
+  { id: '3', type: 'User', name: 'Carol', department: 'Sales', salary: 95000 }
 ]
 
-// Create typed variables
-const userId = variable<string>('userId')
-const userName = variable<string>('userName')
+// Transform and analyze your data
+const departmentStats = transform(entities)
+  .filter(user => user.type === 'User')
+  .groupBy('department')
+  .aggregate({
+    count: aggregate.count(),
+    avgSalary: aggregate.avg('salary'),
+    totalSalary: aggregate.sum('salary')
+  })
 
-// Build and execute queries
-const engineeringUsers = createQuery({
-  return: [userId, userName],
-  where: { 
-    id: userId, 
-    type: 'User', 
-    name: userName, 
-    department: 'Engineering' 
-  }
-})
-
-const results = runQuery(engineeringUsers, entities)
-// Results: [['1', 'Alice'], ['2', 'Bob']]
+// Results: Engineering department stats, Sales department stats, etc.
 ```
 
 ## Roadmap to the Future
 
 RelationalFabric is designed with a clear progression toward advanced distributed data capabilities:
 
-### Current Focus: Pattern Matching Foundation
-- ✅ Core pattern matching with logic variables
-- ✅ Query building and execution  
-- 🚧 Advanced aggregations and transformations
-- 🚧 Query optimization and planning
+### Current Focus: Data Transformation Foundation
+- ✅ Core data transformation and manipulation APIs
+- ✅ Aggregation and analysis functions
+- 🚧 Advanced data operations and streaming
+- 🚧 Pattern matching and query capabilities
 
 ### Next Phase: Storage & Distribution  
 - 📋 Efficient data storage and indexing (Warp)
