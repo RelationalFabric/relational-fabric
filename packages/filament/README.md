@@ -63,6 +63,9 @@ Primitives for adding capabilities to existing types without modification:
 - **Retroactive Implementation**: Adding protocol implementations to existing types
 - **Protocol Discovery**: Finding what protocols a type implements
 - **Protocol Composition**: Combining multiple protocol implementations
+- **Protocol Dispatching**: Runtime dispatch to the correct protocol implementation
+- **Conditional Dispatching**: Dispatch based on arbitrary conditions/predicates
+- **Multi-Method Dispatching**: Dispatch based on multiple arguments/conditions (special case of conditional)
 
 ### Graphs
 
