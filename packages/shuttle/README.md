@@ -2,62 +2,91 @@
 
 > *The dynamic force that carries data between all parts of the system*
 
-Shuttle provides the foundational abstractions for data flow uniformity and meta-manipulation within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that seamlessly carries different threads between warp threads, this library provides the essential primitives that make Vue refs, JS generators, WebSockets, and any other data source look identical to the developer.
+Shuttle provides the foundational ontology and construction primitives for building data flow and coordination capabilities within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that seamlessly carries different threads between warp threads, this library provides both the conceptual framework for what coordination systems can be and the essential building blocks that enable developers to construct their own flow and coordination systems by hand.
 
 ## The Problem
 
-Modern applications deal with wildly different data sources and flow patterns:
+When building systems that need to coordinate data flow and manage complex interactions, you face the same fundamental challenges:
 
-- Vue refs have reactive semantics
-- JS generators have pull-based iteration 
-- WebSockets have async push-based messaging
-- Databases have query-response patterns
-- File streams have different buffering behaviors
+- **Conceptual Gap**: What does it even mean to "coordinate" or "orchestrate" data flow in your specific domain?
+- **Construction Complexity**: How do you build message passing systems, event coordination, and flow control from scratch?
+- **Semantic Consistency**: How do you ensure your coordination system has coherent semantics across different communication patterns?
+- **Reusable Foundations**: How do you avoid rebuilding flow primitives, boundary management, and synchronization mechanisms in every project?
 
-Each requires different APIs, different error handling, different timing models. You can't easily connect them together or treat them uniformly. And once you do connect them, the resulting flow graph is invisible - you can't inspect it, serialize it, or manipulate it.
+Without a foundational ontology for what coordination systems are and construction primitives for building them, every project reinvents these concepts with incompatible approaches and subtle timing bugs.
 
 ## The Solution
 
-Shuttle provides the fundamental abstractions that make heterogeneous data sources uniform and make data flow itself visible and manipulable:
+Shuttle provides both the ontological framework and the manual construction primitives for building coordination systems:
 
-- **Source Abstraction**: Primitives for making different data sources look identical
-- **Flow Reification**: Primitives for making data flow connections visible as data
-- **Boundary Abstraction**: Primitives for transparent boundary insertion in flows
+**Flow & Coordination Ontology**:
+- Foundational definitions of what constitutes valid data flow patterns
+- Conceptual framework for message passing and event coordination
+- Semantic models for boundary management and synchronization
+- Ontological patterns for flow control and system orchestration
+
+**Construction Primitives**:
+- Building blocks for assembling your own message passing systems
+- Components for constructing custom coordination protocols by hand
+- Raw materials for building flow control implementations
+- Tools for managing boundaries and synchronization across system components
 
 ## Core Concepts
 
-### Source Abstraction
+### Flow & Coordination Ontology
 
-The fundamental primitives for making different data sources look identical:
+The foundational framework that defines what coordination systems can be:
 
-- **Source Normalization**: The core patterns for wrapping different source types
-- **Push/Pull Unification**: Primitives for making push and pull sources interchangeable  
-- **Error Abstraction**: Primitives for normalizing different error patterns
-- **Lifecycle Abstraction**: Primitives for uniform start/stop/cleanup patterns
+- **Flow Pattern Semantics**: What constitutes valid ways of moving data between system components
+- **Message Passing Ontology**: The conceptual framework for representing and coordinating communication
+- **Coordination Protocol Foundations**: The theoretical basis for managing complex system interactions
+- **Boundary Management Semantics**: What it means to create and manage system boundaries
+- **Synchronization Ontology**: The semantic model for temporal coordination and flow control
 
-### Flow Reification
+### Message Passing Construction Primitives
 
-Making data flow connections visible and manipulable as data:
+Building blocks for constructing systems that coordinate communication between components:
 
-- **Flow Capture**: Primitives for making connections between sources visible
-- **Flow Representation**: The fundamental patterns for representing flow as data
-- **Flow Reconstruction**: Primitives for rebuilding flows from their data representation
+- **Message Definition Primitives**: Tools for defining message types and protocols in your coordination system
+- **Routing Mechanism Components**: Raw materials for building message routing and delivery systems
+- **Protocol Assembly Building Blocks**: Components for assembling communication protocols
+- **Delivery Guarantee Primitives**: Tools for handling different delivery and ordering semantics
 
-### Boundary Abstraction
+### Flow Control Construction Primitives
 
-Primitives for transparent boundary insertion:
+Components for building systems that manage data movement and timing:
 
-- **Boundary Detection**: Primitives for identifying where boundaries can be inserted
-- **Boundary Insertion**: The fundamental patterns for adding boundaries transparently
-- **Boundary Types**: Primitives for different boundary categories (network, time, persistence)
+- **Flow Strategy Builders**: Tools for defining how data moves through system components
+- **Backpressure Management Components**: Building blocks for handling flow control and resource limits
+- **Buffering Primitives**: Raw materials for managing data queuing and flow smoothing
+- **Rate Control Tools**: Components for managing flow rates and system load
 
-## How Shuttle Leverages the Ecosystem
+### Boundary Management Construction Primitives
 
-Shuttle provides the unique primitives for source abstraction and flow reification, but builds on the core RelationalFabric foundation:
+Raw materials for building sophisticated boundary and coordination systems:
 
-- **Built on Filament** as the core foundation - using its entity primitives and graph representation capabilities for representing flow components
-- **Uses Weft** for pattern matching and querying flow graphs (e.g., finding all network boundaries)
-- **Uses Warp** for persisting flow graph definitions and enabling flow graph versioning
+- **Boundary Detection Tools**: Components for identifying and establishing system boundaries
+- **Boundary Crossing Primitives**: Building blocks for managing data movement across boundaries
+- **Isolation Mechanism Builders**: Tools for constructing isolation and encapsulation systems
+- **Cross-Boundary Coordination Frameworks**: Raw materials for coordinating across system boundaries
+
+### Event Coordination Construction Primitives
+
+Building blocks for assembling event-driven coordination systems:
+
+- **Event Definition Tools**: Components for modeling event types and relationships
+- **Event Routing Primitives**: Building blocks for event distribution and coordination
+- **Event Ordering Builders**: Raw materials for constructing event sequencing and causality systems
+- **Event Aggregation Components**: Tools for collecting and correlating related events
+
+### Synchronization Construction Primitives
+
+Components for building temporal coordination and synchronization systems:
+
+- **Lock Management Builders**: Tools for constructing concurrency control systems
+- **Consensus Protocol Components**: Building blocks for distributed agreement systems
+- **Temporal Coordination Primitives**: Raw materials for time-based coordination
+- **State Synchronization Tools**: Components for maintaining consistency across distributed components
 
 ## Installation
 
@@ -67,36 +96,38 @@ npm install @relational-fabric/shuttle
 
 ## Philosophy
 
-Shuttle embodies two key principles:
+Shuttle embodies the principle of providing both the conceptual foundation and the construction toolkit. Rather than giving you a finished coordination framework, Shuttle gives you:
 
-1. **Uniform Abstraction**: All data sources should look the same to the developer
-2. **Flow as Data**: Data flow graphs should themselves be manipulable as data
+- **Ontological Clarity**: A clear framework for what coordination systems can be
+- **Construction Freedom**: The building blocks to create exactly what you need
+- **Semantic Consistency**: Foundational concepts that ensure coherent coordination behavior
+- **Evolutionary Architecture**: Primitives that adapt as your coordination needs evolve
 
 This enables:
-- **Source Agnostic**: Write flow logic once, work with any data source
-- **Graph Manipulation**: Treat data flows as data that can be transformed
-- **Transparent Scaling**: Insert network or persistence boundaries without code changes
-- **Flow Reusability**: Serialize, store, and recreate flow patterns
+- **Domain-Specific Coordination Systems**: Build coordination patterns tailored to your specific system requirements
+- **Consistent Mental Models**: Use the same foundational concepts across different coordination approaches
+- **Manual Construction**: Assemble coordination systems by hand with full control over behavior
+- **Composition Over Frameworks**: Build complex coordination capabilities from simple, well-understood primitives
 
 ## Integration with the Ecosystem
 
-### With Filament (Foundation)
+### Built on Filament
 
-Shuttle uses Filament's entity primitives to represent flow graph nodes and ensure data flowing through adapted sources maintains consistent identity.
+Shuttle uses Filament's foundational abstractions as the basis for representing coordination ontologies and constructing flow system components.
 
-### With Weft (Data Leverage)
+### Enables Flow for Weft Results
 
-Shuttle enables treating query results as uniform data sources, allowing pattern matching outputs to be connected to any other data flow.
+Shuttle's coordination primitives enable query results from Weft to flow through coordination systems, connecting data discovery with data movement.
 
-### With Warp (Storage Foundation)
+### Coordinates Warp Operations
 
-Shuttle enables transparent persistence boundaries, allowing any data flow to be made durable without changing the flow logic.
+Shuttle's flow and coordination capabilities enable sophisticated coordination of storage operations, distributed transactions, and cross-system data movement.
 
 ## Contributing
 
 Shuttle is part of the Relational Fabric ecosystem. See the [main repository](../../) for contribution guidelines.
 
-Since Shuttle is still in early development, this is an excellent time to contribute to its design and architecture. We welcome input on adaptation patterns, graph representation, and boundary insertion strategies.
+Since Shuttle provides foundational ontologies and construction primitives, we welcome contributions that enhance the conceptual framework or add new building blocks for coordination system construction.
 
 ## License
 
