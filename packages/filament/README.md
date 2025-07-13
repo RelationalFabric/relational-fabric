@@ -2,7 +2,13 @@
 
 > *The fundamental fiber that everything builds upon*
 
-Filament provides the foundational primitives that form the core of the Relational Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together seamlessly.
+Filament provides the foundational primitives that form the core of the **Relational** Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together in semantically meaningful ways.
+
+## The Vision: Making Data Truly Relational
+
+RelationalFabric aims to make data relationships first-class citizens in application development. While graphs provide the structural foundation, the true power comes from making data **semantically relational** - where relationships have meaning, where different representations can interoperate, and where systems can reason about their data.
+
+Filament provides the foundational abstractions that enable this relational vision, with **first-class ontologies** as a key goal (though not a requirement) for achieving semantic interoperability.
 
 ## The Problem
 
@@ -17,12 +23,13 @@ When building sophisticated data systems, you constantly need the same foundatio
 - Patterns for common use cases like entity builders, fluent APIs, and type guards
 - Handling incomplete information that resolves over time (forward references, progressive type discovery)
 - Normalizing access across different information models (id vs @id, different collection semantics)
+- **Relational primitives that enable semantic interoperability and meaningful data relationships**
 
-These foundational abstractions get rebuilt from scratch in every project, leading to incompatible approaches and wasted effort.
+These foundational abstractions get rebuilt from scratch in every project, leading to incompatible approaches and missed opportunities for semantic richness.
 
 ## The Solution
 
-Filament provides the proven foundational primitives that enable building any data system:
+Filament provides the proven foundational primitives that enable building relationally-aware data systems:
 
 - **Deterministic Hashing**: Fast equality and consistent hashing primitives
 - **Object Metadata**: Runtime metadata systems with object and domain identity awareness
@@ -33,8 +40,20 @@ Filament provides the proven foundational primitives that enable building any da
 - **Type Patterns**: Specific patterns for common use cases (builders, guards, etc.)
 - **Incomplete & Deferred Knowledge**: Primitives for working with partial/evolving information
 - **Information Model Abstraction**: Primitives for defining how your information model works
+- **Relational Primitives**: Building blocks for semantic interoperability and meaningful relationships
 
 ## Core Concepts
+
+### Relational Primitives
+
+The foundational building blocks for making data semantically relational:
+
+- **Semantic Identity**: Primitives for identity that carries meaning beyond mere uniqueness
+- **Relationship Semantics**: Primitives for relationships that have semantic significance
+- **Interoperability Patterns**: Primitives for different information models working together
+- **Ontological Foundations**: Primitives that enable first-class ontologies (goal, not requirement)
+
+*Note: First-class ontologies represent a key goal for achieving full semantic interoperability, but are not a requirement for using RelationalFabric. The system is designed to provide increasing levels of relational capability.*
 
 ### Deterministic Hashing
 
@@ -130,18 +149,23 @@ npm install @relational-fabric/filament
 
 ## Philosophy
 
-Filament embodies the principle of providing the minimal foundational abstractions that all sophisticated data systems need. These primitives enable:
+Filament embodies the principle of providing the minimal foundational abstractions that enable truly relational data systems. These primitives enable:
 
-- **Consistent Representation**: All libraries work with the same foundational types
-- **Flexible Information Models**: Define your own model while maintaining interoperability
+- **Semantic Relationships**: Data relationships that carry meaning beyond simple connections
+- **Flexible Information Models**: Define your own model while maintaining semantic interoperability
 - **Performance by Default**: Built-in optimizations through hashing and lazy evaluation
 - **Incomplete Knowledge Handling**: Graceful handling of partial and evolving information
+- **Progressive Enhancement**: Increasing levels of relational capability as needs evolve
+
+## Evolution Towards First-Class Ontologies
+
+While first-class ontologies represent a key goal for achieving full semantic interoperability, Filament is designed to provide value at every level. The library evolves by thinking in terms of **relational building blocks** - primitives that enhance semantic meaning and interoperability even without full ontological systems.
 
 ## Contributing
 
 Filament is part of the Relational Fabric ecosystem. See the [main repository](../../) for contribution guidelines.
 
-Since Filament provides foundational primitives used throughout the ecosystem, changes require careful consideration of their impact on all dependent packages.
+Since Filament provides foundational primitives used throughout the ecosystem, changes require careful consideration of their impact on all dependent packages. All evolution should consider how changes support the broader relational vision.
 
 ## License
 
