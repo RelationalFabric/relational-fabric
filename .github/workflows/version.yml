@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ">=20.0.0"
           cache: "npm"
-      - uses: bahulneel/action-version@v0.28.15
+      - uses: bahulneel/action-version@v0.28.16
         id: version
         with:
           branch: ?1
@@ -29,6 +29,7 @@ jobs:
   open-pr:
     needs: version
     runs-on: ubuntu-latest
+    if: needs.version.outputs.branch
     permissions:
       contents: write
       pull-requests: write
