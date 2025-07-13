@@ -12,32 +12,43 @@ RelationalFabric bridges this gap by providing composable building blocks that w
 
 ## The Textile Metaphor
 
-Our naming follows the art of weaving, where individual threads are composed into strong, beautiful fabrics:
+Our naming follows the ancient art of **weaving** - the process of creating fabric by interlacing threads at right angles to each other.
 
-- **Relational Fabric**: The complete ecosystem - strong, flexible, and beautiful data applications woven from individual components
-- **Filament**: The fundamental fiber - core types, utilities, and foundational abstractions that everything else builds upon
-- **Warp**: The structural foundation - the longitudinal threads that provide strength and stability through data storage, indexing, and persistence
-- **Weft**: The creative expression - the threads that weave through the warp, bringing patterns to life through matching, querying, and transformation
+### Understanding the Weaving Process
 
-Just as a master weaver combines these elements to create textiles that are both functional and beautiful, RelationalFabric combines these libraries to create data applications that are both powerful and elegant.
+**Fabric** *(noun: a cloth material made by weaving fibers together)*  
+The final product - strong, flexible, and beautiful material created from individual components working together.
+
+**Filament** *(noun: a single thread or fiber, especially a very fine one)*  
+The most basic element - individual fibers that must first be spun into thread before they can be woven.
+
+**Warp** *(noun: in weaving, the threads stretched lengthwise on a loom)*  
+The structural foundation - these threads run the length of the fabric and are held under tension. They provide strength and stability, forming the framework through which other threads pass.
+
+**Weft** *(noun: in weaving, the threads that are passed through the warp)*  
+The creative element - these threads weave horizontally through the warp threads, creating patterns, colors, and designs that bring the fabric to life.
+
+### The Metaphor Applied
+
+Just as a master weaver combines these elements to create textiles that are both functional and beautiful, RelationalFabric combines these libraries to create data applications that are both powerful and elegant. The warp provides stability, the weft creates patterns, and together they form a fabric greater than the sum of its threads.
 
 ## Package Overview
 
 ### [@relational-fabric/filament](./packages/filament) - Core Types & Utilities
 
-The fundamental abstractions and type system that underlies the entire ecosystem. Filament provides the essential building blocks that all other packages depend on.
+Essential types, interfaces, and utilities that form the foundation of the ecosystem.
 
 **Status**: 🏗️ *In Development*
 
 ### [@relational-fabric/weft](./packages/weft) - Pattern Matching & Query Planning  
 
-Declarative pattern matching with logic variables, complex aggregations, and query optimization. The creative engine that brings data to life through sophisticated matching and transformation.
+Declarative pattern matching with logic variables, aggregations, and query optimization.
 
 **Status**: 🚧 *Active Development*
 
 ### [@relational-fabric/warp](./packages/warp) - Data Storage & Indexing
 
-*Coming Soon* - The structural foundation providing efficient storage, indexing strategies, and data persistence. The stable base that everything else builds upon.
+High-performance storage, indexing strategies, and data persistence.
 
 **Status**: 📋 *Planned*
 
