@@ -59,6 +59,12 @@ The foundational patterns for building storage capabilities: transaction logs, i
 
 **Status**: 📋 *Planned*
 
+### [@relational-fabric/shuttle](./packages/shuttle) - Data Flow & Coordination Primitives
+
+The foundational patterns for managing data in motion: event coordination, message passing, reactive streams, flow control, and synchronization primitives.
+
+**Status**: 📋 *Planned*
+
 ## Core Philosophy
 
 **"Data is Data"** - Whether it's a JavaScript object, application state, persisted records, or reactive streams, the foundational patterns enable building systems that work with it using the same declarative, query-like operations.
