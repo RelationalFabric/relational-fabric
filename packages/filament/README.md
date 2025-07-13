@@ -65,13 +65,13 @@ When objects change, determine the minimal set of changes needed:
 
 ### Graph Representation
 
-The foundational primitives for what you can say or do with any graph structure:
+The foundational structural primitives that enable any graph representation:
 
-- **Assert Existence**: Primitives for stating that something exists in the graph
-- **Assert Association**: Primitives for stating that things are connected or related
-- **Assert Attribution**: Primitives for stating that something has properties or data
-- **Assert Containment**: Primitives for stating that things belong together or are grouped
-- **Navigate Structure**: Primitives for moving through and traversing graph relationships
+- **Nodes and Edges**: The atomic building blocks of any graph structure
+- **Composite Nodes**: Primitives for nodes that contain or group other nodes (named graphs, hyper-edges)
+- **Inter-Graph References**: Primitives for references that span across different graph structures
+- **Graph Interpretation**: Primitives for viewing the same structure as different graph types (RDF, LPG, etc.)
+- **Navigation Abstractions**: Primitives for traversal patterns across different graph interpretations
 
 ## Installation
 
