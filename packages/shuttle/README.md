@@ -40,7 +40,7 @@ The fundamental primitives for making different data sources look identical:
 Making data flow connections visible and manipulable as data:
 
 - **Flow Capture**: Primitives for making connections between sources visible
-- **Flow Representation**: The fundamental patterns for representing flow as data
+- **Flow Representation**: The fundamental patterns for representing flow as data (leveraging Filament for entity representation)
 - **Flow Reconstruction**: Primitives for rebuilding flows from their data representation
 
 ### Boundary Abstraction
@@ -50,6 +50,14 @@ Primitives for transparent boundary insertion:
 - **Boundary Detection**: Primitives for identifying where boundaries can be inserted
 - **Boundary Insertion**: The fundamental patterns for adding boundaries transparently
 - **Boundary Types**: Primitives for different boundary categories (network, time, persistence)
+
+## How Shuttle Leverages the Ecosystem
+
+Shuttle provides the unique primitives for source abstraction and flow reification, but relies on the other libraries for the heavy lifting:
+
+- **Uses Filament** for representing flow graphs, nodes, and connections as typed entities
+- **Uses Weft** for pattern matching and querying flow graphs (e.g., finding all network boundaries)
+- **Uses Warp** for persisting flow graph definitions and enabling flow graph versioning
 
 ## Installation
 
