@@ -55,7 +55,7 @@ Primitives for transparent boundary insertion:
 
 Shuttle provides the unique primitives for source abstraction and flow reification, but builds on the core RelationalFabric foundation:
 
-- **Built on Filament** as the core foundation - using its entity primitives and foundational abstractions for representing flow components
+- **Built on Filament** as the core foundation - using its entity primitives and graph representation capabilities for representing flow components
 - **Uses Weft** for pattern matching and querying flow graphs (e.g., finding all network boundaries)
 - **Uses Warp** for persisting flow graph definitions and enabling flow graph versioning
 
