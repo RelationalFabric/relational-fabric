@@ -52,38 +52,7 @@ High-performance storage, indexing strategies, and data persistence.
 
 **Status**: 📋 *Planned*
 
-## Getting Started
 
-```bash
-# Install the pattern matching engine
-npm install @relational-fabric/weft
-
-# Core types and utilities (automatically included as dependency)
-npm install @relational-fabric/filament
-```
-
-```typescript
-import { transform, aggregate, filter, variable } from '@relational-fabric/weft'
-
-// Define your data
-const entities = [
-  { id: '1', type: 'User', name: 'Alice', department: 'Engineering', salary: 120000 },
-  { id: '2', type: 'User', name: 'Bob', department: 'Engineering', salary: 115000 },
-  { id: '3', type: 'User', name: 'Carol', department: 'Sales', salary: 95000 }
-]
-
-// Transform and analyze your data
-const departmentStats = transform(entities)
-  .filter(user => user.type === 'User')
-  .groupBy('department')
-  .aggregate({
-    count: aggregate.count(),
-    avgSalary: aggregate.avg('salary'),
-    totalSalary: aggregate.sum('salary')
-  })
-
-// Results: Engineering department stats, Sales department stats, etc.
-```
 
 ## Roadmap to the Future
 
