@@ -40,9 +40,9 @@ Essential types, interfaces, and utilities that form the foundation of the ecosy
 
 **Status**: 🏗️ *In Development*
 
-### [@relational-fabric/weft](./packages/weft) - Data Transformation & Manipulation  
+### [@relational-fabric/weft](./packages/weft) - Data Leverage & Analysis  
 
-Tools for working with and transforming data at rest - from simple operations to complex aggregations.
+Tools for extracting maximum value from data at rest - making your data useful, fast.
 
 **Status**: 🚧 *Active Development*
 

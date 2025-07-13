@@ -2,7 +2,7 @@
 
 > *The creative expression that brings data to life*
 
-Weft is the data transformation and manipulation library of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your data to transform, analyze, and reshape information with expressive power.
+Weft is the data leverage and analysis library of the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library weaves through your data to extract insights, find patterns, and make information useful with maximum efficiency.
 
 ## Introduction
 
