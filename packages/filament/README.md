@@ -9,7 +9,8 @@ Filament provides the foundational primitives that form the core of the Relation
 When building sophisticated data systems, you constantly need the same foundational capabilities:
 
 - Fast equality checks and consistent hashing across different data representations
-- Metadata systems for extending objects, classes, and types with custom behavior
+- Runtime metadata systems (like reflect-metadata) that work with both object identity and domain identity
+- Protocol-like extensibility for adding capabilities to existing types without modification
 - Graph structures that can represent everything from simple trees to complex hyper-graphs
 - Shared types that work consistently across the entire ecosystem
 - TypeScript utilities for constructing complex, composable types
@@ -24,7 +25,8 @@ These foundational abstractions get rebuilt from scratch in every project, leadi
 Filament provides the proven foundational primitives that enable building any data system:
 
 - **Deterministic Hashing**: Fast equality and consistent hashing primitives
-- **Object Metadata**: Primitives for extending objects and types with custom metadata
+- **Object Metadata**: Runtime metadata systems with object and domain identity awareness
+- **Protocol Extensibility**: Primitives for adding capabilities to existing types retroactively
 - **Graphs**: Structural primitives for any graph representation
 - **Common Types**: Shared RelationalFabric types used across the ecosystem
 - **Utility Types**: TypeScript helpers for constructing RelationalFabric types
@@ -45,12 +47,22 @@ Primitives for fast equality and consistent hashing:
 
 ### Object Metadata
 
-Primitives for extending objects and types with custom behavior:
+Runtime metadata systems with object and domain identity awareness:
 
-- **Metadata Definition**: Primitives for defining custom metadata schemas
-- **Metadata Application**: Primitives for applying metadata to objects, classes, and types
+- **Metadata Definition**: Primitives for defining metadata schemas (like reflect-metadata but extended)
+- **Object Identity Awareness**: Metadata that understands specific object instances
+- **Domain Identity Awareness**: Metadata that understands domain-specific identity patterns
 - **Metadata Queries**: Primitives for discovering and working with applied metadata
 - **Metadata Inheritance**: Primitives for metadata inheritance and composition
+
+### Protocol Extensibility
+
+Primitives for adding capabilities to existing types without modification:
+
+- **Protocol Definition**: Primitives for defining new capabilities/interfaces
+- **Retroactive Implementation**: Adding protocol implementations to existing types
+- **Protocol Discovery**: Finding what protocols a type implements
+- **Protocol Composition**: Combining multiple protocol implementations
 
 ### Graphs
 
