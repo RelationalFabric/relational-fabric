@@ -2,7 +2,7 @@
 
 > *The fundamental fiber that everything builds upon*
 
-Filament provides the essential types, utilities, and foundational abstractions that form the core of the Relational Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together seamlessly.
+Filament provides the essential types, utilities, and foundational abstractions that form the core primitives of the Relational Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together seamlessly.
 
 ## Introduction
 
@@ -11,20 +11,20 @@ In the textile metaphor of Relational Fabric, Filament represents the most funda
 Filament's role is deliberately minimal but crucial:
 
 - **Type Foundation**: Core interfaces and type definitions that establish the semantic vocabulary for the entire ecosystem
-- **Entity Model**: Fundamental abstractions for representing data entities with identity, versioning, and lifecycle management  
-- **Reference Types**: Sophisticated reference semantics that enable tombstoning, retraction, and entity linking
-- **Utility Functions**: Essential helper functions for working with entities, maps, and type checking
-- **Interoperability**: Common interfaces that ensure all packages can communicate and compose effectively
+- **Entity Primitives**: Fundamental abstractions for representing data entities with identity, versioning, and lifecycle primitives
+- **Reference Type Primitives**: Basic reference semantics that enable building tombstoning, retraction, and entity linking systems
+- **Utility Primitives**: Essential helper functions for working with entities, maps, and type operations
+- **Interoperability Primitives**: Common interfaces that ensure all packages can communicate and compose effectively
 
 ### Philosophical Foundation
 
-Filament embodies the principle of "minimal viable abstractions" - providing just enough structure to enable sophisticated capabilities without imposing unnecessary constraints. The types and utilities in Filament are designed to be:
+Filament embodies the principle of "minimal viable primitives" - providing just enough foundational abstractions to enable sophisticated capabilities without imposing unnecessary constraints. The types and utilities in Filament are designed to be:
 
 - **Composable**: Every abstraction can be combined with others to create more complex structures
 - **Extensible**: Domain-specific types can extend the core interfaces without breaking compatibility  
 - **Semantic**: Types carry meaning about their intended use and relationships
 - **Lightweight**: Minimal runtime overhead and dependency footprint
-- **Future-Ready**: Designed to support the advanced capabilities of DCSGS and distributed semantic systems
+- **Foundation-Ready**: Designed to support building the advanced capabilities of DCSGS and distributed semantic systems
 
 This foundation enables the higher-level capabilities of pattern matching (Weft), storage and indexing (Warp), and eventually distributed semantic collaboration - all while maintaining type safety and semantic clarity throughout the stack.
 
@@ -36,37 +36,35 @@ npm install @relational-fabric/filament
 
 ## Core Concepts
 
-### Entity Model
+### Entity Primitives
 
-The foundation of Filament's type system is a rich entity model that supports identity, typing, and lifecycle management.
+The foundation of Filament's type system is a basic entity model that provides primitives for identity, typing, and lifecycle foundations.
 
-### Reference Types and Semantics
+### Reference Type Primitives
 
-Filament provides sophisticated reference types that enable advanced data lifecycle management:
+Filament provides basic reference type primitives that enable building advanced data lifecycle systems:
 
-- **Soft Deletion**: Tombstones mark entities as deleted while preserving referential integrity
-- **Semantic Retraction**: Explicit retraction of claims or assertions in collaborative environments  
-- **Entity Linking**: Type-safe references between entities across different contexts
+- **Soft Deletion Primitives**: Basic tombstone types that enable building systems that mark entities as deleted while preserving referential integrity
+- **Semantic Retraction Primitives**: Basic retraction types that enable building systems for explicit retraction of claims or assertions
+- **Entity Linking Primitives**: Basic reference types that enable building type-safe references between entities across different contexts
 
-### Utility Functions
+### Utility Primitives
 
-Core utilities for working with entities and data structures including functional map updates and entity analysis.
+Core utility primitives for working with entities and data structures including functional map operations and entity analysis foundations.
 
 ## Type System Integration
 
-Filament's types are designed to work seamlessly with TypeScript's type system for generic entity handling and reference type discrimination.
+Filament's types are designed to work seamlessly with TypeScript's type system providing primitives for generic entity handling and reference type discrimination.
 
-## Advanced Patterns
+## Advanced Primitives
 
-### Entity Extension and Composition
+### Entity Extension and Composition Primitives
 
-Support for domain-specific entity types and composable entity relationships.
+Basic support for domain-specific entity types and composable entity relationship foundations.
 
-### Type-Safe Entity Factories
+### Type-Safe Entity Factory Primitives
 
-Factory functions with full type safety for creating entities with proper typing.
-
-
+Basic factory primitives with full type safety for creating entities with proper typing.
 
 ## Contributing
 
@@ -84,47 +82,47 @@ Since Filament provides foundational types used throughout the ecosystem, change
 - [ ] Minimal dependency footprint
 
 ### 🚧 Enhanced Type System (In Progress)
-- [ ] Advanced entity lifecycle management
-- [ ] Versioning and temporal type support
-- [ ] Schema validation and type checking utilities
-- [ ] Enhanced reference resolution utilities
-- [ ] Immutable data structure patterns
-- [ ] Type-safe event and change tracking
+- [ ] Entity lifecycle management primitives
+- [ ] Versioning and temporal type primitives
+- [ ] Schema validation and type checking primitives
+- [ ] Reference resolution utility primitives
+- [ ] Immutable data structure primitives
+- [ ] Type-safe event and change tracking primitives
 
 ### 📋 Semantic Extensions (Planned)
-- [ ] RDF/JSON-LD type mappings and utilities
-- [ ] Ontology-aware type definitions
-- [ ] Schema.org compatible type library
-- [ ] Semantic validation and constraint checking
-- [ ] Type inference and schema evolution utilities
-- [ ] Multilingual type definitions and i18n support
+- [ ] RDF/JSON-LD type mapping primitives
+- [ ] Ontology-aware type definition primitives
+- [ ] Schema.org compatible type primitives
+- [ ] Semantic validation and constraint checking primitives
+- [ ] Type inference and schema evolution primitives
+- [ ] Multilingual type definition primitives and i18n support
 
 ### 📋 Distributed Foundation (Future)
-- [ ] Distributed identity and addressing types
-- [ ] Cryptographic signature and verification utilities
-- [ ] Peer-to-peer identity and addressing
-- [ ] Conflict-free data type (CRDT) foundations
-- [ ] Distributed consensus and coordination types
+- [ ] Distributed identity and addressing type primitives
+- [ ] Cryptographic signature and verification utility primitives
+- [ ] Peer-to-peer identity and addressing primitives
+- [ ] Conflict-free data type (CRDT) foundation primitives
+- [ ] Distributed consensus and coordination type primitives
 - [ ] Privacy and access control type primitives
 
 ### 🔮 Advanced Capabilities (Research)
-- [ ] Zero-knowledge proof type foundations
-- [ ] Homomorphic encryption type support
-- [ ] Quantum-resistant cryptographic types
-- [ ] Formal verification and proof types
-- [ ] Machine learning model type integration
-- [ ] Advanced temporal and causal type systems
+- [ ] Zero-knowledge proof type foundation primitives
+- [ ] Homomorphic encryption type support primitives
+- [ ] Quantum-resistant cryptographic type primitives
+- [ ] Formal verification and proof type primitives
+- [ ] Machine learning model type integration primitives
+- [ ] Advanced temporal and causal type system primitives
 
 ### 🎯 Developer Experience (Ongoing)
-- [ ] Enhanced TypeScript integration and IDE support
-- [ ] Comprehensive documentation with examples
-- [ ] Type-safe testing utilities and fixtures
-- [ ] Code generation and scaffolding tools
-- [ ] Migration utilities for type evolution
+- [ ] Enhanced TypeScript integration and IDE support primitives
+- [ ] Comprehensive documentation with primitive examples
+- [ ] Type-safe testing utility primitives and fixtures
+- [ ] Code generation and scaffolding tool primitives
+- [ ] Migration utility primitives for type evolution
 
 ---
 
-Filament may be the smallest package in the Relational Fabric ecosystem, but it's also the most fundamental. Every sophisticated capability we build - from pattern matching to distributed semantic collaboration - rests on the solid foundation that Filament provides. Like the finest fibers that create the strongest threads, Filament's carefully designed abstractions enable the entire ecosystem to achieve something greater than the sum of its parts.
+Filament may be the smallest package in the Relational Fabric ecosystem, but it's also the most fundamental. Every sophisticated capability we enable - from pattern matching to distributed semantic collaboration - rests on the solid primitive foundation that Filament provides. Like the finest fibers that create the strongest threads, Filament's carefully designed primitives enable the entire ecosystem to achieve something greater than the sum of its parts.
 
 ## License
 
