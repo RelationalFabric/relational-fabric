@@ -12,35 +12,34 @@ Filament provides the foundational abstractions that enable this relational visi
 
 ## The Challenge
 
-When building sophisticated data systems, you constantly need the same foundational capabilities:
+Building systems where code clearly expresses *meaning* rather than just implementation details requires foundational abstractions that:
 
-- Fast equality checks and consistent hashing across different data representations
-- Runtime metadata systems (like reflect-metadata) that work with both object identity and domain identity
-- Protocol-like extensibility for adding capabilities to existing types without modification
-- Graph structures that can represent everything from simple trees to complex hyper-graphs
-- Shared types that work consistently across the entire ecosystem
-- TypeScript utilities for constructing complex, composable types
-- Patterns for common use cases like entity builders, fluent APIs, and type guards
-- Handling incomplete information that resolves over time (forward references, progressive type discovery)
-- Normalizing access across different information models (id vs @id, different collection semantics)
-- **Relational primitives that enable semantic interoperability and meaningful data relationships**
+- Allow you to define what your code *means* independent of how it's implemented
+- Enable deferring implementation decisions until you have more information
+- Make systems readable to any developer by expressing intent clearly
+- Support programming against interfaces that can be implemented at different times and places
+- Handle incomplete information that resolves progressively over time
+- Enable the same conceptual model to work across different representations
+- Provide the building blocks for higher-order abstractions that preserve semantic meaning
 
-These foundational abstractions get rebuilt repeatedly across projects, leading to incompatible approaches and missed opportunities for semantic richness.
+Without these foundational abstractions, systems become tightly coupled to specific implementations, making them harder to understand, evolve, and reason about.
 
 ## The Approach
 
-Filament provides the proven foundational primitives that enable building relationally-aware data systems:
+Filament provides the foundational primitives that enable building systems where meaning is separate from implementation:
 
-- **Deterministic Hashing**: Fast equality and consistent hashing primitives
-- **Object Metadata**: Runtime metadata systems with object and domain identity awareness
-- **Metaprogramming Primitives**: Primitives for programming against interfaces/expectations that can be implemented at different times and places
-- **Graphs**: Structural primitives for any graph representation
-- **Common Types**: Shared RelationalFabric types used across the ecosystem
-- **Utility Types**: TypeScript helpers for constructing RelationalFabric types
-- **Type Patterns**: Specific patterns for common use cases (builders, guards, etc.)
-- **Incomplete & Deferred Knowledge**: Primitives for working with partial/evolving information
-- **Information Model Abstraction**: Primitives for defining how your information model works
+- **Deterministic Hashing**: Fast equality and consistent hashing primitives that work across representations
+- **Object Metadata**: Runtime metadata systems that preserve meaning across object and domain boundaries
+- **Metaprogramming Primitives**: Programming against interfaces/expectations that can be implemented later
+- **Graphs**: Structural primitives that can represent any graph interpretation while preserving semantics
+- **Common Types**: Shared RelationalFabric types that maintain semantic consistency
+- **Utility Types**: TypeScript helpers for constructing semantically meaningful types
+- **Type Patterns**: Patterns that make common use cases self-documenting
+- **Incomplete & Deferred Knowledge**: Working with partial information that resolves over time
+- **Information Model Abstraction**: Defining how your information model works independent of storage
 - **Relational Primitives**: Building blocks for semantic interoperability and meaningful relationships
+
+These primitives enable you to write code that clearly expresses *what* you're trying to accomplish, while deferring *how* it gets accomplished until you have sufficient context to make those decisions well.
 
 ## Core Concepts
 
@@ -149,13 +148,16 @@ npm install @relational-fabric/filament
 
 ## Philosophy
 
-Filament embodies the principle of providing the minimal foundational abstractions that enable truly relational data systems. These primitives enable:
+Filament embodies the principle that the best abstractions separate *what* you're trying to accomplish from *how* it gets accomplished. These primitives enable:
 
-- **Semantic Relationships**: Data relationships that carry meaning beyond simple connections
-- **Flexible Information Models**: Define your own model while maintaining semantic interoperability
-- **Performance by Default**: Built-in optimizations through hashing and lazy evaluation
-- **Incomplete Knowledge Handling**: Graceful handling of partial and evolving information
-- **Progressive Enhancement**: Increasing levels of relational capability as needs evolve
+- **Meaning-Independent Code**: Define what your system does without coupling to specific implementations
+- **Deferred Decisions**: Make implementation choices when you have sufficient context, not before
+- **Self-Documenting Systems**: Code that clearly expresses intent to any reader
+- **Progressive Resolution**: Handle incomplete knowledge gracefully as systems evolve
+- **Semantic Preservation**: Maintain meaning across different representations and contexts
+- **Higher-Order Abstractions**: Build sophisticated capabilities on top of foundational primitives
+
+By providing these foundational abstractions, Filament enables you to build systems that are both more expressive of their intent and more flexible in their implementation.
 
 ## Evolution Towards First-Class Ontologies
 
