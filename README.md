@@ -45,38 +45,38 @@ Filament provides the foundational building blocks that enable you to create abs
 - **Deferred Decisions**: Making implementation choices when you have sufficient context
 - **Progressive Resolution**: Handling incomplete knowledge that evolves over time
 
-### 🕸️ **Weft** - Multi-Paradigm Bridges
-*Translation layers that preserve semantic meaning across different data representations*
+### 🕸️ **Weft** - Navigation & Query Construction
+*Ontological framework and construction primitives for building query systems*
 
-Weft handles the complex task of moving between different data paradigms (relational, graph, document, event streams) while preserving the semantic meaning defined in Filament. It's the abstraction layer that makes polyglot data architectures feel natural.
-
-**Core Abstractions:**
-- **Semantic Bridges**: Translate between paradigms without losing meaning
-- **Query Translation**: Express intent once, execute across different systems
-- **Constraint Propagation**: Ensure business rules apply regardless of storage
-- **Schema Mapping**: Maintain consistency across different representations
-
-### 🎯 **Warp** - Spatial & Temporal Reasoning
-*Specialized abstractions for data that exists in space and time*
-
-Warp extends the relationship model to handle spatial, temporal, and spatiotemporal data as first-class citizens. It provides abstractions that make reasoning about location, time, and change feel as natural as working with traditional data types.
+Weft provides both the conceptual framework for what query systems can be and the essential building blocks that enable developers to construct their own query systems by hand. Rather than providing a finished query engine, it gives you the ontology and construction primitives to build navigation and query capabilities tailored to your specific needs.
 
 **Core Abstractions:**
-- **Temporal Relationships**: Connections that evolve over time
-- **Spatial Constraints**: Relationships constrained by location
-- **Event Modeling**: Changes as first-class relational entities
-- **Continuity Reasoning**: Handle smooth transitions and discrete changes
+- **Navigation & Query Ontology**: Foundational definitions of valid navigation and query patterns
+- **Unification Construction**: Building blocks for systems that bind logical variables to values
+- **Traversal Construction**: Components for building navigation through complex data structures
+- **Pattern Matching Construction**: Raw materials for building sophisticated pattern matching systems
 
-### 🚀 **Shuttle** - Reactive Query Orchestration  
-*Intelligent query planning and execution across distributed relational systems*
+### 🎯 **Warp** - Storage Construction Primitives
+*Foundational primitives for building storage systems that handle state evolution*
 
-Shuttle orchestrates queries across multiple systems and paradigms, using the semantic information from Filament to make intelligent decisions about execution strategy, caching, and result composition.
+Warp provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time. It focuses on the foundational capabilities needed when building any storage system that handles evolving state.
 
 **Core Abstractions:**
-- **Semantic Query Planning**: Use relationship semantics to optimize execution
-- **Cross-System Joins**: Combine data from different storage paradigms
-- **Reactive Execution**: Automatically update results when data changes
-- **Intelligent Caching**: Cache based on semantic invariants
+- **Storage Ontology**: Framework defining what kinds of graphs can work with storage operations
+- **Change Representation**: Primitives for representing deltas, edits, and state transitions
+- **Identity Resolution**: Primitives for handling different ID types and reference patterns
+- **Graph Transformation**: Primitives for moving data between representations while preserving semantics
+
+### 🚀 **Shuttle** - Flow & Coordination Construction
+*Ontological framework and construction primitives for building coordination systems*
+
+Shuttle provides both the conceptual framework for what coordination systems can be and the essential building blocks that enable developers to construct their own flow and coordination systems by hand. Rather than providing a finished coordination framework, it gives you the ontology and primitives to build data flow and coordination capabilities.
+
+**Core Abstractions:**
+- **Flow & Coordination Ontology**: Foundational definitions of valid data flow and coordination patterns
+- **Message Passing Construction**: Building blocks for systems that coordinate communication between components
+- **Flow Control Construction**: Components for building systems that manage data movement and timing
+- **Boundary Management Construction**: Raw materials for building sophisticated boundary and coordination systems
 
 ## Design Principles
 
