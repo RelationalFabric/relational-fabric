@@ -10,9 +10,9 @@ RelationalFabric aims to make data relationships first-class citizens in applica
 
 Filament provides the foundational abstractions that enable this relational vision, with **first-class ontologies** as a key goal (though not a requirement) for achieving semantic interoperability.
 
-## The Problem
+## Well-Known and Genuinely Difficult Challenges
 
-When building sophisticated data systems, you constantly need the same foundational capabilities:
+Building sophisticated data systems requires addressing several foundational concerns that are both well-understood and genuinely challenging to implement correctly:
 
 - Fast equality checks and consistent hashing across different data representations
 - Runtime metadata systems (like reflect-metadata) that work with both object identity and domain identity
@@ -25,11 +25,11 @@ When building sophisticated data systems, you constantly need the same foundatio
 - Normalizing access across different information models (id vs @id, different collection semantics)
 - **Relational primitives that enable semantic interoperability and meaningful data relationships**
 
-These foundational abstractions get rebuilt from scratch in every project, leading to incompatible approaches and missed opportunities for semantic richness.
+While these capabilities exist in various forms across different libraries and frameworks, implementing them cohesively and with semantic consistency requires significant effort and domain expertise.
 
-## The Solution
+## The Right Abstractions Make the Right Thing Easier
 
-Filament provides the proven foundational primitives that enable building relationally-aware data systems:
+Filament provides carefully designed foundational primitives that make building relationally-aware data systems more straightforward:
 
 - **Deterministic Hashing**: Fast equality and consistent hashing primitives
 - **Object Metadata**: Runtime metadata systems with object and domain identity awareness
