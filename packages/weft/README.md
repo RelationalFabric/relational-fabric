@@ -35,13 +35,13 @@ Weft provides both the ontological framework and the manual construction primiti
 
 ### Navigation & Query Ontology
 
-The foundational framework that defines what query systems can be:
+The foundational definitions that enable different query systems to work together:
 
-- **Navigation Semantics**: What constitutes valid ways of moving through data structures
-- **Query Planning Ontology**: The conceptual framework for representing and optimizing queries
-- **Relational Algebra Foundations**: The mathematical basis for data transformation operations
-- **Pattern Matching Semantics**: What it means to match, bind, and transform data patterns
-- **Binding Ontology**: The semantic model for variable binding and unification
+- **Graph Structures**: What constitutes a valid query graph, navigation path, or result set
+- **Graph Composition**: Implements Filament's composition algebra for query and navigation graphs  
+- **Query Semantics**: How different query operations should behave and compose
+- **Variable Binding**: How logical variables relate to concrete values during query execution
+- **Result Interpretation**: How query results should be understood and processed
 
 ### Unification Construction Primitives
 
@@ -79,16 +79,6 @@ Building blocks for assembling query execution systems:
 - **Index Awareness Components**: Tools for index-aware query planning and optimization
 - **Execution Strategy Builders**: Raw materials for constructing query executors
 - **Result Aggregation Components**: Tools for collecting and transforming query results
-
-### Graph Composition for Query Systems
-
-Weft implements Filament's graph composition algebra specifically for query and navigation graphs:
-
-- **Query Union**: Combining multiple query patterns into unified queries
-- **Query Intersection**: Finding common patterns across different query structures
-- **Query Composition**: Chaining queries through shared variables and results
-- **Pattern Projection**: Extracting specific patterns from complex query graphs
-- **Result Overlay**: Merging query results with precedence and conflict resolution
 
 ### Binding Management Construction Primitives
 

@@ -37,11 +37,9 @@ Shuttle provides both the ontological framework and the manual construction prim
 
 The foundational framework that defines what coordination systems can be:
 
-- **Flow Pattern Semantics**: What constitutes valid ways of moving data between system components
-- **Message Passing Ontology**: The conceptual framework for representing and coordinating communication
-- **Coordination Protocol Foundations**: The theoretical basis for managing complex system interactions
-- **Boundary Management Semantics**: What it means to create and manage system boundaries
-- **Synchronization Ontology**: The semantic model for temporal coordination and flow control
+- **Flow Structures**: What constitutes valid coordination patterns and data flow graphs
+- **Graph Composition**: Implements Filament's composition algebra for flow and coordination graphs
+- **Event Semantics**: How events should flow and coordinate across system boundaries
 
 ### Message Passing Construction Primitives
 
@@ -87,26 +85,6 @@ Components for building temporal coordination and synchronization systems:
 - **Consensus Protocol Components**: Building blocks for distributed agreement systems
 - **Temporal Coordination Primitives**: Raw materials for time-based coordination
 - **State Synchronization Tools**: Components for maintaining consistency across distributed components
-
-### Flow Execution Construction Primitives
-
-Building blocks for creating and managing flow execution:
-
-- **Process Representation Tools**: Components for modeling execution processes and workflows  
-- **Coordinator Primitives**: Building blocks for coordination algorithms and strategies
-- **Resource Management Components**: Tools for managing computational resources and constraints
-- **Event Distribution Builders**: Raw materials for constructing event distribution systems
-- **State Synchronization Components**: Tools for coordinating state across distributed processes
-
-### Graph Composition for Flow Systems
-
-Shuttle implements Filament's graph composition algebra specifically for flow and coordination graphs:
-
-- **Flow Union**: Combining multiple flow patterns into unified coordination systems
-- **Flow Intersection**: Finding common coordination patterns across different flow structures
-- **Flow Composition**: Connecting flows through shared events, resources, and coordination points
-- **Flow Projection**: Extracting specific coordination patterns from complex flow graphs
-- **Flow Overlay**: Layering flow control with priority, interruption, and exception handling
 
 ## Installation
 

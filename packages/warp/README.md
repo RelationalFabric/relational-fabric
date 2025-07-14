@@ -31,13 +31,11 @@ Warp provides the proven foundational primitives that enable working with any da
 
 ### Storage Ontology
 
-The ontological framework that defines what kinds of graphs can work with Warp operations:
+Framework defining the foundational concepts for working with data at rest:
 
-- **State Graph Schema**: Defining what constitutes valid state representation
-- **Entity vs Value Distinction**: Ontological patterns for distinguishing entities from values
-- **Reference Semantics**: Defining how references work within the state model
-- **Change Semantics**: Defining what constitutes valid changes to state
-- **Transformation Invariants**: Defining what transformations preserve semantic meaning
+- **Graph Structures**: What kinds of graphs can represent valid state at rest
+- **Graph Composition**: Implements Filament's composition algebra for data at rest
+- **Change Semantics**: How state evolution and deltas should be represented and applied
 
 ### Change Representation
 
@@ -68,17 +66,6 @@ The central primitive for transforming data between different representations:
 - **Temporal Transformation**: State at different time points for versioning and history
 - **Format Transformation**: Between different data formats while preserving semantics
 - **Selective Transformation**: Choosing what to transform vs keep as opaque references
-
-### Graph Composition for Data at Rest
-
-Warp implements Filament's graph composition algebra specifically for data at rest:
-
-- **State Union**: Merging different state representations while handling identity conflicts
-- **State Intersection**: Finding common state across different data representations
-- **State Difference**: Computing deltas and changes between state versions
-- **State Composition**: Combining state graphs through shared entities and references
-- **State Projection**: Extracting subsets of state based on access control or visibility rules
-- **State Overlay**: Layering state changes with transaction and rollback semantics
 
 ### Visibility Primitives
 
