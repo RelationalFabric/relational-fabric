@@ -34,16 +34,16 @@ RelationalFabric's approach is rooted in the belief that when given the correct 
 
 ## The Libraries
 
-### 🧵 **Filament** - Relationship Modeling & Semantics
-*The foundational abstractions for expressing relationships as first-class entities*
+### 🧵 **Filament** - Foundational Abstractions
+*Meta-level primitives for building domain-specific abstractions*
 
-Filament provides the conceptual framework for treating relationships not just as foreign keys or edges, but as semantic entities with their own properties, constraints, and behaviors. It's where relationship schemas, cardinality rules, and semantic annotations are defined.
+Filament provides the foundational building blocks that enable you to create abstractions that preserve meaning, defer implementation decisions, and evolve gracefully. Rather than prescribing specific abstractions, it gives you the meta-level primitives to build whatever abstractions your domain requires - whether that's relational systems, event-driven architectures, or domain-specific languages.
 
 **Core Abstractions:**
-- **Relationship Types**: Define the semantic meaning of connections
-- **Cardinality Constraints**: Express business rules about relationships  
-- **Semantic Annotations**: Attach meaning that survives transformations
-- **Schema Evolution**: Handle changing relationship definitions over time
+- **Metaprogramming Primitives**: Programming against interfaces that can be implemented later
+- **Semantic Preservation**: Maintaining meaning across different representations
+- **Deferred Decisions**: Making implementation choices when you have sufficient context
+- **Progressive Resolution**: Handling incomplete knowledge that evolves over time
 
 ### 🕸️ **Weft** - Multi-Paradigm Bridges
 *Translation layers that preserve semantic meaning across different data representations*
