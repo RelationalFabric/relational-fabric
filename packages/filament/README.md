@@ -32,6 +32,7 @@ Filament provides the foundational primitives that enable building systems where
 - **Object Metadata**: Runtime metadata systems that preserve meaning across object and domain boundaries
 - **Metaprogramming Primitives**: Programming against interfaces/expectations that can be implemented later
 - **Graphs**: Structural primitives that can represent any graph interpretation while preserving semantics
+- **Graph Composition**: Algebraic primitives for composing graphs that can be implemented by domain-specific graph types
 - **Common Types**: Shared RelationalFabric types that maintain semantic consistency
 - **Utility Types**: TypeScript helpers for constructing semantically meaningful types
 - **Type Patterns**: Patterns that make common use cases self-documenting
@@ -94,6 +95,18 @@ The foundational structural primitives that enable any graph representation:
 - **Inter-Graph References**: Primitives for references that span across different graph structures
 - **Graph Interpretation**: Primitives for viewing the same structure as different graph types (RDF, LPG, etc.)
 - **Navigation Abstractions**: Primitives for traversal patterns across different graph interpretations
+
+### Graph Composition
+
+Algebraic primitives for composing graphs that can be implemented by domain-specific graph types:
+
+- **Union**: Combining graphs while handling overlapping nodes and edges
+- **Intersection**: Finding common subgraphs and shared structures
+- **Difference**: Subtracting one graph from another with proper handling of dangling references
+- **Composition**: Connecting graphs through shared boundary nodes and edges
+- **Projection**: Extracting subgraphs based on criteria while preserving semantic relationships
+- **Overlay**: Layering graphs with precedence rules for conflicting information
+- **Product**: Cartesian and tensor products for creating composite graph structures
 
 ### Common Types
 

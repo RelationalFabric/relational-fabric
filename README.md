@@ -41,6 +41,7 @@ Filament provides the foundational building blocks that enable you to create abs
 
 **Core Abstractions:**
 - **Metaprogramming Primitives**: Programming against interfaces that can be implemented later
+- **Graph Composition**: Algebraic primitives for composing graphs that domain-specific types can implement
 - **Semantic Preservation**: Maintaining meaning across different representations
 - **Deferred Decisions**: Making implementation choices when you have sufficient context
 - **Progressive Resolution**: Handling incomplete knowledge that evolves over time
