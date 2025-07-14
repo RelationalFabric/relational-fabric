@@ -53,8 +53,8 @@ Primitives for representing deltas, edits, and state transitions:
 Primitives for handling different ID types and reference patterns:
 
 - **Temporary IDs**: Primitives for IDs that resolve later (`tempId()` → actual ID)
-- **Derived IDs**: Primitives for IDs computed from other data
-- **Anonymous IDs**: Primitives for content-addressable identity
+- **Anonymous IDs**: Primitives for addressing content without explicit IDs (e.g., nested component types)
+- **Derived IDs**: Primitives for IDs computed from other data (including content-addressable identity)
 - **Tombstone References**: Primitives for references to deleted/retracted entities
 - **Reference Resolution**: Primitives for resolving any reference type to its target
 
