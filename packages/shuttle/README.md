@@ -4,7 +4,7 @@
 
 Shuttle provides the foundational ontology and construction primitives for building data flow and coordination capabilities within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that seamlessly carries different threads between warp threads, this library provides both the conceptual framework for what coordination systems can be and the essential building blocks that enable developers to construct their own flow and coordination systems by hand.
 
-## The Problem
+## The Challenge
 
 When building systems that need to coordinate data flow and manage complex interactions, you face the same fundamental challenges:
 
@@ -15,7 +15,7 @@ When building systems that need to coordinate data flow and manage complex inter
 
 Without a foundational ontology for what coordination systems are and construction primitives for building them, every project reinvents these concepts with incompatible approaches and subtle timing bugs.
 
-## The Solution
+## The Approach
 
 Shuttle provides both the ontological framework and the manual construction primitives for building coordination systems:
 
@@ -37,11 +37,9 @@ Shuttle provides both the ontological framework and the manual construction prim
 
 The foundational framework that defines what coordination systems can be:
 
-- **Flow Pattern Semantics**: What constitutes valid ways of moving data between system components
-- **Message Passing Ontology**: The conceptual framework for representing and coordinating communication
-- **Coordination Protocol Foundations**: The theoretical basis for managing complex system interactions
-- **Boundary Management Semantics**: What it means to create and manage system boundaries
-- **Synchronization Ontology**: The semantic model for temporal coordination and flow control
+- **Flow Structures**: What constitutes valid coordination patterns and data flow graphs
+- **Graph Composition**: Implements Filament's composition algebra for flow and coordination graphs
+- **Event Semantics**: How events should flow and coordinate across system boundaries
 
 ### Message Passing Construction Primitives
 

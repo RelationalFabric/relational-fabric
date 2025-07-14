@@ -2,42 +2,40 @@
 
 > *The structural foundation that provides strength and stability*
 
-Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time.
+Warp provides the foundational primitives for working with data at rest within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives for working with data at rest - whether that's traditional storage, application state, cached data, or any data that exists in a relatively stable form rather than flowing between systems.
 
-## The Problem
+## The Challenge
 
-When building storage systems that need to handle state evolution, you constantly need the same foundational capabilities:
+When working with data at rest that needs to handle state evolution, you constantly need the same foundational capabilities:
 
 - Defining what kinds of graphs can represent valid state (ontological requirements)
 - Representing changes and deltas in a consistent way
 - Handling different types of identity and references (tempIds, derived IDs, anonymous IDs, tombstones)
-- Moving data between different representations while preserving semantics
+- Transforming data between different representations while preserving semantics
 - Controlling visibility and access to different parts of the graph
 - Working with both owned data (in graph form) and external data (as opaque references)
 
 These foundational abstractions get rebuilt from scratch in every storage system, leading to incompatible approaches and subtle bugs.
 
-## The Solution
+## The Approach
 
-Warp provides the proven foundational primitives that enable building any storage system:
+Warp provides the proven foundational primitives that enable working with any data at rest:
 
 - **Storage Ontology**: The ontological framework that defines what kinds of graphs can work with Warp operations
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions
 - **Identity Resolution**: Primitives for handling different ID types and reference patterns
-- **Graph Transformation**: Primitives for moving data between any representations (`data over here <=transform=> data over there`)
+- **Graph Transformation**: Primitives for transforming data between different representations while preserving semantics
 - **Visibility Primitives**: Primitives for controlling node/edge access based on context and permissions
 
 ## Core Concepts
 
 ### Storage Ontology
 
-The ontological framework that defines what kinds of graphs can work with Warp operations:
+Framework defining the foundational concepts for working with data at rest:
 
-- **State Graph Schema**: Defining what constitutes valid state representation
-- **Entity vs Value Distinction**: Ontological patterns for distinguishing entities from values
-- **Reference Semantics**: Defining how references work within the state model
-- **Change Semantics**: Defining what constitutes valid changes to state
-- **Transformation Invariants**: Defining what transformations preserve semantic meaning
+- **Graph Structures**: What kinds of graphs can represent valid state at rest
+- **Graph Composition**: Implements Filament's composition algebra for data at rest
+- **Change Semantics**: How state evolution and deltas should be represented and applied
 
 ### Change Representation
 
@@ -53,19 +51,19 @@ Primitives for representing deltas, edits, and state transitions:
 Primitives for handling different ID types and reference patterns:
 
 - **Temporary IDs**: Primitives for IDs that resolve later (`tempId()` → actual ID)
+- **Anonymous IDs**: Primitives for addressing content without explicit IDs (e.g., nested component types)
 - **Derived IDs**: Primitives for IDs computed from other data
-- **Anonymous IDs**: Primitives for content-addressable identity
 - **Tombstone References**: Primitives for references to deleted/retracted entities
 - **Reference Resolution**: Primitives for resolving any reference type to its target
 
 ### Graph Transformation
 
-The central primitive for moving data between any representations:
+The central primitive for transforming data between different representations:
 
-- **Representation Mapping**: Primitives for `data over here <=transform=> data over there`
-- **Persistence Transformation**: Memory ↔ storage representations
-- **Network Transformation**: Local ↔ remote representations  
-- **Temporal Transformation**: State at different time points
+- **Representation Mapping**: Primitives for transforming between different data representations
+- **Persistence Transformation**: Memory ↔ storage representations for data persistence
+- **Serialization Transformation**: Converting between serialized and in-memory representations
+- **Temporal Transformation**: State at different time points for versioning and history
 - **Format Transformation**: Between different data formats while preserving semantics
 - **Selective Transformation**: Choosing what to transform vs keep as opaque references
 
@@ -94,10 +92,10 @@ npm install @relational-fabric/warp
 
 ## Philosophy
 
-Warp embodies the principle that storage is fundamentally about controlled transformation. Whether you're persisting to disk, syncing with peers, taking snapshots, or applying changes over time - it's all graph transformation with different constraints and contexts.
+Warp embodies the principle that working with data at rest is fundamentally about controlled transformation. Whether you're persisting to disk, managing application state, caching data, or applying changes over time - it's all graph transformation with different constraints and contexts.
 
 These primitives enable:
-- **Universal Storage Patterns**: Build any storage system from the same foundational primitives
+- **Universal Patterns for Data at Rest**: Work with any form of data at rest using the same foundational primitives
 - **Semantic Consistency**: Maintain meaning across all transformations and representations
 - **Flexible Identity**: Work with any identity pattern through consistent resolution
 - **Controlled Access**: Fine-grained control over data visibility and permissions

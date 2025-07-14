@@ -4,7 +4,7 @@
 
 Weft provides the foundational ontology and construction primitives for building navigation and query capabilities within the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library provides both the conceptual framework for what query systems can be and the essential building blocks that enable developers to construct their own query systems by hand.
 
-## The Problem
+## The Challenge
 
 When building systems that need to navigate and query data intelligently, you face the same fundamental challenges:
 
@@ -15,7 +15,7 @@ When building systems that need to navigate and query data intelligently, you fa
 
 Without a foundational ontology for what query systems are and construction primitives for building them, every project reinvents these concepts with subtle bugs and incompatible approaches.
 
-## The Solution
+## The Approach
 
 Weft provides both the ontological framework and the manual construction primitives for building query systems:
 
@@ -35,13 +35,13 @@ Weft provides both the ontological framework and the manual construction primiti
 
 ### Navigation & Query Ontology
 
-The foundational framework that defines what query systems can be:
+The foundational definitions that enable different query systems to work together:
 
-- **Navigation Semantics**: What constitutes valid ways of moving through data structures
-- **Query Planning Ontology**: The conceptual framework for representing and optimizing queries
-- **Relational Algebra Foundations**: The mathematical basis for data transformation operations
-- **Pattern Matching Semantics**: What it means to match, bind, and transform data patterns
-- **Binding Ontology**: The semantic model for variable binding and unification
+- **Graph Structures**: What constitutes a valid query graph, navigation path, or result set
+- **Graph Composition**: Implements Filament's composition algebra for query and navigation graphs  
+- **Query Semantics**: How different query operations should behave and compose
+- **Variable Binding**: How logical variables relate to concrete values during query execution
+- **Result Interpretation**: How query results should be understood and processed
 
 ### Unification Construction Primitives
 
@@ -76,6 +76,7 @@ Building blocks for assembling query execution systems:
 
 - **Plan Representation Tools**: Components for modeling query execution strategies
 - **Optimization Primitives**: Building blocks for query optimization algorithms
+- **Index Awareness Components**: Tools for index-aware query planning and optimization
 - **Execution Strategy Builders**: Raw materials for constructing query executors
 - **Result Aggregation Components**: Tools for collecting and transforming query results
 
