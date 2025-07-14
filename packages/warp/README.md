@@ -69,6 +69,17 @@ The central primitive for transforming data between different representations:
 - **Format Transformation**: Between different data formats while preserving semantics
 - **Selective Transformation**: Choosing what to transform vs keep as opaque references
 
+### Graph Composition for Data at Rest
+
+Warp implements Filament's graph composition algebra specifically for data at rest:
+
+- **State Union**: Merging different state representations while handling identity conflicts
+- **State Intersection**: Finding common state across different data representations
+- **State Difference**: Computing deltas and changes between state versions
+- **State Composition**: Combining state graphs through shared entities and references
+- **State Projection**: Extracting subsets of state based on access control or visibility rules
+- **State Overlay**: Layering state changes with transaction and rollback semantics
+
 ### Visibility Primitives
 
 Primitives for controlling node/edge access based on context and permissions:

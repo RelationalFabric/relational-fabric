@@ -80,6 +80,16 @@ Building blocks for assembling query execution systems:
 - **Execution Strategy Builders**: Raw materials for constructing query executors
 - **Result Aggregation Components**: Tools for collecting and transforming query results
 
+### Graph Composition for Query Systems
+
+Weft implements Filament's graph composition algebra specifically for query and navigation graphs:
+
+- **Query Union**: Combining multiple query patterns into unified queries
+- **Query Intersection**: Finding common patterns across different query structures
+- **Query Composition**: Chaining queries through shared variables and results
+- **Pattern Projection**: Extracting specific patterns from complex query graphs
+- **Result Overlay**: Merging query results with precedence and conflict resolution
+
 ### Binding Management Construction Primitives
 
 Components for building efficient variable binding systems:

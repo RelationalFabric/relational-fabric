@@ -118,11 +118,15 @@ const userPosts = await query()
   .execute();
 ```
 
-## The Platform Advantage
+## The Platform Advantage: A Coherent Ecosystem
 
-Our goal aligns with the platform principle that "the economic value of everybody that uses it exceeds the value of the company that creates it." RelationalFabric aims to enable developers to build data systems that would be difficult to create otherwise, while making well-understood patterns feel natural and obvious.
+The Relational Fabric family provides a **coherent platform** where each library builds upon shared foundations while addressing distinct concerns. This platform approach means:
 
-The success of this approach will be measured not just by what it enables directly, but by the ecosystem of tools, libraries, and solutions that others build on top of these foundations.
+**Unified Abstractions**: All libraries implement Filament's graph composition algebra for their specific graph types, creating consistency across query systems (Weft), data at rest (Warp), and coordination systems (Shuttle).
+
+**Semantic Consistency**: The same relational concepts and patterns work across storage, querying, and coordination - enabling seamless integration between different parts of your system.
+
+**Incremental Adoption**: Each library solves real problems independently while providing increasing value when used together.
 
 ---
 
