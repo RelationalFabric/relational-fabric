@@ -4,11 +4,11 @@
 
 Filament provides the foundational primitives that form the core of the **Relational** Fabric ecosystem. Like the individual fibers that are spun into thread before being woven into fabric, this library provides the atomic building blocks that enable all other components to work together in semantically meaningful ways.
 
-## The Vision: Making Data Truly Relational
+## The Vision: Abstractions for Building Abstractions
 
-RelationalFabric aims to make data relationships first-class citizens in application development. While graphs provide the structural foundation, the true power comes from making data **semantically relational** - where relationships have meaning, where different representations can interoperate, and where systems can reason about their data.
+Filament provides the meta-level primitives that enable you to build whatever abstractions your domain requires. Rather than prescribing specific abstractions, Filament gives you the foundational tools to create abstractions that preserve meaning, defer implementation decisions, and evolve gracefully as understanding deepens.
 
-Filament provides the foundational abstractions that enable this relational vision, with **first-class ontologies** as a key goal (though not a requirement) for achieving semantic interoperability.
+Whether you're building relational systems, event-driven architectures, or domain-specific languages, Filament provides the building blocks that let you express what you mean clearly while keeping implementation flexible.
 
 ## The Challenge
 
