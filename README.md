@@ -12,17 +12,17 @@ This enables building toward distributed, context-sensitive data systems with so
 
 ## The Problem
 
-Modern data systems face interconnected challenges that go beyond just code reuse:
+Building sophisticated data systems involves well-known and genuinely difficult challenges:
 
-**Conceptual Gaps**: What does it even mean to "query", "store", or "coordinate" data in your specific domain? Most developers start building without clear foundational concepts for what their data systems can be.
+**Conceptual Foundations**: Understanding what it means to "query", "store", or "coordinate" data in your specific domain requires deep thinking about data relationships and system design. Most developers start building without clear foundational concepts for what their data systems can be.
 
-**Construction Complexity**: How do you build relational algebra, storage systems, and coordination protocols from scratch? The primitives for constructing these systems by hand simply don't exist.
+**Construction Complexity**: Building relational algebra, storage systems, and coordination protocols from scratch requires extensive expertise. The primitives for constructing these systems by hand are scattered across different domains and paradigms.
 
-**Semantic Inconsistency**: How do you ensure your data operations have coherent semantics across different representations, storage backends, and query approaches? Without foundational abstractions, every system develops its own incompatible semantics.
+**Semantic Consistency**: Ensuring your data operations have coherent semantics across different representations, storage backends, and query approaches is complex work. Without foundational abstractions, every system develops its own semantics, making integration challenging.
 
-**Interoperability Barriers**: Modern applications treat data as "all or nothing" propositions. You can't grab a unification function from library A and mix it with an in-memory object store from library B. Different frameworks can't adapt code for different reactivity primitives.
+**Interoperability Challenges**: Modern applications often treat data access as "all or nothing" propositions. Mixing a unification function from one library with an in-memory object store from another requires significant adaptation work. Different frameworks struggle to adapt code for different reactivity primitives.
 
-**Relational Poverty**: While you can get far with treating data as the first choice for adaptable and composable codebases, the tools for making data truly relational - with semantic meaning and interoperability - just don't exist.
+**Relational Sophistication**: While you can build impressive systems by treating data as the foundation for adaptable codebases, achieving truly relational capabilities - with semantic meaning and interoperability - requires specialized knowledge and tools that span multiple domains.
 
 ## The Solution
 
@@ -33,7 +33,7 @@ RelationalFabric provides both the **ontological foundations** and **constructio
 - **Semantic Consistency**: Foundational concepts that ensure coherent behavior across different operations
 - **Relational Primitives**: Building blocks for semantic interoperability and meaningful data relationships
 
-This enables handling sophisticated capabilities including:
+This approach makes it easier to do the right thing when building sophisticated capabilities including:
 
 - In-memory object indexing with semantic identity
 - Object-based pattern query languages with ontological foundations
