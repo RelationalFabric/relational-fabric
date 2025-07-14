@@ -57,10 +57,10 @@ Weft provides both the conceptual framework for what query systems can be and th
 - **Pattern Matching Construction**: Raw materials for building sophisticated pattern matching systems
 - **Query Planning Construction**: Building blocks for assembling query execution, optimization, and index-aware systems
 
-### 🎯 **Warp** - Storage Construction Primitives
-*Foundational primitives for building storage systems that handle data at rest*
+### 🎯 **Warp** - Data at Rest Primitives
+*Foundational primitives for working with data at rest*
 
-Warp provides the essential primitives that enable developers to build sophisticated storage systems for data at rest. It focuses on the foundational capabilities needed when building storage systems that handle state representation, changes, and persistence rather than data movement.
+Warp provides the essential primitives for working with data at rest - whether that's traditional storage, application state, cached data, or any data that exists in a relatively stable form rather than flowing between systems. It focuses on the foundational capabilities needed when building systems that handle state representation, changes, and persistence.
 
 **Core Abstractions:**
 - **Storage Ontology**: Framework defining what kinds of graphs can represent valid state at rest

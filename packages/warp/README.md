@@ -2,11 +2,11 @@
 
 > *The structural foundation that provides strength and stability*
 
-Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems for data at rest, defining how data is represented, changed, and persisted over time.
+Warp provides the foundational primitives for working with data at rest within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives for working with data at rest - whether that's traditional storage, application state, cached data, or any data that exists in a relatively stable form rather than flowing between systems.
 
 ## The Challenge
 
-When building storage systems that need to handle state evolution, you constantly need the same foundational capabilities:
+When working with data at rest that needs to handle state evolution, you constantly need the same foundational capabilities:
 
 - Defining what kinds of graphs can represent valid state (ontological requirements)
 - Representing changes and deltas in a consistent way
@@ -19,7 +19,7 @@ These foundational abstractions get rebuilt from scratch in every storage system
 
 ## The Approach
 
-Warp provides the proven foundational primitives that enable building any storage system:
+Warp provides the proven foundational primitives that enable working with any data at rest:
 
 - **Storage Ontology**: The ontological framework that defines what kinds of graphs can work with Warp operations
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions
@@ -94,10 +94,10 @@ npm install @relational-fabric/warp
 
 ## Philosophy
 
-Warp embodies the principle that storage is fundamentally about controlled transformation. Whether you're persisting to disk, syncing with peers, taking snapshots, or applying changes over time - it's all graph transformation with different constraints and contexts.
+Warp embodies the principle that working with data at rest is fundamentally about controlled transformation. Whether you're persisting to disk, managing application state, caching data, or applying changes over time - it's all graph transformation with different constraints and contexts.
 
 These primitives enable:
-- **Universal Storage Patterns**: Build any storage system from the same foundational primitives
+- **Universal Patterns for Data at Rest**: Work with any form of data at rest using the same foundational primitives
 - **Semantic Consistency**: Maintain meaning across all transformations and representations
 - **Flexible Identity**: Work with any identity pattern through consistent resolution
 - **Controlled Access**: Fine-grained control over data visibility and permissions
