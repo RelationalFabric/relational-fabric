@@ -4,22 +4,22 @@
 
 Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time.
 
-## Well-Known and Genuinely Difficult Challenges
+## The Challenge
 
-Building storage systems that handle state evolution effectively involves addressing several foundational concerns that are both well-understood and genuinely challenging to implement correctly:
+When building storage systems that need to handle state evolution, you constantly need the same foundational capabilities:
 
 - Defining what kinds of graphs can represent valid state (ontological requirements)
-- Representing changes and deltas in a consistent way across different operations
-- Handling different types of identity and references (tempIds, derived IDs, anonymous IDs, tombstones) with proper resolution semantics
-- Moving data between different representations while preserving semantic meaning
-- Controlling visibility and access to different parts of the graph based on context and permissions
-- Working with both owned data (in graph form) and external data (as opaque references) efficiently
+- Representing changes and deltas in a consistent way
+- Handling different types of identity and references (tempIds, derived IDs, anonymous IDs, tombstones)
+- Moving data between different representations while preserving semantics
+- Controlling visibility and access to different parts of the graph
+- Working with both owned data (in graph form) and external data (as opaque references)
 
-While storage systems exist across many paradigms and use cases, building ones that handle these concerns cohesively requires deep expertise in database theory, distributed systems, and careful consideration of consistency and performance trade-offs.
+These foundational abstractions get rebuilt from scratch in every storage system, leading to incompatible approaches and subtle bugs.
 
-## The Right Abstractions Make the Right Thing Easier
+## The Approach
 
-Warp provides carefully designed foundational primitives that make building storage systems more approachable:
+Warp provides the proven foundational primitives that enable building any storage system:
 
 - **Storage Ontology**: The ontological framework that defines what kinds of graphs can work with Warp operations
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions

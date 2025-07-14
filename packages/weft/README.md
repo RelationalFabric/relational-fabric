@@ -4,20 +4,20 @@
 
 Weft provides the foundational ontology and construction primitives for building navigation and query capabilities within the Relational Fabric ecosystem. Like the weft threads in traditional weaving that pass through the structural warp to create intricate patterns and designs, this library provides both the conceptual framework for what query systems can be and the essential building blocks that enable developers to construct their own query systems by hand.
 
-## Well-Known and Genuinely Difficult Challenges
+## The Challenge
 
-Building systems that navigate and query data intelligently involves addressing several foundational concerns that are both well-understood and genuinely challenging to implement correctly:
+When building systems that need to navigate and query data intelligently, you face the same fundamental challenges:
 
-- **Conceptual Clarity**: Defining what it means to "query" or "navigate" data effectively in specific domains requires deep understanding of both the data model and user needs
-- **Construction Complexity**: Building relational algebra, query planners, and pattern matchers requires significant expertise in database theory and implementation
-- **Semantic Consistency**: Ensuring query systems have coherent semantics across different operations involves careful design and extensive testing
-- **Foundational Components**: Implementing unification, traversal, and binding primitives correctly requires understanding complex algorithmic patterns
+- **Conceptual Gap**: What does it even mean to "query" or "navigate" data in your specific domain?
+- **Construction Complexity**: How do you build relational algebra, query planners, and pattern matchers from scratch?
+- **Semantic Consistency**: How do you ensure your query system has coherent semantics across different operations?
+- **Reusable Foundations**: How do you avoid rebuilding unification, traversal, and binding primitives in every project?
 
-While query systems exist across many domains and paradigms, building ones that are both powerful and maintainable requires navigating complex trade-offs between expressiveness, performance, and implementation complexity.
+Without a foundational ontology for what query systems are and construction primitives for building them, every project reinvents these concepts with subtle bugs and incompatible approaches.
 
-## The Right Abstractions Make the Right Thing Easier
+## The Approach
 
-Weft provides both the ontological framework and construction primitives that make building query systems more approachable:
+Weft provides both the ontological framework and the manual construction primitives for building query systems:
 
 **Navigation & Query Ontology**:
 - Foundational definitions of what constitutes valid navigation patterns

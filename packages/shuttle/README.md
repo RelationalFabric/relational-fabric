@@ -4,20 +4,20 @@
 
 Shuttle provides the foundational ontology and construction primitives for building data flow and coordination capabilities within the Relational Fabric ecosystem. Like the shuttle in traditional weaving that seamlessly carries different threads between warp threads, this library provides both the conceptual framework for what coordination systems can be and the essential building blocks that enable developers to construct their own flow and coordination systems by hand.
 
-## Well-Known and Genuinely Difficult Challenges
+## The Challenge
 
-Building systems that coordinate data flow and manage complex interactions involves addressing several foundational concerns that are both well-understood and genuinely challenging to implement correctly:
+When building systems that need to coordinate data flow and manage complex interactions, you face the same fundamental challenges:
 
-- **Conceptual Clarity**: Defining what it means to "coordinate" or "orchestrate" data flow effectively in specific domains requires deep understanding of distributed systems and timing semantics
-- **Construction Complexity**: Building message passing systems, event coordination, and flow control requires significant expertise in concurrent programming and distributed system design
-- **Semantic Consistency**: Ensuring coordination systems have coherent semantics across different communication patterns involves careful design of protocols and state management
-- **Foundational Components**: Implementing flow primitives, boundary management, and synchronization mechanisms correctly requires understanding complex timing and consistency challenges
+- **Conceptual Gap**: What does it even mean to "coordinate" or "orchestrate" data flow in your specific domain?
+- **Construction Complexity**: How do you build message passing systems, event coordination, and flow control from scratch?
+- **Semantic Consistency**: How do you ensure your coordination system has coherent semantics across different communication patterns?
+- **Reusable Foundations**: How do you avoid rebuilding flow primitives, boundary management, and synchronization mechanisms in every project?
 
-While coordination systems exist across many domains and paradigms, building ones that are both robust and maintainable requires navigating complex trade-offs between performance, consistency, and implementation complexity.
+Without a foundational ontology for what coordination systems are and construction primitives for building them, every project reinvents these concepts with incompatible approaches and subtle timing bugs.
 
-## The Right Abstractions Make the Right Thing Easier
+## The Approach
 
-Shuttle provides both the ontological framework and construction primitives that make building coordination systems more approachable:
+Shuttle provides both the ontological framework and the manual construction primitives for building coordination systems:
 
 **Flow & Coordination Ontology**:
 - Foundational definitions of what constitutes valid data flow patterns
