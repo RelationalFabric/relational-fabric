@@ -1,107 +1,152 @@
 # Relational Fabric
 
-> **Foundational libraries for building data-driven technologies**
+> **Foundational libraries for building truly relational, data-driven technologies**
 
-A family of composable TypeScript libraries that make building data-driven technologies easier by providing the foundational primitives that developers find themselves rebuilding from scratch in every project.
+A family of composable TypeScript libraries that provide both the ontological foundations and construction primitives for building data systems where relationships have semantic meaning, different representations can interoperate, and systems can reason about their data relationally.
+
+## The Vision: Making Data Truly Relational
+
+RelationalFabric aims to make data relationships first-class citizens in application development. While graphs provide structural foundation, the true power comes from making data **semantically relational** - where relationships carry meaning beyond simple connections, where different information models can work together, and where systems can reason about their data with semantic consistency.
+
+This enables building toward distributed, context-sensitive data systems with sophisticated capabilities like semantic collaboration, distributed querying, and data sovereignty - all constructed from composable primitives rather than monolithic solutions.
 
 ## The Problem
 
-Over years of building software, certain patterns prove extremely useful but require starting from scratch every time. The JavaScript ecosystem has solved many problems, but they're "all or nothing" propositions. You can't just grab a unification function from library A and mix it with an in-memory object store from library B.
+Modern data systems face interconnected challenges that go beyond just code reuse:
 
-Modern application frameworks like Vue and React have no obvious way to adapt code for different reactivity primitives. You can get really far with treating data as the first choice for adaptable and composable code bases, but you need to know what you're doing and the tools for getting around that just don't exist.
+**Conceptual Gaps**: What does it even mean to "query", "store", or "coordinate" data in your specific domain? Most developers start building without clear foundational concepts for what their data systems can be.
+
+**Construction Complexity**: How do you build relational algebra, storage systems, and coordination protocols from scratch? The primitives for constructing these systems by hand simply don't exist.
+
+**Semantic Inconsistency**: How do you ensure your data operations have coherent semantics across different representations, storage backends, and query approaches? Without foundational abstractions, every system develops its own incompatible semantics.
+
+**Interoperability Barriers**: Modern applications treat data as "all or nothing" propositions. You can't grab a unification function from library A and mix it with an in-memory object store from library B. Different frameworks can't adapt code for different reactivity primitives.
+
+**Relational Poverty**: While you can get far with treating data as the first choice for adaptable and composable codebases, the tools for making data truly relational - with semantic meaning and interoperability - just don't exist.
 
 ## The Solution
 
-RelationalFabric extracts the fundamental primitives from a proven, working system that successfully handles:
+RelationalFabric provides both the **ontological foundations** and **construction primitives** extracted from a proven, working system. Rather than providing finished frameworks, it gives you:
 
-- In-memory object indexing
-- Object-based pattern query languages
+- **Conceptual Clarity**: Clear frameworks for what storage, query, and coordination systems can be
+- **Construction Freedom**: Building blocks to create exactly what you need by hand
+- **Semantic Consistency**: Foundational concepts that ensure coherent behavior across different operations
+- **Relational Primitives**: Building blocks for semantic interoperability and meaningful data relationships
+
+This enables handling sophisticated capabilities including:
+
+- In-memory object indexing with semantic identity
+- Object-based pattern query languages with ontological foundations
 - Unification with conjunction, disjunction and negation
-- Query processing with aggregate support
-- Class metadata systems for runtime type information
-- Object builder patterns for domain construction
-- Data routing (like URL routing but for objects)
-- Production rules systems
-- Data-driven UI patterns
-
-Rather than building applications directly, RelationalFabric provides the foundational abstractions that enable developers to build these capabilities without reinventing core concepts.
+- Query processing with relational algebra and aggregate support
+- Class metadata systems for runtime type information with domain awareness
+- Object builder patterns for domain construction with semantic consistency
+- Data routing (like URL routing but for semantic objects)
+- Production rules systems with relational semantics
+- Data-driven UI patterns with coordinated state flow
 
 ## The Textile Metaphor
 
-Our naming follows the ancient art of **weaving** - the process of creating fabric by interlacing threads.
+Our naming follows the ancient art of **weaving** - the process of creating fabric by interlacing threads to create something stronger and more useful than the individual components.
 
 **Filament** *(the fundamental fiber)*  
-The most basic element - individual fibers that must first be spun into thread before they can be woven.
+The most basic element - individual fibers that must first be spun into thread before they can be woven. Provides the foundational abstractions for representing and reasoning about data entities with semantic identity and relational primitives.
 
 **Warp** *(the structural foundation)*  
-The threads stretched lengthwise on a loom, providing strength and stability, forming the framework through which other threads pass.
+The threads stretched lengthwise on a loom, providing strength and stability, forming the framework through which other threads pass. Provides the storage foundation primitives that define how data moves, changes, and is accessed over time.
 
 **Weft** *(the creative expression)*  
-The threads that weave horizontally through the warp threads, creating patterns and designs that bring the fabric to life.
+The threads that weave horizontally through the warp threads, creating patterns and designs that bring the fabric to life. Provides the ontological framework and construction primitives for building navigation and query capabilities.
+
+**Shuttle** *(the dynamic weaving force)*  
+The device that carries the weft threads between the warp threads, enabling the entire weaving process. Provides the flow and coordination primitives that enable data movement and system orchestration.
 
 ## Package Overview
 
-### [@relational-fabric/filament](./packages/filament) - Core Primitives
+### [@relational-fabric/filament](./packages/filament) - Core Relational Primitives
 
-The foundational abstractions for representing and reasoning about data entities: typed entities, gradual type learning, object flattening/reification, and minimal diff generation.
+The foundational abstractions that enable truly relational data systems: semantic identity, relational primitives, deterministic hashing, runtime metadata with domain awareness, metaprogramming primitives, and graph structures that support semantic interoperability.
+
+**Vision**: Making data truly relational with first-class ontologies as a key goal for semantic interoperability.
 
 **Status**: 🏗️ *Extraction in progress*
 
-### [@relational-fabric/weft](./packages/weft) - Data Leverage Primitives
+### [@relational-fabric/weft](./packages/weft) - Navigation & Query Construction
 
-The foundational patterns for building data leverage capabilities: unification, object walking, pattern matching, binding collections, and type inference helpers.
+The ontological framework and construction primitives for building navigation and query capabilities. Provides both the conceptual foundation for what query systems can be and the building blocks for constructing relational algebra, pattern matching, and query planning systems by hand.
+
+**Vision**: Enabling domain-specific query languages built from foundational ontologies and construction primitives.
 
 **Status**: 🚧 *Active extraction*
 
 ### [@relational-fabric/warp](./packages/warp) - Storage Foundation Primitives
 
-The foundational patterns for building storage capabilities: transaction logs, indexing strategies, and persistence abstractions.
+The ontological framework and construction primitives for building storage capabilities. Provides the foundational patterns for controlled graph transformation, identity resolution, change representation, and visibility management that enable any storage system.
+
+**Vision**: Universal storage patterns based on semantic preservation and controlled transformation.
 
 **Status**: 📋 *Planned*
 
-### [@relational-fabric/shuttle](./packages/shuttle) - Data Flow & Coordination Primitives
+### [@relational-fabric/shuttle](./packages/shuttle) - Flow & Coordination Construction
 
-The foundational patterns for managing data in motion: event coordination, message passing, reactive streams, flow control, and synchronization primitives.
+The ontological framework and construction primitives for building data flow and coordination capabilities. Provides both the conceptual foundation for what coordination systems can be and the building blocks for constructing message passing, flow control, and boundary management systems by hand.
+
+**Vision**: Domain-specific coordination systems built from foundational flow and coordination ontologies.
 
 **Status**: 📋 *Planned*
 
 ## Core Philosophy
 
-**"Data is Data"** - Whether it's a JavaScript object, application state, persisted records, or reactive streams, the foundational patterns enable building systems that work with it using the same declarative, query-like operations.
+**"Data is Relationally Data"** - Whether it's a JavaScript object, application state, persisted records, or reactive streams, the foundational patterns enable building systems that work with it using semantically consistent, relational operations where relationships have meaning and different representations can interoperate.
 
 This philosophy enables:
-- **Consistent Mental Models**: Same patterns work for building database queries or array filtering systems
-- **Reduced Cognitive Load**: One set of foundational abstractions instead of dozens of different data access patterns
-- **Evolutionary Architecture**: Data operations that adapt as applications grow and change
-- **Composition Over Custom Code**: Building blocks that combine simple, well-tested operations instead of requiring bespoke traversal logic
+- **Semantic Relationships**: Data relationships that carry meaning beyond simple connections
+- **Consistent Mental Models**: Same foundational concepts work across storage, querying, and coordination
+- **Reduced Cognitive Load**: One set of relational abstractions instead of dozens of incompatible patterns
+- **Evolutionary Architecture**: Data operations that adapt as applications grow while preserving semantic meaning
+- **Composition Over Custom Code**: Building complex capabilities from simple, well-understood primitives
+- **Construction Over Frameworks**: Assembling exactly what you need rather than adapting to framework constraints
 
-## Three Orthogonal Axes
+## Three Orthogonal Axes with Ontological Foundations
 
-RelationalFabric organizes primitives along three orthogonal axes:
+RelationalFabric organizes primitives along three orthogonal axes, each providing both ontological foundations and construction primitives:
 
-- **Model/Representation/Core** (Filament): How data is structured and represented
-- **Persistence/Accessibility/Write** (Warp): How data is stored and accessed
-- **Query/Leverage/Read** (Weft): How data is queried and transformed
+- **Model/Representation/Core** (Filament): How data is structured and represented with semantic identity
+- **Persistence/Accessibility/Write** (Warp): How data is stored and transformed while preserving semantic meaning
+- **Query/Leverage/Read** (Weft): How data is queried and navigated through relational patterns
 
-Each axis provides primitives that are useful independently but multiply in power when combined. You can remove any one and still build something meaningful with the others.
+Each axis provides ontological clarity about what systems can be, plus construction primitives that are useful independently but multiply in power when combined. You can remove any one and still build something meaningful with the others.
 
 ## The Extraction Process
 
-RelationalFabric is being extracted from a proven, working system. The process involves:
+RelationalFabric is being extracted from a proven, working system that successfully demonstrates these relational capabilities. The process involves:
 
-1. **Starting with Weft**: Query/pattern matching primitives are being extracted first
-2. **Refactoring to Filament**: Core representation primitives are being identified and extracted
-3. **Moving to Warp**: Storage and persistence primitives will be extracted last
+1. **Starting with Weft**: Query ontologies and pattern matching primitives are being extracted first to establish the conceptual foundations
+2. **Grounding in Filament**: Core relational primitives and semantic identity are being extracted to provide the foundational abstractions
+3. **Enabling with Warp**: Storage ontologies and transformation primitives will be extracted to enable persistent relational systems
+4. **Coordinating with Shuttle**: Flow ontologies and coordination primitives will be extracted to enable distributed relational systems
 
-This piece-by-piece approach allows for leaving behind irrelevant details while discovering the true foundational requirements.
+This piece-by-piece approach allows for discovering the true foundational requirements while leaving behind irrelevant implementation details.
 
-## Future Vision
+## Integration Across the Ecosystem
 
-The ultimate goal is building toward distributed, context-sensitive data systems. RelationalFabric provides the foundational primitives that will enable sophisticated capabilities like distributed querying, semantic collaboration, and data sovereignty - but built from composable components rather than monolithic solutions.
+### Foundational Integration
+- **Filament** provides the core relational primitives that all other packages build upon
+- **Weft** uses Filament's semantic identity and graph primitives for query construction
+- **Warp** extends Filament's foundations with storage-specific semantics and transformation patterns
+- **Shuttle** uses Filament's abstractions for representing coordination ontologies
+
+### Functional Integration
+- **Weft + Warp**: Query systems that work with persistent, evolving data structures through semantic preservation
+- **Weft + Shuttle**: Query results that flow through coordination systems with preserved relational semantics
+- **Warp + Shuttle**: Storage operations coordinated across boundaries while maintaining semantic consistency
+- **All Together**: Complete relational data systems with semantic interoperability across storage, querying, and coordination
 
 ## Contributing
 
-RelationalFabric is an open ecosystem welcoming contributions. Whether you're improving primitives, adding foundational patterns, or exploring new abstractions, we'd love to have you involved.
+RelationalFabric is an open ecosystem welcoming contributions that advance the relational vision. Whether you're improving ontological foundations, adding construction primitives, exploring new relational abstractions, or enhancing semantic interoperability capabilities, we'd love to have you involved.
+
+Since all packages provide foundational ontologies and construction primitives used throughout the ecosystem, contributions require careful consideration of their impact on semantic consistency and relational capabilities across the entire system.
 
 See our [Contributing Guide](./.github/CONTRIBUTING.md) for details on getting started.
 
@@ -113,4 +158,4 @@ MIT - see [LICENSE](./LICENSE) for details.
 
 *"The best way to predict the future is to invent it."* - Alan Kay
 
-RelationalFabric is our invention of the foundational abstractions that will enable the future of data-driven technologies - composable, intelligent, and human-centered.
+RelationalFabric is our invention of the foundational ontologies and construction primitives that will enable the future of truly relational, data-driven technologies - semantically consistent, compositionally powerful, and fundamentally human-centered.
