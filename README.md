@@ -55,7 +55,7 @@ Weft provides both the conceptual framework for what query systems can be and th
 - **Unification Construction**: Building blocks for systems that bind logical variables to values
 - **Traversal Construction**: Components for building navigation through complex data structures
 - **Pattern Matching Construction**: Raw materials for building sophisticated pattern matching systems
-- **Query Planning Construction**: Building blocks for assembling query execution and optimization systems
+- **Query Planning Construction**: Building blocks for assembling query execution, optimization, and index-aware systems
 
 ### 🎯 **Warp** - Storage Construction Primitives
 *Foundational primitives for building storage systems that handle state evolution*

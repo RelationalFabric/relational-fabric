@@ -76,6 +76,7 @@ Building blocks for assembling query execution systems:
 
 - **Plan Representation Tools**: Components for modeling query execution strategies
 - **Optimization Primitives**: Building blocks for query optimization algorithms
+- **Index Awareness Components**: Tools for index-aware query planning and optimization
 - **Execution Strategy Builders**: Raw materials for constructing query executors
 - **Result Aggregation Components**: Tools for collecting and transforming query results
 
