@@ -2,7 +2,7 @@
 
 > *The structural foundation that provides strength and stability*
 
-Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time.
+Warp provides the foundational primitives for building storage capabilities within the Relational Fabric ecosystem. Like the warp threads in traditional weaving that run lengthwise and provide the structural strength for the entire fabric, this library provides the essential primitives that enable developers to build sophisticated storage systems for data at rest, defining how data is represented, changed, and persisted over time.
 
 ## The Challenge
 
@@ -11,7 +11,7 @@ When building storage systems that need to handle state evolution, you constantl
 - Defining what kinds of graphs can represent valid state (ontological requirements)
 - Representing changes and deltas in a consistent way
 - Handling different types of identity and references (tempIds, derived IDs, anonymous IDs, tombstones)
-- Moving data between different representations while preserving semantics
+- Transforming data between different representations while preserving semantics
 - Controlling visibility and access to different parts of the graph
 - Working with both owned data (in graph form) and external data (as opaque references)
 
@@ -24,7 +24,7 @@ Warp provides the proven foundational primitives that enable building any storag
 - **Storage Ontology**: The ontological framework that defines what kinds of graphs can work with Warp operations
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions
 - **Identity Resolution**: Primitives for handling different ID types and reference patterns
-- **Graph Transformation**: Primitives for moving data between any representations (`data over here <=transform=> data over there`)
+- **Graph Transformation**: Primitives for transforming data between different representations while preserving semantics
 - **Visibility Primitives**: Primitives for controlling node/edge access based on context and permissions
 
 ## Core Concepts
@@ -60,12 +60,12 @@ Primitives for handling different ID types and reference patterns:
 
 ### Graph Transformation
 
-The central primitive for moving data between any representations:
+The central primitive for transforming data between different representations:
 
-- **Representation Mapping**: Primitives for `data over here <=transform=> data over there`
-- **Persistence Transformation**: Memory ↔ storage representations
-- **Network Transformation**: Local ↔ remote representations  
-- **Temporal Transformation**: State at different time points
+- **Representation Mapping**: Primitives for transforming between different data representations
+- **Persistence Transformation**: Memory ↔ storage representations for data persistence
+- **Serialization Transformation**: Converting between serialized and in-memory representations
+- **Temporal Transformation**: State at different time points for versioning and history
 - **Format Transformation**: Between different data formats while preserving semantics
 - **Selective Transformation**: Choosing what to transform vs keep as opaque references
 

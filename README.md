@@ -58,15 +58,15 @@ Weft provides both the conceptual framework for what query systems can be and th
 - **Query Planning Construction**: Building blocks for assembling query execution, optimization, and index-aware systems
 
 ### 🎯 **Warp** - Storage Construction Primitives
-*Foundational primitives for building storage systems that handle state evolution*
+*Foundational primitives for building storage systems that handle data at rest*
 
-Warp provides the essential primitives that enable developers to build sophisticated storage systems by defining how data moves, changes, and is accessed over time. It focuses on the foundational capabilities needed when building any storage system that handles evolving state.
+Warp provides the essential primitives that enable developers to build sophisticated storage systems for data at rest. It focuses on the foundational capabilities needed when building storage systems that handle state representation, changes, and persistence rather than data movement.
 
 **Core Abstractions:**
-- **Storage Ontology**: Framework defining what kinds of graphs can work with storage operations
+- **Storage Ontology**: Framework defining what kinds of graphs can represent valid state at rest
 - **Change Representation**: Primitives for representing deltas, edits, and state transitions
 - **Identity Resolution**: Primitives for handling different ID types and reference patterns
-- **Graph Transformation**: Primitives for moving data between representations while preserving semantics
+- **Graph Transformation**: Primitives for transforming data representations while preserving semantics
 
 ### 🚀 **Shuttle** - Flow & Coordination Construction
 *Ontological framework and construction primitives for building coordination systems*
