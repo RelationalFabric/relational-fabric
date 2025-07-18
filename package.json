@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "turbo watch build",
     "build": "turbo build",
-    "test": "vitest run",
+    "test": "turbo test",
     "typecheck": "tsc --noEmit",
     "clean": "turbo run clean",
     "deploy": "turbo run deploy"
