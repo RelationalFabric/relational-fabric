@@ -1,6 +1,9 @@
 {
   "name": "@relational-fabric/pinia",
   "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,9 +12,6 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "author": "",
-  "license": "MIT",
-  "description": "",
   "dependencies": {
     "@relational-fabric/filament": "*",
     "@relational-fabric/weft": "*",
@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "*",
+    "@vitest/coverage-v8": "*",
     "jsdom": "^26.1.0",
     "pinia": "^3.0.3",
     "vitest": "*",
-    "@vitest/coverage-v8": "*",
     "vue": "^3.5.17"
   }
 }

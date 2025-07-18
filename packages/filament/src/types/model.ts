@@ -1,4 +1,4 @@
-import { AnyThing, EntityInterface } from "./entity.js"
+import type { AnyThing, EntityInterface } from './entity.js'
 
 export type ManyTypedReturn<T> = T extends unknown[] ? true : false
 

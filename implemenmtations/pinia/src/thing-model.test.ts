@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createPinia, setActivePinia } from 'pinia'
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { nextTick, watchEffect } from 'vue'
 
 import { entityRef, retractRef, tombstoneRef, useThingModelStore } from './thing-model'
 
 import type { AnyThing, ModelStoreInterface, ThingUpdate } from './types'
-import type { Person, Pet, Company, Group, Message } from './types/test.js'
+import type { Company, Group, Message, Person, Pet } from './types/test.js'
 
 // Add interface extension for test
 interface TestPerson extends Person {
@@ -29,7 +28,7 @@ interface TestGroup extends Omit<Group, 'members' | 'name'> {
   name?: string
   members?: Person[]
   tags?: string[]
-  metadata?: Array<{ key: string; value: string }>
+  metadata?: Array<{ key: string, value: string }>
 }
 
 let store: ModelStoreInterface
@@ -241,7 +240,7 @@ describe('useModelThingStore', () => {
           name: 'Alice',
           email: 'alice@example.com',
         } as TestPerson,
-      } as any
+      } as Group
 
       await store.add([group])
 
@@ -264,14 +263,14 @@ describe('useModelThingStore', () => {
       const results = await store.search<Person>('Xerxes')
       expect(
         results.size,
-        `Search for 'Xerxes' returned ${results.size} results: [${results.result.map((r) => `${r.__type}:${r.name}`).join(', ')}]` as string
+        `Search for 'Xerxes' returned ${results.size} results: [${results.result.map(r => `${r.__type}:${r.name}`).join(', ')}]` as string,
       ).toBe(2)
       expect(
-        results.result.map((r) => r.id).sort(),
+        results.result.map(r => r.id).sort(),
         `Search for 'Xerxes' returned unexpected IDs: [${results.result
-          .map((r) => r.id)
+          .map(r => r.id)
           .sort()
-          .join(', ')}]`
+          .join(', ')}]`,
       ).toEqual(['1', '2'])
     })
 
@@ -285,11 +284,11 @@ describe('useModelThingStore', () => {
       const results = await store.search<Person>('Xerxes', 'Person')
       expect(
         results.size,
-        `Search for 'Xerxes' in type 'Person' returned ${results.size} results: [${results.result.map((r) => `${r.__type}:${r.name}`).join(', ')}]`
+        `Search for 'Xerxes' in type 'Person' returned ${results.size} results: [${results.result.map(r => `${r.__type}:${r.name}`).join(', ')}]`,
       ).toBe(1)
       expect(
         results.result[0].id,
-        `Search for 'Xerxes' in type 'Person' returned wrong entity: ${results.result[0].__type}:${results.result[0].name}`
+        `Search for 'Xerxes' in type 'Person' returned wrong entity: ${results.result[0].__type}:${results.result[0].name}`,
       ).toBe('1')
     })
   })
@@ -313,7 +312,8 @@ describe('useModelThingStore', () => {
       // Simulate a failure by trying to add an invalid entity
       try {
         await store.add([{ ...jane, __type: undefined } as unknown as AnyThing])
-      } catch (e) {
+      }
+      catch {
         // Expected error
       }
       endBatch()
@@ -424,7 +424,8 @@ describe('useModelThingStore', () => {
       const endBatch2 = store.beginBatch('inner')
       try {
         await store.add([invalidPerson])
-      } catch (e) {
+      }
+      catch {
         // Expected error
       }
       endBatch2() // inner
@@ -451,7 +452,8 @@ describe('useModelThingStore', () => {
       // Set up watcher after batch start but before changes
       const stop = watchEffect(async () => {
         const thing = await store.getThing<Person>('1', 'Person')
-        if (thing) changes.push(thing.name)
+        if (thing)
+          changes.push(thing.name)
       })
 
       await store.add([person])
@@ -510,7 +512,7 @@ describe('useModelThingStore', () => {
         store.getThing<Person>('3', 'Person'),
       ])
 
-      expect(entities.map((e) => e?.name)).toEqual(['John', 'Jane', 'Bob'])
+      expect(entities.map(e => e?.name)).toEqual(['John', 'Jane', 'Bob'])
     })
   })
 
@@ -877,8 +879,9 @@ describe('useModelThingStore', () => {
         {
           id: 'g-tombstone',
           __type: 'Group',
+          name: 'Tombstone Group',
           members: [tombstoneRef('*')],
-        } as any,
+        } as AnyThing,
       ])
       retrievedGroup = await store.getThing<Group>('g-tombstone', 'Group')
       expect(retrievedGroup?.members).toHaveLength(0)
@@ -908,7 +911,7 @@ describe('useModelThingStore', () => {
             tombstoneRef('*'),
             { id: '6', __type: 'Person', name: 'Zara' },
           ],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       retrievedGroup = await store.getThing<Group>('g-tombstone2', 'Group')
       expect(retrievedGroup?.members).toHaveLength(1)
@@ -932,7 +935,7 @@ describe('useModelThingStore', () => {
           id: 'g-tombstone3',
           __type: 'Group',
           members: [tombstoneRef('*')],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       retrievedGroup = await store.getThing<Group>('g-tombstone3', 'Group')
       expect(retrievedGroup?.members).toHaveLength(0)
@@ -998,13 +1001,13 @@ describe('useModelThingStore', () => {
         id: '3',
         __type: 'Person',
         name: 'Bob',
-      } as any
+      }
       const person: Person = {
         id: '4',
         __type: 'Person',
         name: 'Alice',
         friend,
-      } as any
+      }
 
       await store.add([friend, person])
 
@@ -1013,7 +1016,7 @@ describe('useModelThingStore', () => {
         id: '4',
         __type: 'Person',
         friend: undefined,
-      } as any
+      } as ThingUpdate<Person>
 
       await store.add([update])
 
@@ -1033,13 +1036,13 @@ describe('useModelThingStore', () => {
         id: '5',
         __type: 'Person',
         name: 'Charlie',
-      } as any
+      }
       const person: Person = {
         id: '6',
         __type: 'Person',
         name: 'Dana',
         friend,
-      } as any
+      }
 
       await store.add([friend, person])
 
@@ -1048,7 +1051,7 @@ describe('useModelThingStore', () => {
         id: '6',
         __type: 'Person',
         name: 'Dana',
-      } as any
+      } as ThingUpdate<Person>
 
       await store.add([update])
 
@@ -1085,7 +1088,7 @@ describe('useModelThingStore', () => {
 
     it('should perform search operations with consistent results', async () => {
       const timings: number[] = []
-      const results: { size: number; ids: string[] }[] = []
+      const results: { size: number, ids: string[] }[] = []
 
       // Test with different entity counts
       for (const count of [100, 200]) {
@@ -1104,7 +1107,7 @@ describe('useModelThingStore', () => {
         timings.push(time)
         results.push({
           size: searchResult.size,
-          ids: searchResult.result.map((r) => r.id).sort(),
+          ids: searchResult.result.map(r => r.id).sort(),
         })
       }
 
@@ -1114,7 +1117,7 @@ describe('useModelThingStore', () => {
 
       // Verify results are deterministic
       const secondSearch = await store.search('Person')
-      expect(secondSearch.result.map((r) => r.id).sort()).toEqual(results[1].ids)
+      expect(secondSearch.result.map(r => r.id).sort()).toEqual(results[1].ids)
 
       // Verify type filtering works
       const typedSearch = await store.search('Person', 'Person')
@@ -1136,7 +1139,8 @@ describe('useModelThingStore', () => {
       const changes: Person[] = []
       const stop = watchEffect(async () => {
         const thing = await store.getThing<Person>('1', 'Person')
-        if (thing) changes.push(thing)
+        if (thing)
+          changes.push(thing)
       })
 
       await store.add([person])
@@ -1169,7 +1173,8 @@ describe('useModelThingStore', () => {
       const stop = watchEffect(async () => {
         console.log('watchEffect', changes.length)
         const thing = await store.getThing<Person>('1', 'Person')
-        if (thing) changes.push(thing)
+        if (thing)
+          changes.push(thing)
       })
 
       try {
@@ -1189,8 +1194,8 @@ describe('useModelThingStore', () => {
 
         expect(changes.length).toBe(1) // Changes visible after batch
         expect(changes[0].name).toBe('John')
-
-      } finally {
+      }
+      finally {
         stop()
       }
     })
@@ -1211,7 +1216,8 @@ describe('useModelThingStore', () => {
       const memberChanges: Person[][] = []
       const stop = watchEffect(async () => {
         const thing = await store.getThing<Group>('g1', 'Group')
-        if (thing?.members) memberChanges.push([...thing.members])
+        if (thing?.members)
+          memberChanges.push([...thing.members])
       })
 
       // Initial add
@@ -1220,7 +1226,7 @@ describe('useModelThingStore', () => {
 
       expect(memberChanges.length).toBe(1)
       expect(memberChanges[0]).toHaveLength(2)
-      expect(memberChanges[0].map((m) => m.name)).toEqual(['John', 'Jane'])
+      expect(memberChanges[0].map(m => m.name)).toEqual(['John', 'Jane'])
 
       // Add a new member (additive update)
       const bob: Person = { id: '3', __type: 'Person', name: 'Bob' }
@@ -1229,7 +1235,7 @@ describe('useModelThingStore', () => {
 
       expect(memberChanges.length).toBe(2)
       expect(memberChanges[1]).toHaveLength(3)
-      expect(memberChanges[1].map((m) => m.name).sort()).toEqual(['Bob', 'Jane', 'John'])
+      expect(memberChanges[1].map(m => m.name).sort()).toEqual(['Bob', 'Jane', 'John'])
 
       // Add another member (additive update)
       const alice: Person = { id: '4', __type: 'Person', name: 'Alice' }
@@ -1238,14 +1244,14 @@ describe('useModelThingStore', () => {
 
       expect(memberChanges.length).toBe(3)
       expect(memberChanges[2]).toHaveLength(4)
-      expect(memberChanges[2].map((m) => m.name).sort()).toEqual(['Alice', 'Bob', 'Jane', 'John'])
+      expect(memberChanges[2].map(m => m.name).sort()).toEqual(['Alice', 'Bob', 'Jane', 'John'])
 
       // Remove a member
       await store.remove([members[0]])
       await nextTick()
 
       expect(memberChanges.length).toBe(4)
-      expect(memberChanges[3].map((m) => m.name).sort()).toEqual(['Alice', 'Bob', 'Jane'])
+      expect(memberChanges[3].map(m => m.name).sort()).toEqual(['Alice', 'Bob', 'Jane'])
 
       stop()
     })
@@ -1272,7 +1278,7 @@ describe('useModelThingStore', () => {
       // Verify group and all members are stored
       const retrievedGroup = await store.getThing<Group>('g1', 'Group')
       expect(retrievedGroup?.members).toHaveLength(3)
-      expect(retrievedGroup?.members.map((m) => m.name)).toEqual(['John', 'Jane', 'Bob'])
+      expect(retrievedGroup?.members.map(m => m.name)).toEqual(['John', 'Jane', 'Bob'])
       expect(retrievedGroup?.leader?.name).toBe('John')
 
       // Verify members are properly stored as individual entities
@@ -1359,7 +1365,7 @@ describe('useModelThingStore', () => {
           id: 'g-additive',
           __type: 'Group',
           members: [member1],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       let retrievedGroup = await store.getThing<Group>('g-additive', 'Group')
       expect(retrievedGroup?.members).toHaveLength(1)
@@ -1370,12 +1376,12 @@ describe('useModelThingStore', () => {
           id: 'g-additive',
           __type: 'Group',
           members: [member2],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       retrievedGroup = await store.getThing<Group>('g-additive', 'Group')
       console.log('retrievedGroup', retrievedGroup)
       // Should contain both members, not just the last one
-      const memberIds = (retrievedGroup?.members ?? []).map((m) => m.id).sort()
+      const memberIds = (retrievedGroup?.members ?? []).map(m => m.id).sort()
       expect(memberIds).toEqual(['a1', 'a2'])
     })
 
@@ -1394,19 +1400,19 @@ describe('useModelThingStore', () => {
           id: 'g-idempotent',
           __type: 'Group',
           members: [member],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       await store.add([
         {
           id: 'g-idempotent',
           __type: 'Group',
           members: [member],
-        } as any,
+        } as any, // eslint-disable-line ts/no-explicit-any
       ])
       const retrievedGroup = await store.getThing<Group>('g-idempotent', 'Group')
       // Should only contain the member once
-      const memberIds = (retrievedGroup?.members ?? []).map((m) => m.id)
-      expect(memberIds.filter((id) => id === 'idemp1')).toHaveLength(1)
+      const memberIds = (retrievedGroup?.members ?? []).map(m => m.id)
+      expect(memberIds.filter(id => id === 'idemp1')).toHaveLength(1)
     })
 
     it('should handle circular references with arrays', async () => {
@@ -1434,7 +1440,6 @@ describe('useModelThingStore', () => {
     })
   })
 
-
   describe('entity reference handling', () => {
     // Complete entities - ID and Type
     describe('complete entities (ID and Type)', () => {
@@ -1449,7 +1454,7 @@ describe('useModelThingStore', () => {
         const retrieved = await store.getThing<TestOrganization>('org1')
         expect(
           retrieved?.id,
-          `Entity retrieval by ID failed: ${JSON.stringify(retrieved, null, 2)}`
+          `Entity retrieval by ID failed: ${JSON.stringify(retrieved, null, 2)}`,
         ).toBe('org1')
         expect(retrieved?.__type).toBe('Organization')
         expect(retrieved?.name).toBe('Acme Inc')
@@ -1457,7 +1462,7 @@ describe('useModelThingStore', () => {
     })
 
     // ID-only references
-    describe('ID-only references', () => {
+    describe('iD-only references', () => {
       it('should resolve references with ID only', async () => {
         // First add a complete entity
         const org = {
@@ -1480,11 +1485,11 @@ describe('useModelThingStore', () => {
         const retrieved = await store.getThing<TestPerson>('person1')
         expect(
           retrieved?.worksFor?.id,
-          `Reference resolution by ID failed: ${JSON.stringify(retrieved?.worksFor, null, 2)}`
+          `Reference resolution by ID failed: ${JSON.stringify(retrieved?.worksFor, null, 2)}`,
         ).toBe('org1')
         expect(
           retrieved?.worksFor?.name,
-          `Works for name is wrong: ${JSON.stringify(retrieved, null, 2)}`
+          `Works for name is wrong: ${JSON.stringify(retrieved, null, 2)}`,
         ).toBe('Acme Inc')
       })
 
@@ -1510,7 +1515,7 @@ describe('useModelThingStore', () => {
         const retrieved = await store.getThing<TestPerson>('person1')
         expect(
           retrieved?.worksFor?.__type,
-          `Type information not preserved: ${JSON.stringify(retrieved?.worksFor, null, 2)}`
+          `Type information not preserved: ${JSON.stringify(retrieved?.worksFor, null, 2)}`,
         ).toBe('Organization')
       })
 
@@ -1532,7 +1537,7 @@ describe('useModelThingStore', () => {
         const updatedPerson = {
           id: 'person1',
           __type: 'Person', // Need to include type for root entities
-          worksFor: { id: 'org1' } as any, // Cast to any for the ID-only reference
+          worksFor: { id: 'org1' } as any, // eslint-disable-line ts/no-explicit-any
         }
         await store.add([updatedPerson])
 
@@ -1540,11 +1545,11 @@ describe('useModelThingStore', () => {
         const retrieved = await store.getThing<TestPerson>('person1')
         expect(retrieved, `Person ${retrieved?.id} not found`).toBeDefined()
         expect(retrieved?.name, `Person ${JSON.stringify(retrieved, null, 2)} has wrong name`).toBe(
-          'John Doe'
+          'John Doe',
         ) // Original fields preserved
         expect(
           retrieved?.worksFor?.id,
-          `Reference not properly updated: ${JSON.stringify(retrieved?.worksFor, null, 2)}`
+          `Reference not properly updated: ${JSON.stringify(retrieved?.worksFor, null, 2)}`,
         ).toBe('org1')
         expect(retrieved?.worksFor?.name).toBe('Acme Inc')
       })
@@ -1606,7 +1611,7 @@ describe('useModelThingStore', () => {
           worksFor: {
             id: 'typeless1',
             name: 'Typeless Entity',
-          } as any, // Deliberately missing __type to test handling
+          } as Company, // Deliberately missing __type to test handling
         }
 
         // Add the person with nested untyped reference
@@ -1620,28 +1625,28 @@ describe('useModelThingStore', () => {
         expect(retrievedTypeless, 'Typeless entity should exist in store').toBeDefined()
         expect(
           retrievedTypeless?.name,
-          `Typeless entity has wrong name: ${retrievedTypeless?.name}`
+          `Typeless entity has wrong name: ${retrievedTypeless?.name}`,
         ).toBe('Typeless Entity')
 
         // The person should be able to reference the typeless entity
         expect(
           retrievedPerson?.worksFor,
-          `Person should have worksFor reference to typeless entity: ${JSON.stringify(retrievedPerson, null, 2)}`
+          `Person should have worksFor reference to typeless entity: ${JSON.stringify(retrievedPerson, null, 2)}`,
         ).toBeDefined()
         expect(
           retrievedPerson?.worksFor?.id,
-          `Person's worksFor reference has wrong id: ${retrievedPerson?.worksFor?.id}`
+          `Person's worksFor reference has wrong id: ${retrievedPerson?.worksFor?.id}`,
         ).toBe('typeless1')
         expect(
           retrievedPerson?.worksFor?.name,
-          `Person's worksFor reference has wrong name: ${JSON.stringify(retrievedPerson?.worksFor, null, 2)}`
+          `Person's worksFor reference has wrong name: ${JSON.stringify(retrievedPerson?.worksFor, null, 2)}`,
         ).toBe('Typeless Entity')
 
         // Type should be $untyped$ or undefined - either is acceptable
         const worksForType = retrievedPerson?.worksFor?.__type as string | undefined
         expect(
           worksForType === '$untyped$' || worksForType === undefined,
-          `Person's worksFor reference should have no or special type: ${worksForType}`
+          `Person's worksFor reference should have no or special type: ${worksForType}`,
         ).toBeTruthy()
       })
 

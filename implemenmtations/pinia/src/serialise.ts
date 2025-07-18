@@ -1,4 +1,3 @@
-
 import * as devalue from 'devalue'
 
 import { TXReport } from './tx'

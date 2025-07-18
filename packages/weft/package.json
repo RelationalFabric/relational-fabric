@@ -1,10 +1,8 @@
 {
   "name": "@relational-fabric/weft",
+  "type": "module",
   "version": "0.0.3",
   "description": "Core types and utilities for Relational Fabric",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -17,6 +15,8 @@
       "default": "./dist/compat/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "dev": "tsc --watch",

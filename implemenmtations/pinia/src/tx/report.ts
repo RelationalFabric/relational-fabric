@@ -1,18 +1,18 @@
 import * as lodash from 'lodash'
 
 import type {
-  TXReportInterface,
-  TxType,
-  TxInfo,
-  TxData,
-  TxOpList,
+  AnyThing,
   DBResult,
   Refs,
-  AnyThing,
+  TXReportInterface,
+  TxData,
+  TxInfo,
+  TxOpList,
+  TxType,
 } from '../types'
 
 export function flattenEntity<T extends AnyThing>(
-  thing: T
+  thing: T,
 ): AnyThing[] {
   const flattened: Map<string, AnyThing> = new Map([[thing.id, thing]])
   Object.entries(thing).forEach(([_, value]) => {
@@ -22,7 +22,8 @@ export function flattenEntity<T extends AnyThing>(
         const current = flattened.get(child.id)
         if (current) {
           flattened.set(child.id, lodash.merge(current, child))
-        } else {
+        }
+        else {
           flattened.set(child.id, child)
         }
       })
@@ -35,7 +36,8 @@ export function flattenEntity<T extends AnyThing>(
             const current = flattened.get(grandChild.id)
             if (current) {
               flattened.set(grandChild.id, { ...current, ...grandChild })
-            } else {
+            }
+            else {
               flattened.set(grandChild.id, grandChild)
             }
           })
@@ -52,7 +54,7 @@ export class TXReport<Ops extends readonly TxType[]> implements TXReportInterfac
     public txData: TxInfo<TxData>,
     public type: Ops,
     public dbResult: DBResult = {} as DBResult,
-    public txMetadata: Record<string, unknown> = {}
+    public txMetadata: Record<string, unknown> = {},
   ) {}
 
   get opName(): TxOpList<Ops> {
@@ -60,17 +62,17 @@ export class TXReport<Ops extends readonly TxType[]> implements TXReportInterfac
   }
 
   merge<Ops2 extends readonly TxType[]>(
-    report: TXReportInterface<Ops2>
+    report: TXReportInterface<Ops2>,
   ): TXReportInterface<[...Ops, ...Ops2]> {
     if (!(report instanceof TXReport)) {
-      throw new Error('Cannot merge non-TXReport')
+      throw new TypeError('Cannot merge non-TXReport')
     }
     return new TXReport(
       Math.max(this.basisT, report.basisT),
       [...this.txData, ...report.txData],
       [...this.type, ...report.type],
       { ...this.dbResult, ...report.dbResult },
-      { ...this.txMetadata, ...report.txMetadata }
+      { ...this.txMetadata, ...report.txMetadata },
     ) as unknown as TXReportInterface<[...Ops, ...Ops2]>
   }
 }

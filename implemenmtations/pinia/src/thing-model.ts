@@ -3,41 +3,39 @@ import lodash from 'lodash'
 import { sha1 as objectHash } from 'object-hash'
 import { defineStore } from 'pinia'
 
+import { computed, markRaw, ref, shallowRef, toRaw, unref } from 'vue'
+import { computedAsync, until, useSessionStorage, watchDebounced, watchImmediate, whenever } from '@vueuse/core'
+import { runQuery } from '@relational-fabric/weft/compat'
 import { TXReport } from './tx'
 
 import type {
-  ModelStoreInterface,
-  StoreAPI,
-  TypeAtPath,
-  EndBatchFn,
-  QueryInterface,
-  ResultSet,
-  Query,
-  ThingUpdate,
-  TXReportInterface,
-  ManyTypedReturn,
-  PatternReturnType,
-  TxType,
   AnyThing,
+  DSResultSet,
+  EndBatchFn,
   EntityInterface,
-  TombstoneType,
-  RetractType,
-  EntityType,
-  ThingRef,
-  TombstoneRef,
-  RetractRef,
-  RefType,
   EntityRef,
+  EntityType,
+  ModelStoreInterface,
+  Query,
   QueryFn,
-  DSResultSet
+  QueryInterface,
+  RefType,
+  ResultSet,
+  RetractRef,
+  RetractType,
+  StoreAPI,
+  TXReportInterface,
+  ThingRef,
+  ThingUpdate,
+  TombstoneRef,
+  TombstoneType,
+  TxType,
+  TypeAtPath,
 } from './types'
 
-import { computed, markRaw, ref, shallowRef, toRaw, unref } from 'vue'
-import { computedAsync, until, useSessionStorage, watchDebounced, watchImmediate, whenever } from '@vueuse/core'
 import { parse, stringify } from './serialise.js'
 import { splitBy } from './collection.js'
 import { Score } from './scoring.js'
-import { runQuery } from '@relational-fabric/weft/compat'
 
 const NotFoundLabel = '$notfound$'
 
@@ -56,7 +54,7 @@ export class ModelError extends Error {
 export function getReifiedHelper<T extends object, P extends string[]>(
   thing: T,
   path: P,
-  getThing: (id: string) => AnyThing | undefined
+  getThing: (id: string) => AnyThing | undefined,
 ): TypeAtPath<T, P> | undefined {
   if (path.length === 0) {
     throw new Error('Path must have at least one element')
@@ -86,12 +84,12 @@ export function isObject(value: unknown): value is object {
   return typeof value === 'object' && value !== null
 }
 
-export function isThingReference<T extends ThingRef>(value: T| unknown): value is T {
+export function isThingReference<T extends ThingRef>(value: T | unknown): value is T {
   return (
-    isObject(value) &&
-    '__ref' in value &&
-    Array.isArray((value as ThingRef).__ref) &&
-    (value as ThingRef).__ref.length === 2
+    isObject(value)
+    && '__ref' in value
+    && Array.isArray((value as ThingRef).__ref)
+    && (value as ThingRef).__ref.length === 2
   )
 }
 
@@ -187,7 +185,7 @@ function updateMap<K, V, M extends Map<K, V>>(
   map: M,
   key: K,
   fn: (value?: V) => V,
-  defaultValue?: V
+  defaultValue?: V,
 ): M {
   map.set(key, fn(map.get(key) ?? defaultValue))
   return map
@@ -264,7 +262,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
         return emptyIndex()
       }
       return parse(savedIndexString.value) as Omit<typeof index.value, 'searchIndex'>
-    } catch (e) {
+    }
+    catch (e) {
       console.warn('ThingModelStore: error parsing saved index', e)
       return emptyIndex()
     }
@@ -302,11 +301,12 @@ export const useThingModelStore = defineStore('thing-model', () => {
       const { searchIndex: _, ...rest } = index
       try {
         savedIndexString.value = stringify(rest)
-      } catch (e) {
+      }
+      catch (e) {
         console.error('ThingModelStore: error stringifying index', e, rest)
       }
       console.log('ThingModelStore: watch index: saved index', savedIndex.value)
-    }
+    },
   )
 
   watchImmediate(savedIndex, (savedIndex) => {
@@ -346,7 +346,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         index.value.version.delete(type)
       }
       index.value.typeById.delete(id)
-      index.value.searchIndex.remove((e) => e.id === id)
+      index.value.searchIndex.remove(e => e.id === id)
     }
   }
 
@@ -369,7 +369,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   })
   // const statsSpan = tracing.state('stats', 'thing-model', stats.value)
   // Watch index changes for debugging
-  watchImmediate(stats, (stats) => {
+  watchImmediate(stats, (_stats) => {
     // [REMOVE] tracing.event('stats', 'thing-model', stats)
     // statsSpan.changed(stats)
   })
@@ -424,8 +424,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
         }
         stale.value = true
       }
-      const batchNum = oldCount
-      // batchSpans.delete(batchNum)
+      const _batchNum = oldCount
+      // batchSpans.delete(_batchNum)
     }
   }
 
@@ -440,7 +440,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     // If existing is retract or new op is upsert, keep existing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line ts/no-explicit-any
   type AnyFunction = (...args: any[]) => any
 
   type BuiltInType =
@@ -454,7 +454,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
 
   function isInternalObject<T extends BuiltInType>(obj: unknown): obj is T {
     const builtInTypes = [Function, Map, Set, WeakMap, WeakSet, Date, RegExp]
-    return obj != null && builtInTypes.some((type) => obj instanceof type)
+    return obj != null && builtInTypes.some(type => obj instanceof type)
   }
 
   function isUntyped(type?: string): type is undefined | UntypedType {
@@ -464,7 +464,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   const excludePrefixes: string[] = []
 
   function excludedId(id: string): boolean {
-    return excludePrefixes.some((prefix) => id.startsWith(prefix))
+    return excludePrefixes.some(prefix => id.startsWith(prefix))
   }
 
   function getTypeById(id: string, notFound: string = UntypedName): string | undefined {
@@ -481,15 +481,16 @@ export const useThingModelStore = defineStore('thing-model', () => {
 
   // Helper: Check if entity is identifier-only
   function isIdentifierOnly(entity: unknown): boolean {
-    if (!entity || typeof entity !== 'object') return false
+    if (!entity || typeof entity !== 'object')
+      return false
     const keys = Object.keys(entity as object)
     return (
-      keys.length === 0 ||
-      (keys.length === 1 && keys[0] === 'id') ||
-      (keys.length === 2 &&
-        keys.includes('id') &&
-        keys.includes('__type') &&
-        isUntyped((entity as { __type?: string }).__type))
+      keys.length === 0
+      || (keys.length === 1 && keys[0] === 'id')
+      || (keys.length === 2
+        && keys.includes('id')
+        && keys.includes('__type')
+        && isUntyped((entity as { __type?: string }).__type))
     )
   }
 
@@ -521,7 +522,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     const typeIndex = index.value.entity.get(type) || new Map()
     const versionTypeIndex = index.value.version.get(type) || new Map()
     typeIndex.set(id, entity)
-    updateMap(versionTypeIndex, id, (existing) => ++existing, 1)
+    updateMap(versionTypeIndex, id, existing => ++existing, 1)
     updateMap(
       index.value.entity,
       type,
@@ -529,7 +530,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         entityIndex.set(id, entity)
         return entityIndex
       },
-      new Map()
+      new Map(),
     )
     updateMap(
       index.value.version,
@@ -538,16 +539,17 @@ export const useThingModelStore = defineStore('thing-model', () => {
         versionIndex.set(id, 1)
         return versionIndex
       },
-      new Map()
+      new Map(),
     )
     updateMap(index.value.typeById, id, () => type, UntypedName)
-    index.value.searchIndex.remove((e) => e.id === (entity as { id: string }).id)
+    index.value.searchIndex.remove(e => e.id === (entity as { id: string }).id)
     index.value.searchIndex.add(entity)
   }
 
   // --- Helper: Move entity between type indexes ---
   function indexMoveEntity(id: string, oldType: string, newType: string) {
-    if (!id || !oldType || !newType) return
+    if (!id || !oldType || !newType)
+      return
     if (isUntyped(newType)) {
       throw new Error('Cannot move entity to untyped type')
     }
@@ -572,7 +574,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     value: T | unknown,
     changes: ChangeMap,
     parents: Set<AnyThing>,
-    oldValue?: T | unknown
+    oldValue?: T | unknown,
   ): T | unknown {
     if (typeof value === 'function') {
       console.error('Unable to index function value', { value, parents })
@@ -599,15 +601,15 @@ export const useThingModelStore = defineStore('thing-model', () => {
         return typeof item === 'object' ? objectHash(item) : String(item)
       }
       const oldIdMap: Record<string, AnyThing> = Array.isArray(oldValue)
-        ? Object.fromEntries(oldValue.map((item) => [id(item), item]))
+        ? Object.fromEntries(oldValue.map(item => [id(item), item]))
         : isEntity(oldValue)
           ? { [id(oldValue)]: oldValue }
           : {}
       const [tombstones, values] = splitBy<TombstoneRef, AnyThing | TombstoneRef>(
         value,
-        isTombstoneRef
+        isTombstoneRef,
       )
-      const idMap = Object.fromEntries(values.map((item) => [id(item), item]))
+      const idMap = Object.fromEntries(values.map(item => [id(item), item]))
       const cleanIdMap = tombstones.reduce((acc, item) => {
         const [_refType, refId] = item.__ref
         if (refId === '*') {
@@ -626,7 +628,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         }
         return indexChild<T>(newItem, changes, new Set(parents), oldItem)
       })
-      return newVal.filter((item) => item !== undefined)
+      return newVal.filter(item => item !== undefined)
     }
     // Case: object with id (cycle/reference/index)
     if (isEntity(value)) {
@@ -649,7 +651,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
     for (const [key, propValue] of assertions) {
       if (propValue === null) {
         result[key] = undefined
-      } else {
+      }
+      else {
         result[key] = indexChild<T>(propValue, changes, new Set(parents))
       }
     }
@@ -660,7 +663,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   function indexEntity<T extends AnyThing>(
     entity: ThingUpdate<T>,
     changes: ChangeMap,
-    parents: Set<AnyThing> = new Set()
+    parents: Set<AnyThing> = new Set(),
   ): T | undefined {
     if (!isObject(entity)) {
       return entity as T
@@ -677,8 +680,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
       return undefined
     }
     // 3. Determine intended type
-    const intendedType =
-      currentType !== '$notFound$' ? mostSpecificType(type, currentType, UntypedName) : type
+    const intendedType
+      = currentType !== '$notFound$' ? mostSpecificType(type, currentType, UntypedName) : type
     // 4. Handle type changes
     if (currentType !== '$notFound$' && intendedType !== currentType) {
       indexMoveEntity((entity as { id: string }).id, currentType, intendedType)
@@ -717,7 +720,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         value,
         changes,
         new Set(parents),
-        oldValue
+        oldValue,
       ) as T[keyof T]
     }
 
@@ -730,7 +733,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         ...existingEntity,
         ...processedEntity,
       },
-      intendedType
+      intendedType,
     )
     addChange(changes, 'upsert', {
       id: processedEntity.id,
@@ -742,7 +745,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
 
   function getChangedFields(
     existing: AnyThing,
-    updated: AnyThing
+    updated: AnyThing,
   ): Record<string, unknown> {
     const changes: Record<string, unknown> = {}
     Object.entries(updated).forEach(([key, value]) => {
@@ -755,14 +758,16 @@ export const useThingModelStore = defineStore('thing-model', () => {
   }
 
   function assertTypedThings(things: AnyThing[]) {
-    things.forEach((thing) => assertTypedEntity(thing))
+    things.forEach(thing => assertTypedEntity(thing))
   }
 
   function assertTypedEntity(thing: AnyThing) {
     if (!isTypedEntity(thing)) {
       const missingFields = []
-      if (!('__type' in thing)) missingFields.push('__type')
-      if (!('id' in thing)) missingFields.push('id')
+      if (!('__type' in thing))
+        missingFields.push('__type')
+      if (!('id' in thing))
+        missingFields.push('id')
 
       // Get all keys for diagnostic
       const keys = Object.keys(thing as object)
@@ -771,24 +776,24 @@ export const useThingModelStore = defineStore('thing-model', () => {
       const scalarProps = Object.entries(thing as object)
         .filter(
           ([_key, value]) =>
-            value === null || ['string', 'number', 'boolean'].includes(typeof value)
+            value === null || ['string', 'number', 'boolean'].includes(typeof value),
         )
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
 
       console.error('Invalid entity: thing:', thing)
       throw new Error(
-        `Invalid entity - missing required fields: ${missingFields.join(', ')}.\n` +
-          `Object keys: [${keys.join(', ')}]\n` +
-          ('__type' in thing ? `__type: ${(thing as { __type: string }).__type}\n` : '') +
-          ('id' in thing ? `id: ${(thing as { id: string }).id}\n` : '') +
-          `Received entity (scalar properties): ${JSON.stringify(scalarProps, null, 2)}\n` +
-          `Entity must have both 'id' and '__type' fields.`
+        `Invalid entity - missing required fields: ${missingFields.join(', ')}.\n`
+        + `Object keys: [${keys.join(', ')}]\n${
+          '__type' in thing ? `__type: ${(thing as { __type: string }).__type}\n` : ''
+        }${'id' in thing ? `id: ${(thing as { id: string }).id}\n` : ''
+        }Received entity (scalar properties): ${JSON.stringify(scalarProps, null, 2)}\n`
+        + `Entity must have both 'id' and '__type' fields.`,
       )
     }
 
     // Special case: $untyped$ type always passes registration check
     if (isUntyped(thing.__type)) {
-      return
+
     }
 
     // try {
@@ -825,187 +830,193 @@ export const useThingModelStore = defineStore('thing-model', () => {
   }
 
   async function add<T extends AnyThing>(
-    things: ThingUpdate<T>[]
+    things: ThingUpdate<T>[],
   ): Promise<TXReport<['upsert']>> {
-    const inputSummary = things.map((t) => ({ id: t.id, __type: t.__type }))
+    const _inputSummary = things.map(t => ({ id: t.id, __type: t.__type }))
     // return tracing.operation.wrap(
     //   'thing-model:add',
-    //   { things: inputSummary },
+    //   { things: _inputSummary },
     //   function (this: OperationWrapContext) {
-        if (things.length === 0) {
-          return new TXReport<['upsert']>(
-            index.value.basisT,
-            [],
-            ['upsert'],
-            undefined,
-            makeTxMetadata()
-          )
-        }
-        for (const thing of things) {
-          // Remove $retract$ ThingRef support from add; handled by transact only
-          if (!('__type' in thing)) {
-            // this.error(new Error('Invalid root entity - missing __type field'))
-            throw new Error('Invalid root entity - missing __type field')
-          }
-        }
-        // Filter out $retract$ refs so we don't try to index them as entities
-        const normalThings = things.filter((thing) => !isRetractRef(thing))
-        assertTypedThings(normalThings as AnyThing[])
-        const changes = new Map<string, IndexChange>()
-        for (const thing of normalThings) {
-          indexEntity(toRaw(thing), changes)
-        }
-        if (batchCount.value > 0 && batchState.value.changes.length > 0) {
-          const currentChanges = batchState.value.changes[batchState.value.changes.length - 1]
-          changes.forEach((change, key) => currentChanges.set(key, change))
-        }
-        const newBasisT = incrementBasisT()
-        const changesArray = Array.from(changes.values())
-        const report = new TXReport<['upsert']>(
-          newBasisT,
-          changesArray,
-          ['upsert'],
-          undefined,
-          makeTxMetadata()
-        )
-        if (!report.txData || report.txData.length === 0) {
-          // this.progress({ changes: changesArray })
-        }
-        index.value = {
-          ...index.value,
-          txLog: [...index.value.txLog, report],
-        }
-        return report
-      // }
+    if (things.length === 0) {
+      return new TXReport<['upsert']>(
+        index.value.basisT,
+        [],
+        ['upsert'],
+        undefined,
+        makeTxMetadata(),
+      )
+    }
+    for (const thing of things) {
+      // Remove $retract$ ThingRef support from add; handled by transact only
+      if (!('__type' in thing)) {
+        // this.error(new Error('Invalid root entity - missing __type field'))
+        throw new Error('Invalid root entity - missing __type field')
+      }
+    }
+    // Filter out $retract$ refs so we don't try to index them as entities
+    const normalThings = things.filter(thing => !isRetractRef(thing))
+    assertTypedThings(normalThings as AnyThing[])
+    const changes = new Map<string, IndexChange>()
+    for (const thing of normalThings) {
+      indexEntity(toRaw(thing), changes)
+    }
+    if (batchCount.value > 0 && batchState.value.changes.length > 0) {
+      const currentChanges = batchState.value.changes[batchState.value.changes.length - 1]
+      changes.forEach((change, key) => currentChanges.set(key, change))
+    }
+    const newBasisT = incrementBasisT()
+    const changesArray = Array.from(changes.values())
+    const report = new TXReport<['upsert']>(
+      newBasisT,
+      changesArray,
+      ['upsert'],
+      undefined,
+      makeTxMetadata(),
+    )
+    if (!report.txData || report.txData.length === 0) {
+      // this.progress({ changes: changesArray })
+    }
+    index.value = {
+      ...index.value,
+      txLog: [...index.value.txLog, report],
+    }
+    return report
+    // }
     // )
   }
 
   async function remove(things: AnyThing[]): Promise<TXReport<['retract']>> {
-    const inputSummary = things.map((t) => ({ id: t.id, __type: t.__type }))
+    const _inputSummary = things.map(t => ({ id: t.id, __type: t.__type }))
     // return tracing.operation.wrap(
     //   'thing-model:remove',
-    //   { things: inputSummary },
+    //   { things: _inputSummary },
     //   function (this: OperationWrapContext) {
-        const filteredThings = things.filter((thing) => Boolean(thing))
-        if (filteredThings.length === 0) {
-          return new TXReport<['retract']>(
-            index.value.basisT,
-            [],
-            ['retract'],
-            undefined,
-            makeTxMetadata()
-          )
-        }
-        const changes = new Map<string, IndexChange>()
-        const removedIds = new Set<string>()
-        for (const thing of filteredThings) {
-          if (!isTypedEntity(thing)) {
-            // this.error(new Error(`Invalid entity: missing type or id - ${JSON.stringify(thing)}`))
-            throw new Error(`Invalid entity: missing type or id - ${JSON.stringify(thing)}`)
-          }
-          // try {
-          //   Model.registry.getConstructor(thing.__type)
-          // } catch (error) {
-          //   // this.error(new Error(`Invalid entity type: ${thing.__type} is not registered`))
-          //   throw new Error(`Invalid entity type: ${thing.__type} is not registered`)
-          // }
-          const rawThing = toRaw(thing)
-          if (!fetchIndexedEntity(rawThing.id, rawThing.__type)) {
-            continue
-          }
-          unindexEntity(rawThing.id, rawThing.__type)
-          removedIds.add(rawThing.id)
-          addChange(changes, 'retract', rawThing)
-        }
-        for (const [_type, typeIndex] of index.value.entity.entries()) {
-          for (const [id, entity] of typeIndex.entries()) {
-            let modified = false
-            const cleanedEntity = { ...entity } as AnyThing
-            for (const [key, value] of Object.entries(entity)) {
-              if (Array.isArray(value)) {
-                const cleanedArray = value
-                  .map((item) => {
-                    if (isThingRef(item)) {
-                      const [_refType, refId] = item.__ref
-                      return removedIds.has(refId) ? undefined : item
-                    }
-                    return item
-                  })
-                  .filter((item): item is NonNullable<typeof item> => item !== undefined)
-                if (cleanedArray.length !== value.length) {
-                  ;(cleanedEntity as unknown as Record<string, unknown>)[key] = cleanedArray
-                  modified = true
-                }
-              } else if (isThingRef(value)) {
-                const [_refType, refId] = value.__ref
-                if (removedIds.has(refId)) {
-                  ;(cleanedEntity as unknown as Record<string, unknown>)[key] = undefined
-                  modified = true
-                }
-              }
-            }
-            if (modified) {
-              typeIndex.set(id, cleanedEntity)
-              addChange(changes, 'upsert', cleanedEntity)
-            }
-          }
-        }
-        const changesArray = Array.from(changes.values())
-        incrementBasisT()
-        const report = new TXReport<['retract']>(
-          index.value.basisT,
-          changesArray,
-          ['retract'],
-          undefined,
-          makeTxMetadata()
-        )
-        if (!report.txData || report.txData.length === 0) {
-          // this.progress({ changes: changesArray })
-        }
-        index.value = {
-          ...index.value,
-          txLog: [...index.value.txLog, report],
-        }
-        return report
+    const filteredThings = things.filter(thing => Boolean(thing))
+    if (filteredThings.length === 0) {
+      return new TXReport<['retract']>(
+        index.value.basisT,
+        [],
+        ['retract'],
+        undefined,
+        makeTxMetadata(),
+      )
+    }
+    const changes = new Map<string, IndexChange>()
+    const removedIds = new Set<string>()
+    for (const thing of filteredThings) {
+      if (!isTypedEntity(thing)) {
+        // this.error(new Error(`Invalid entity: missing type or id - ${JSON.stringify(thing)}`))
+        throw new Error(`Invalid entity: missing type or id - ${JSON.stringify(thing)}`)
+      }
+      // try {
+      //   Model.registry.getConstructor(thing.__type)
+      // } catch (error) {
+      //   // this.error(new Error(`Invalid entity type: ${thing.__type} is not registered`))
+      //   throw new Error(`Invalid entity type: ${thing.__type} is not registered`)
       // }
+      const rawThing = toRaw(thing)
+      if (!fetchIndexedEntity(rawThing.id, rawThing.__type)) {
+        continue
+      }
+      unindexEntity(rawThing.id, rawThing.__type)
+      removedIds.add(rawThing.id)
+      addChange(changes, 'retract', rawThing)
+    }
+    for (const [_type, typeIndex] of index.value.entity.entries()) {
+      for (const [id, entity] of typeIndex.entries()) {
+        let modified = false
+        const cleanedEntity = { ...entity } as AnyThing
+        for (const [key, value] of Object.entries(entity)) {
+          if (Array.isArray(value)) {
+            const cleanedArray = value
+              .map((item) => {
+                if (isThingRef(item)) {
+                  const [_refType, refId] = item.__ref
+                  return removedIds.has(refId) ? undefined : item
+                }
+                return item
+              })
+              .filter((item): item is NonNullable<typeof item> => item !== undefined)
+            if (cleanedArray.length !== value.length) {
+              ;(cleanedEntity as unknown as Record<string, unknown>)[key] = cleanedArray
+              modified = true
+            }
+          }
+          else if (isThingRef(value)) {
+            const [_refType, refId] = value.__ref
+            if (removedIds.has(refId)) {
+              ;(cleanedEntity as unknown as Record<string, unknown>)[key] = undefined
+              modified = true
+            }
+          }
+        }
+        if (modified) {
+          typeIndex.set(id, cleanedEntity)
+          addChange(changes, 'upsert', cleanedEntity)
+        }
+      }
+    }
+    const changesArray = Array.from(changes.values())
+    incrementBasisT()
+    const report = new TXReport<['retract']>(
+      index.value.basisT,
+      changesArray,
+      ['retract'],
+      undefined,
+      makeTxMetadata(),
+    )
+    if (!report.txData || report.txData.length === 0) {
+      // this.progress({ changes: changesArray })
+    }
+    index.value = {
+      ...index.value,
+      txLog: [...index.value.txLog, report],
+    }
+    return report
+    // }
     // )
   }
 
   function reset() {
     // return tracing.operation.wrap('thing-model:reset', {}, function (this: OperationWrapContext) {
-      const endBatch = beginBatch('reset')
-      index.value = {
-        ...emptyIndex(),
-        searchIndex: createSearchIndex(),
-        basisT: 0,
-      }
-      publicBasisT.value = 0
-      batchCount.value = 0
-      stale.value = false
-      endBatch()
-      return {}
+    const endBatch = beginBatch('reset')
+    index.value = {
+      ...emptyIndex(),
+      searchIndex: createSearchIndex(),
+      basisT: 0,
+    }
+    publicBasisT.value = 0
+    batchCount.value = 0
+    stale.value = false
+    endBatch()
+    return {}
     // })
   }
 
   function resolveRef<T>(ref: ThingRef): T | undefined {
-    if (!isEntityRef(ref)) return undefined
-    if (!ref || !ref.__ref) return undefined
+    if (!isEntityRef(ref))
+      return undefined
+    if (!ref || !ref.__ref)
+      return undefined
     const [_type, id] = ref.__ref
-    if (!id) return undefined
+    if (!id)
+      return undefined
 
     // Look up the actual type from the index
     const type = getTypeById(id)
-    if (!type) return undefined
+    if (!type)
+      return undefined
 
     // Get the entity from its actual type index
     const entity = index.value.entity.get(type)?.get(id)
-    if (entity) return wrapThing(entity, new Set()) as T
+    if (entity)
+      return wrapThing(entity, new Set()) as T
     return undefined
   }
 
   function wrapArray<T>(arr: T[], seen: Set<string>, depth: number): T[] {
-    return arr.map((item) =>
-      typeof item === 'object' && item !== null ? wrapThing(item, seen, depth + 1) : item
+    return arr.map(item =>
+      typeof item === 'object' && item !== null ? wrapThing(item, seen, depth + 1) : item,
     ) as T[]
   }
 
@@ -1015,7 +1026,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   function wrapObject<T extends object>(
     thing: T,
     seen: Set<string> = new Set(),
-    depth: number = 0
+    depth: number = 0,
   ): T {
     if (wrappers.has(thing as object)) {
       return wrappers.get(thing as object) as T
@@ -1076,7 +1087,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   function wrapThing<T extends object>(
     thing: T,
     seen: Set<string> = new Set(),
-    depth: number = 0
+    depth: number = 0,
   ): T {
     if (depth > 10) {
       console.warn('Maximum wrapping depth exceeded', thing)
@@ -1116,7 +1127,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   }
 
   function getThings<T extends AnyThing>(ids: string[], type?: T['__type']): T[] {
-    return ids.map((id) => getThing(id, type)).filter((thing) => thing !== undefined)
+    return ids.map(id => getThing(id, type)).filter(thing => thing !== undefined)
   }
 
   function reify<T extends object>(thing: T): T {
@@ -1131,7 +1142,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     limit?: number,
     offset?: number,
     filter?: (entity: T) => boolean,
-    sort?: CompareFn<T> | Score<T>
+    sort?: CompareFn<T> | Score<T>,
   ): ResultSet<T[]> {
     limit = limit ?? 100
     offset = offset ?? 0
@@ -1142,30 +1153,31 @@ export const useThingModelStore = defineStore('thing-model', () => {
     const matches = !query
       ? type
         ? Array.from(index.value.entity.values())
-            .flatMap((index) => Array.from(index.values()))
-            .filter((entity) => queryEntityType(entity, type))
-        : Array.from(index.value.entity.values()).flatMap((index) => Array.from(index.values()))
+            .flatMap(index => Array.from(index.values()))
+            .filter(entity => queryEntityType(entity, type))
+        : Array.from(index.value.entity.values()).flatMap(index => Array.from(index.values()))
       : index.value.searchIndex
           .search(query)
-          .map((result) => result.item)
-          .filter((entity) => !type || queryEntityType(entity, type))
+          .map(result => result.item)
+          .filter(entity => !type || queryEntityType(entity, type))
 
     console.debug('ThingModel: search: matches', matches)
     const filtered = matches
-      .map((entity) => wrapThing({ ...entity } as T))
-      .filter((entity) => filter(entity))
+      .map(entity => wrapThing({ ...entity } as T))
+      .filter(entity => filter(entity))
     console.debug('ThingModel: search: filtered', filtered)
     let sorted: T[] = []
     if (sort instanceof Score) {
-      const scores = filtered.map((entity) => sort.score(entity))
+      const scores = filtered.map(entity => sort.score(entity))
       console.debug('ThingModel: search: score state', sort)
       // Higher scores are better so sort descending
       sorted = scores
-        .filter((score) => !isNaN(score.value))
+        .filter(score => !isNaN(score.value))
         .sort((a, b) => b.value - a.value)
-        .map((score) => score.item)
+        .map(score => score.item)
       console.debug('ThingModel: search: scores', scores)
-    } else {
+    }
+    else {
       sorted = filtered.sort(sort)
     }
     console.debug('ThingModel: search: sorted', sorted)
@@ -1181,16 +1193,16 @@ export const useThingModelStore = defineStore('thing-model', () => {
 
   function getReified<T extends object, P extends string[]>(
     thing: T,
-    path: P
+    path: P,
   ): TypeAtPath<T, P> | undefined {
     return getReifiedHelper(thing, path, (id: string) => getThing(id))
   }
 
-  function getQuery<T, A extends boolean>(options?: { limit?: number; offset?: number; log?: boolean }): QueryFn<T, A> {
+  function getQuery<T, A extends boolean>(options?: { limit?: number, offset?: number, log?: boolean }): QueryFn<T, A> {
     const typeIndexes = Array.from(index.value.entity.values())
     const entityList = typeIndexes
-      .flatMap((index) => Array.from(index.values()))
-      .map((entity) => wrapThing({ ...toRaw(entity) } as AnyThing))
+      .flatMap(index => Array.from(index.values()))
+      .map(entity => wrapThing({ ...toRaw(entity) } as AnyThing))
     return (
       query: Query<T, A>,
       ...args: unknown[]
@@ -1199,20 +1211,20 @@ export const useThingModelStore = defineStore('thing-model', () => {
       //   'thing-model.getQuery',
       //   { query: query },
       //   function (this: OperationWrapContext) {
-          const { limit = 100, offset = 0, log = false } = options || {}
-          const result = runQuery(query, entityList, args, log)
-          const resultSize = Array.isArray(result) ? result.length : 1
-          const resultSlice = Array.isArray(result) ? result.slice(offset, offset + limit) : result
-          const count = Array.isArray(result) ? result.length : 1
-          // this.annotate('step', 'complete')
-          // this.annotate('resultSize', resultSize)
-          return {
-            result: resultSlice,
-            size: resultSize,
-            count,
-            offset,
-          } as DSResultSet<Query<T, A>>
-        // }
+      const { limit = 100, offset = 0, log = false } = options || {}
+      const result = runQuery(query, entityList, args, log)
+      const resultSize = Array.isArray(result) ? result.length : 1
+      const resultSlice = Array.isArray(result) ? result.slice(offset, offset + limit) : result
+      const count = Array.isArray(result) ? result.length : 1
+      // this.annotate('step', 'complete')
+      // this.annotate('resultSize', resultSize)
+      return {
+        result: resultSlice,
+        size: resultSize,
+        count,
+        offset,
+      } as DSResultSet<Query<T, A>>
+      // }
       // )
     }
   }
@@ -1245,12 +1257,12 @@ export const useThingModelStore = defineStore('thing-model', () => {
             stable: basisT.value,
             public: publicBasisT.value,
             next: nextT,
-          }
+          },
         )
         publicBasisT.value = nextT
       }
     },
-    { debounce: 50, maxWait: 100, immediate: true }
+    { debounce: 50, maxWait: 100, immediate: true },
   )
 
   const publicReady = computed(() => ready.value && publicBasisT.value === basisT.value)
@@ -1261,12 +1273,12 @@ export const useThingModelStore = defineStore('thing-model', () => {
     //   {},
     //   function (this: OperationWrapContext) {
     //     this.progress({}, { status: 'waiting' })
-        return until(publicReady)
-          .toBeTruthy()
-          .then((result) => {
-            // this.annotate('status', 'ready')
-            return result
-          })
+    return until(publicReady)
+      .toBeTruthy()
+      .then((result) => {
+        // this.annotate('status', 'ready')
+        return result
+      })
       // }
     // )
   }
@@ -1280,7 +1292,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
   } satisfies QueryInterface
 
   async function after(basisT: number): Promise<QueryInterface> {
-    await until(publicBasisT).toMatch((v) => v >= basisT)
+    await until(publicBasisT).toMatch(v => v >= basisT)
     return queryImpl
   }
 
@@ -1297,7 +1309,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
 
   // New transact function
   async function transact<T extends AnyThing>(
-    tx: (ThingUpdate<T> | ThingRef)[]
+    tx: (ThingUpdate<T> | ThingRef)[],
   ): Promise<TXReportInterface<['upsert']> | TXReportInterface<['upsert', 'retract']>> {
     // Set to collect all ids to retract
     const retractIds = new Set<string>()
@@ -1305,8 +1317,9 @@ export const useThingModelStore = defineStore('thing-model', () => {
     // Walk the transaction depth-first, replacing $retract$ with $tombstone$ and collecting ids
     function walkAndReplace<U>(obj: U, visited: Set<string> = new Set()): U {
       if (Array.isArray(obj)) {
-        return obj.map((item) => walkAndReplace(item, new Set(visited))) as U
-      } else if (obj && typeof obj === 'object') {
+        return obj.map(item => walkAndReplace(item, new Set(visited))) as U
+      }
+      else if (obj && typeof obj === 'object') {
         if (isInternalObject(obj)) {
           return obj
         }
@@ -1337,8 +1350,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
     }
 
     const txWithTombstones = tx
-      .map((thing) => walkAndReplace(thing))
-      .filter((thing) => !isThingRef(thing)) as AnyThing[]
+      .map(thing => walkAndReplace(thing))
+      .filter(thing => !isThingRef(thing)) as AnyThing[]
 
     // Collect all entities to be retracted (minimal objects)
     const retractEntities = Array.from(retractIds)
@@ -1346,7 +1359,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
         const type = getTypeById(id, NotFoundLabel)
         return type && type !== NotFoundLabel ? { id, __type: type } : undefined
       })
-      .filter(Boolean) as Array<{ id: string; __type: string }>
+      .filter(Boolean) as Array<{ id: string, __type: string }>
     const retractReport = retractEntities.length > 0 ? await remove(retractEntities) : undefined
 
     console.log('ThingModelStore: transact: txWithTombstones', txWithTombstones)
@@ -1354,8 +1367,8 @@ export const useThingModelStore = defineStore('thing-model', () => {
     const addReport = await add(txWithTombstones)
 
     // Merge all reports into a single TXReport
-    let mergedReport: TXReportInterface<['upsert']> | TXReportInterface<['upsert', 'retract']> =
-      addReport as TXReportInterface<['upsert']>
+    let mergedReport: TXReportInterface<['upsert']> | TXReportInterface<['upsert', 'retract']>
+      = addReport as TXReportInterface<['upsert']>
     if (retractReport) {
       mergedReport = mergedReport.merge(retractReport) as TXReportInterface<['upsert', 'retract']>
     }

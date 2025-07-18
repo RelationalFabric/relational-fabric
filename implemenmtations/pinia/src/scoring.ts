@@ -1,6 +1,6 @@
 import { isNormalized } from './sort.js'
 
-import type { ScoreFn, Feature, ScoreResult, FeatureConfig } from './types'
+import type { Feature, FeatureConfig, ScoreFn, ScoreResult } from './types'
 
 function nextMean(mean: number, count: number, value: number) {
   return (mean * count + value) / (count + 1)
@@ -54,7 +54,7 @@ export class Score<T> {
   private recomputeWeights() {
     const sumWeights = Object.values(this.features).reduce(
       (acc, feature) => acc + feature.weight,
-      0
+      0,
     )
     Object.values(this.features).forEach((feature) => {
       feature.weight = feature.weight / sumWeights
@@ -84,10 +84,11 @@ export class Score<T> {
         if (feature.goal) {
           if (typeof feature.goal === 'function') {
             if (!feature.goal(value, feature)) {
-              return NaN
+              return Number.NaN
             }
-          } else if (value === feature.min) {
-            return NaN
+          }
+          else if (value === feature.min) {
+            return Number.NaN
           }
         }
 

@@ -103,7 +103,7 @@ export type Refs<T extends AnyThing> = {
 
 export type SimpleValue = string | number | boolean
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line ts/no-explicit-any
 export type QueryBuilderType<T = unknown> = (...args: any[]) => TypedQueryFn<T>
 
 export interface QueriesInterface {
@@ -125,13 +125,13 @@ export interface QueriesInterface {
   }
 }
 
-
 export type QueryFn<T, A extends boolean, Q extends Query<T, A> = Query<T, A>> = (
   query: Q,
-  ...args: unknown[]
+// eslint-disable-next-line ts/no-explicit-any
+  ...args: any[]
 ) => DSResultSet<Q>
 
-export type QueryProvider<R = unknown, A extends boolean = false> = {
+export interface QueryProvider<R = unknown, A extends boolean = false> {
   query: QueryFn<R, A>
   getThing?: <T extends EntityInterface>(id: string) => T
 }
@@ -141,4 +141,3 @@ export type TypedQueryFn<T = unknown> = (
 ) => ResultSet<T>
 
 export type QuerySortFn<T extends EntityInterface> = (a: T, b: T) => number
-

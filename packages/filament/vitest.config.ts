@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -6,7 +6,7 @@ export default defineConfig({
     globals: true,
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json', 'html', 'clover'],
       exclude: [
         'node_modules/**',
         'dist/**',
@@ -15,18 +15,18 @@ export default defineConfig({
         '**/coverage/**',
         '**/test/**',
         '**/*.test.*',
-        '**/*.spec.*'
+        '**/*.spec.*',
       ],
       thresholds: {
         global: {
           branches: 80,
           functions: 80,
           lines: 80,
-          statements: 80
-        }
+          statements: 80,
+        },
       },
       all: true,
-      reportsDirectory: './coverage'
+      reportsDirectory: './coverage',
     },
   },
-}) 
+})

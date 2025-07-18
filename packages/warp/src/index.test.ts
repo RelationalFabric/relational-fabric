@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest'
 
-describe('Warp Package', () => {
+describe('warp Package', () => {
   it('should have basic functionality', () => {
-    expect(true).toBe(true);
-  });
-}); 
+    expect(true).toBe(true)
+  })
+})
