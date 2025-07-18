@@ -16,12 +16,15 @@
     "build": "tsc --build",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "test": "echo \"No tests specified\"",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "deploy": "npm publish"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "*",
+    "@vitest/coverage-v8": "*"
   }
 }

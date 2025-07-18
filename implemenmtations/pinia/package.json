@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -26,6 +27,7 @@
     "jsdom": "^26.1.0",
     "pinia": "^3.0.3",
     "vitest": "*",
+    "@vitest/coverage-v8": "*",
     "vue": "^3.5.17"
   }
 }
