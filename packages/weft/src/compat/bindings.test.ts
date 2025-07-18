@@ -1,7 +1,7 @@
-import { expect, describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { Bindings } from './bindings.js'
 
-describe('Bindings', () => {
+describe('bindings', () => {
   it('should increment count for logically equivalent bindings', () => {
     const b = new Bindings()
     b.add({ foo: 1 })

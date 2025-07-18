@@ -2,40 +2,35 @@ import lodash from 'lodash'
 import { nanoid } from 'nanoid'
 import objectHash from 'object-hash'
 
-import { Bindings, DefaultBindings } from './bindings.js'
-import { sortByHash } from './hash.js'
-import type{
-  TypedQueryFn,
-  QueryProvider,
-  Query,
+import type {
   DSResultSet,
   LVar,
   ManyTypedReturn,
+  Query,
   ResultSet,
 } from '@relational-fabric/filament'
+import type { DefaultBindings } from './bindings.js'
+import { Bindings } from './bindings.js'
+import { sortByHash } from './hash.js'
 
 import type {
-  InClause,
-  InClauses,
-  QueryPattern,
-  
-  SimpleValue,
-  Where,
-  QueryBuilderType,
-  SpliceKey,
-  PatternReturnType,
-  TypedReturn,
   AggregationName,
   AggregationReturnItem,
-  TypedLVar,
+  InClause,
+  InClauses,
   ModifierPattern,
   PatternElement,
-} from '@types'
-
-type TypeGuard<T> = (value: T | unknown) => value is T
+  PatternReturnType,
+  QueryPattern,
+  SimpleValue,
+  SpliceKey,
+  TypedLVar,
+  TypedReturn,
+  Where,
+} from '@/compat/types/index.js'
 
 export function lVar<T>(name: string): TypedLVar<T> {
-  name = name.replace(/^[?]/, '')
+  name = name.replace(/^\?/, '')
   return `?${name}` as TypedLVar<T>
 }
 
@@ -46,7 +41,7 @@ export function parseInClause(inClause: InClauses, args: unknown[]): DefaultBind
       return Bindings.from({ [input as string]: arg })
     }
     if (!Array.isArray(input) || !Array.isArray(arg)) {
-      throw new Error('When using an array in clause, the argument must also be an array')
+      throw new TypeError('When using an array in clause, the argument must also be an array')
     }
     // Array of clauses - bind each to each argument as an array of tuples
     if (input[0] === '...') {
@@ -61,7 +56,8 @@ export function parseInClause(inClause: InClauses, args: unknown[]): DefaultBind
           acc.add(binding)
           return acc
         }, new Bindings())
-      } else {
+      }
+      else {
         // Handle array of single variable case
         return arg.reduce<Bindings>((acc, a) => {
           acc.add({ [inputVars as string]: a })
@@ -135,18 +131,18 @@ const aggregateFunctions: Record<AggregationName, (bindings: DefaultBindings, lv
   'mode': (bindings, lvar) => {
     const values = getValues(bindings, lvar).map(Number)
     return values.sort(
-      (a, b) => values.filter((v) => v === a).length - values.filter((v) => v === b).length
+      (a, b) => values.filter(v => v === a).length - values.filter(v => v === b).length,
     )[0]
   },
   'stddev': (bindings, lvar) => {
     const values = getValues(bindings, lvar).map(Number)
     const mean = values.reduce((acc, v) => acc + v, 0) / values.length
-    return Math.sqrt(values.reduce((acc, v) => acc + Math.pow(v - mean, 2), 0) / values.length)
+    return Math.sqrt(values.reduce((acc, v) => acc + (v - mean) ** 2, 0) / values.length)
   },
   'variance': (bindings, lvar) => {
     const values = getValues(bindings, lvar).map(Number)
     const mean = values.reduce((acc, v) => acc + v, 0) / values.length
-    return values.reduce((acc, v) => acc + Math.pow(v - mean, 2), 0) / values.length
+    return values.reduce((acc, v) => acc + (v - mean) ** 2, 0) / values.length
   },
 }
 
@@ -181,17 +177,17 @@ function buildResult<
     }
     const vars = types
       .map((type, index) => (type === 'variable' ? returnTerm[index] : undefined))
-      .filter((v) => v !== undefined) as LVar[]
+      .filter(v => v !== undefined) as LVar[]
     const aggregates = types
       .map((type, index) => (type === 'object' ? returnTerm[index] : undefined))
-      .filter((v) => v !== undefined) as AggregationReturnItem<unknown>[]
+      .filter(v => v !== undefined) as AggregationReturnItem<unknown>[]
     const groups = vars.length > 0 ? bindings.groupBy(vars) : [bindings]
 
     function unifyResult(pattern: LVar[], result?: Record<string, unknown>): unknown[] {
       if (!result) {
         return []
       }
-      return pattern.map((p) => lodash.get(result, [p as string]))
+      return pattern.map(p => lodash.get(result, [p as string]))
     }
 
     function unifyGroup(group: DefaultBindings) {
@@ -214,8 +210,8 @@ function buildResult<
 
 export function runQuery<
   T,
+  A extends boolean,
   R extends PatternReturnType<T> = PatternReturnType<T>,
-  A extends ManyTypedReturn<T> = ManyTypedReturn<T>,
   Q extends Query<R, A> = Query<R, A>,
   P extends QueryPattern<T, R> = QueryPattern<T, R>,
 >(query: Q, entities: unknown[], args: unknown[] = [], log = false): DSResultSet<Q> {
@@ -233,7 +229,8 @@ export function runQuery<
       return sortByHash(result) as DSResultSet<Q>
     }
     return result as DSResultSet<Q>
-  } finally {
+  }
+  finally {
     console.groupEnd()
   }
 }
@@ -281,8 +278,8 @@ export function asType<T>(value: unknown): T {
 }
 
 export function compareArraysByHash<T extends Record<string, unknown>>(a: T[], b: T[]): boolean {
-  const aHashes = a.map((obj) => objectHash(obj)).sort()
-  const bHashes = b.map((obj) => objectHash(obj)).sort()
+  const aHashes = a.map(obj => objectHash(obj)).sort()
+  const bHashes = b.map(obj => objectHash(obj)).sort()
   return JSON.stringify(aHashes) === JSON.stringify(bHashes)
 }
 
@@ -334,49 +331,62 @@ export function optimizePattern<P extends Where | LVar | SimpleValue>(pattern: P
       acc[key] = pattern[key]
       return acc
     },
-    {} as Record<string, unknown>
+    {} as Record<string, unknown>,
   )
   return sortedPattern as P
+}
+
+export function getLogger(log: boolean) {
+  return log
+    ? console
+    : {
+        log: () => {},
+        debug: () => {},
+        group: () => {},
+        groupEnd: () => {},
+      }
 }
 
 export function matchPattern<P extends Where | LVar | SimpleValue>(
   pattern: P,
   value: unknown,
   envs: DefaultBindings = Bindings.from({}),
-  log = false
+  log = false,
 ): DefaultBindings {
   pattern = optimizePattern(pattern)
-  log && console.log('matchPattern called with:', { pattern, value, envs: envs.toArray() })
+  const logger = getLogger(log)
+  logger.log('matchPattern called with:', { pattern, value, envs: envs.toArray() })
 
   const valueType = getType(value)
   const patternType = getType(pattern)
-  log && console.log('matchPattern: valueType', valueType, 'patternType', patternType)
+  logger.log('matchPattern: valueType', valueType, 'patternType', patternType)
 
   // Ensure we always have at least one binding to work with
   const workingEnvs = envs.isEmpty() ? Bindings.from({}) : envs
 
   return workingEnvs.reduce((matchedBindings, currentBinding) => {
-    log && console.log('Processing matchedBindings:', matchedBindings.toArray())
-    log && console.log('Processing currentBinding:', currentBinding)
+    logger.log('Processing matchedBindings:', matchedBindings.toArray())
+    logger.log('Processing currentBinding:', currentBinding)
 
     if (patternType === 'variable') {
-      log && console.log('Variable pattern match:', { pattern, value, currentBinding })
+      logger.log('Variable pattern match:', { pattern, value, currentBinding })
       if (currentBinding[pattern as string]) {
         if (!lodash.isEqual(currentBinding[pattern as string], value)) {
           return matchedBindings
         }
         return matchedBindings.with(currentBinding)
-      } else {
+      }
+      else {
         return matchedBindings.with({ ...currentBinding, [pattern as string]: value })
       }
     }
 
     if (patternType === 'object' && valueType === 'array') {
-      log && console.log('Object pattern with array value:', { pattern, value, currentBinding })
+      logger.log('Object pattern with array value:', { pattern, value, currentBinding })
       return (value as unknown[]).reduce<DefaultBindings>((arrayBindings, v) => {
-        log && console.log('Array element match:', { v, currentBinding })
+        logger.log('Array element match:', { v, currentBinding })
         const matches = matchPattern(pattern, v, Bindings.from(currentBinding), log)
-        log && console.log('Matches from array element:', matches.toArray())
+        logger.log('Matches from array element:', matches.toArray())
         return arrayBindings.merge(matches)
       }, matchedBindings)
     }
@@ -393,7 +403,7 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
         return new Bindings()
       }
 
-      log && console.log('Object pattern:', { pattern, value, currentBinding })
+      logger.log('Object pattern:', { pattern, value, currentBinding })
       const newBindings = Object.entries(pattern).reduce<DefaultBindings>((newBindings, [key, pval]) => {
         if (newBindings.isEmpty()) {
           return newBindings
@@ -442,7 +452,7 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
     }
 
     if (patternType === 'array') {
-      log && console.log('Array pattern:', { pattern, value, currentBinding })
+      logger.log('Array pattern:', { pattern, value, currentBinding })
       const elements = pattern as PatternElement[]
 
       if (elements[0] === 'NOT') {
@@ -457,15 +467,18 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
       }
       // Handle TUPLE special form
       if (elements[0] === 'TUPLE') {
-        if (!Array.isArray(value)) return matchedBindings
+        if (!Array.isArray(value))
+          return matchedBindings
         const tupleElements = elements.slice(1)
         const valueArray = value as unknown[]
 
         // Ensure pattern length is <= value array length
-        if (tupleElements.length > valueArray.length) return matchedBindings
+        if (tupleElements.length > valueArray.length)
+          return matchedBindings
 
         return tupleElements.reduce<DefaultBindings>((tupleBindings, element, index) => {
-          if (tupleBindings.isEmpty()) return tupleBindings
+          if (tupleBindings.isEmpty())
+            return tupleBindings
           return matchPattern(element, valueArray[index], tupleBindings, log)
         }, Bindings.from(currentBinding))
       }
@@ -473,7 +486,7 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
       if (elements[0] === 'OR') {
         const orBindings = elements
           .slice(1)
-          .map((element) => matchPattern(element, value, Bindings.from(currentBinding), log))
+          .map(element => matchPattern(element, value, Bindings.from(currentBinding), log))
           .filter((binding) => {
             return !binding.isEmpty()
           })
@@ -491,12 +504,12 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
 
       // Regular array pattern
       return elements.reduce<DefaultBindings>((elementBindings, element) => {
-        log && console.debug('queries: matchPattern: element', element, elementBindings.toArray())
-        if (elementBindings.isEmpty()) return elementBindings
+        logger.debug('queries: matchPattern: element', element, elementBindings.toArray())
+        if (elementBindings.isEmpty())
+          return elementBindings
 
         if (typeof element === 'function') {
-          log &&
-            console.log('Test function:', { element, elementBindings: elementBindings.toArray() })
+          logger.log('Test function:', { element, elementBindings: elementBindings.toArray() })
           // Test function - accumulate passing bindings
           return elementBindings.reduce<DefaultBindings>((acc, env) => {
             const bindings = normalise(env)
@@ -509,32 +522,30 @@ export function matchPattern<P extends Where | LVar | SimpleValue>(
 
         // For array patterns, we need to match each element against the entire value
         if (Array.isArray(value)) {
-          log &&
-            console.log('Array value match:', {
-              value,
+          logger.log('Array value match:', {
+            value,
+            elementBindings: elementBindings.toArray(),
+          })
+          return value.reduce<DefaultBindings>((valueBindings, v) => {
+            logger.log('Value element match:', {
+              v,
               elementBindings: elementBindings.toArray(),
             })
-          return value.reduce<DefaultBindings>((valueBindings, v) => {
-            log &&
-              console.log('Value element match:', {
-                v,
-                elementBindings: elementBindings.toArray(),
-              })
             const matches = matchPattern(element, v, elementBindings, log)
-            log && console.log('Matches from value element:', matches.toArray())
+            logger.log('Matches from value element:', matches.toArray())
             return valueBindings.merge(matches)
           }, new Bindings())
         }
 
         // Regular pattern - match recursively
         const matches = matchPattern(element, value, elementBindings, log)
-        log && console.log('Matches from element:', matches.toArray())
+        logger.log('Matches from element:', matches.toArray())
         return matches
       }, Bindings.from(currentBinding))
     }
 
     if (lodash.isEqual(pattern, value)) {
-      log && console.log('Pattern match:', { pattern, value, currentBinding })
+      logger.log('Pattern match:', { pattern, value, currentBinding })
       return matchedBindings.with(currentBinding)
     }
     return matchedBindings
@@ -549,18 +560,9 @@ function normalise(env: Record<string, unknown>): Record<string, unknown> {
       }
       return acc
     },
-    {} as Record<string, unknown>
+    {} as Record<string, unknown>,
   )
 }
-
-type Result<T, Reify> =
-  Reify extends TypeGuard<infer U>
-    ? T extends ResultSet<infer S>
-      ? S extends Array<unknown>
-        ? ResultSet<U[]>
-        : ResultSet<U>
-      : T
-    : T
 
 export function emptyResultSet<T>(): ResultSet<T | undefined> {
   return {
@@ -590,7 +592,7 @@ function or<T extends PatternElement[]>(...elements: T): ['OR', ...T] {
 
 function splice<T extends PatternElement[]>(
   elements: T,
-  indexOrName: number | string = nanoid()
+  indexOrName: number | string = nanoid(),
 ): { [key: SpliceKey]: T } {
   const spliceKey: SpliceKey = `~@${indexOrName}`
   return { [spliceKey]: elements }

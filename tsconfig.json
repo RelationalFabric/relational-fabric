@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "target": "ES2020",
+    "baseUrl": "./",
     "module": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "baseUrl": "./",
+    "skipLibCheck": true
   },
   "references": [
     { "path": "./packages/warp" },

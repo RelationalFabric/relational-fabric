@@ -1,0 +1,60 @@
+name: Feature Branch PR
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'hotfix/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-feature-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Debug Branch Information
+        run: |
+          echo "Current branch: ${{ github.ref_name }}"
+          echo "Base branch: develop"
+          echo "Head branch: ${{ github.ref_name }}"
+
+      - name: Create Draft Pull Request to Develop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FEATURE_BRANCH: ${{ github.ref_name }}
+          BASE_BRANCH: develop
+        run: |
+          echo "Checking if a PR from '$FEATURE_BRANCH' to '$BASE_BRANCH' already exists..."
+
+          # Check for existing open PRs
+          EXISTING_PR_NUMBER=$(gh pr list \
+            --head "$FEATURE_BRANCH" \
+            --base "$BASE_BRANCH" \
+            --state open \
+            --json number \
+            -q '.[0].number')
+
+          if [ -n "$EXISTING_PR_NUMBER" ]; then
+            echo "INFO: A pull request from '$FEATURE_BRANCH' to '$BASE_BRANCH' (PR #$EXISTING_PR_NUMBER) already exists and is open. Skipping PR creation."
+          else
+            echo "No existing pull request found from '$FEATURE_BRANCH' to '$BASE_BRANCH'. Creating new draft PR..."
+
+            # Get the latest commit message for PR description
+            COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+
+            gh pr create \
+              --title "Feature: $FEATURE_BRANCH" \
+              --body "Automated draft PR for feature branch $FEATURE_BRANCH. Latest commit: $COMMIT_MSG" \
+              --base "$BASE_BRANCH" \
+              --head "$FEATURE_BRANCH" \
+              --label "feature" \
+              --draft
+
+            echo "SUCCESS: Draft Pull Request from '$FEATURE_BRANCH' to '$BASE_BRANCH' created."
+          fi

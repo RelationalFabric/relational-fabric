@@ -1,14 +1,10 @@
-name: Test
+name: Test Main
 
 on:
   pull_request:
     branches:
       - main
-  push:
-    branches:
-      - feature/*
-      - hotfix/*
-      - release/*
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,8 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ">=20.0.0"
-          cache: "npm"
+          node-version: '>=20.0.0'
+          cache: npm
       - name: Install dependencies
         run: npm ci
       - name: Test

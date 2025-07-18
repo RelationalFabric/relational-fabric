@@ -1,4 +1,4 @@
-import type { AnyThing, EntityInterface, LVar, TypedQueryFn } from '@relational-fabric/filament'
+import type { AnyThing, DSResultSet, EntityInterface, LVar, ManyTypedReturn, Query, ResultSet } from '@relational-fabric/filament'
 
 export type TestFn = (bindings: Record<string, unknown>) => boolean
 
@@ -103,7 +103,7 @@ export type Refs<T extends AnyThing> = {
 
 export type SimpleValue = string | number | boolean
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line ts/no-explicit-any
 export type QueryBuilderType<T = unknown> = (...args: any[]) => TypedQueryFn<T>
 
 export interface QueriesInterface {
@@ -124,3 +124,20 @@ export interface QueriesInterface {
     direct: (userId: string) => TypedQueryFn<[id: string]>
   }
 }
+
+export type QueryFn<T, A extends boolean, Q extends Query<T, A> = Query<T, A>> = (
+  query: Q,
+// eslint-disable-next-line ts/no-explicit-any
+  ...args: any[]
+) => DSResultSet<Q>
+
+export interface QueryProvider<R = unknown, A extends boolean = false> {
+  query: QueryFn<R, A>
+  getThing?: <T extends EntityInterface>(id: string) => T
+}
+
+export type TypedQueryFn<T = unknown> = (
+  provider: QueryProvider<T, ManyTypedReturn<T>>
+) => ResultSet<T>
+
+export type QuerySortFn<T extends EntityInterface> = (a: T, b: T) => number
