@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
