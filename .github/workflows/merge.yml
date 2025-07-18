@@ -41,21 +41,20 @@ jobs:
         run: npm run build
       - name: Install reviewdog
         uses: reviewdog/action-setup@v1
-      - name: Test with coverage and report to reviewdog
+      - name: Test with coverage
         env:
           CI: true
           NODE_ENV: test
           VITEST_TIMEOUT: 10000
-          VITEST_REPORTER: json
+          VITEST_REPORTER: text
           VITEST_REPORTER_OPTIONS: summary,verbose
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npx vitest run --coverage --reporter=json 2>&1 \
-            | reviewdog -f=json \
-                -name="vitest" \
-                -reporter=github-pr-review \
-                -level=info \
-                -filter-mode=diff_context
+        run: npm run test:coverage
+      - name: Report coverage with reviewdog
+        uses: aki77/reviewdog-action-code-coverage@v2
+        with:
+          lcov_path: ./**/coverage/lcov.info
+          tool_name: vitest
+          filter_mode: diff_context
       - name: Check coverage thresholds
         run: |
           npx vitest run --coverage --reporter=text
