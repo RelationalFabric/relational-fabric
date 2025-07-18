@@ -6,6 +6,9 @@ on:
       - develop
   push:
     # Run on any branch push, but only if that branch has an open PR
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   check-pr-exists:
