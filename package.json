@@ -9,7 +9,8 @@
   },
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "implemenmtations/*"
   ],
   "main": "src/index.ts",
   "types": "src/types/index.ts",

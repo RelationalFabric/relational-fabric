@@ -1,0 +1,30 @@
+{
+  "name": "@relational-fabric/pinia",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@relational-fabric/filament": "*",
+    "@relational-fabric/weft": "*",
+    "@types/lodash": "^4.17.20",
+    "@vueuse/core": "^13.5.0",
+    "devalue": "^5.1.1",
+    "fuse.js": "^7.1.0",
+    "lodash": "^4.17.21",
+    "object-hash": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "*",
+    "jsdom": "^26.1.0",
+    "pinia": "^3.0.3",
+    "vitest": "*",
+    "vue": "^3.5.17"
+  }
+}

@@ -5,8 +5,6 @@ import objectHash from 'object-hash'
 import { Bindings, DefaultBindings } from './bindings.js'
 import { sortByHash } from './hash.js'
 import type{
-  TypedQueryFn,
-  QueryProvider,
   Query,
   DSResultSet,
   LVar,
@@ -18,10 +16,8 @@ import type {
   InClause,
   InClauses,
   QueryPattern,
-  
   SimpleValue,
   Where,
-  QueryBuilderType,
   SpliceKey,
   PatternReturnType,
   TypedReturn,
@@ -30,7 +26,7 @@ import type {
   TypedLVar,
   ModifierPattern,
   PatternElement,
-} from '@types'
+} from '@/compat/types/index.js'
 
 type TypeGuard<T> = (value: T | unknown) => value is T
 
@@ -214,8 +210,8 @@ function buildResult<
 
 export function runQuery<
   T,
+  A extends boolean,
   R extends PatternReturnType<T> = PatternReturnType<T>,
-  A extends ManyTypedReturn<T> = ManyTypedReturn<T>,
   Q extends Query<R, A> = Query<R, A>,
   P extends QueryPattern<T, R> = QueryPattern<T, R>,
 >(query: Q, entities: unknown[], args: unknown[] = [], log = false): DSResultSet<Q> {

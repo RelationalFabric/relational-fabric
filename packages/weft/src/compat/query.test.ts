@@ -3,7 +3,7 @@ import { expect, describe, it } from 'vitest'
 import { Bindings } from './bindings.js'
 import { sortByHash } from './hash.js'
 
-import type { InClauses, Where, TestFn, QueryPattern, TypedReturn } from '@types'
+import type { InClauses, Where, TestFn, QueryPattern, TypedReturn } from '@/compat/types/index.js'
 import { matchPattern, parseInClause, query, runQuery, toQuery } from './query.js'
 
 type PatternTest = {
@@ -609,7 +609,7 @@ const queryTests: QueryTest[] = [
 
 describe('runQuery', () => {
   it.each(queryTests)('should run query $name', (test) => {
-    const result = runQuery<unknown>(toQuery(test.query as QueryPattern<unknown, never>), test.data)
+    const result = runQuery<unknown, false>(toQuery(test.query as QueryPattern<unknown, never>), test.data)
     const expected = Array.isArray(test.expected) ? sortByHash(test.expected) : test.expected
     expect(result).toEqual(expected)
   })

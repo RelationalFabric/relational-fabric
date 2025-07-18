@@ -1,7 +1,7 @@
 import { Set as ImmutableSet, Map as ImmutableMap } from 'immutable'
 import objectHash from 'object-hash'
 
-import type { BindingMapper, BindingsInterface, BindingFlatMapper, BindingReducer } from '@types'
+import type { BindingMapper, BindingsInterface, BindingFlatMapper, BindingReducer } from '@/compat/types/index.js'
 
 export type Passed = typeof PASSED
 export type BindingRecord = Record<string, unknown>
