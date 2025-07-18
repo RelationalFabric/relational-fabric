@@ -37,22 +37,21 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Build
+        run: npm run build
       - name: Install reviewdog
         uses: reviewdog/action-setup@v1
-      - name: Test with coverage
-        run: npm run test:coverage
+      - name: Test with coverage and report to reviewdog
         env:
           CI: true
           NODE_ENV: test
           VITEST_TIMEOUT: 10000
-          VITEST_REPORTER: dot
+          VITEST_REPORTER: json
           VITEST_REPORTER_OPTIONS: summary,verbose
-      - name: Report coverage with reviewdog
-        env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npx vitest run --coverage --reporter=json --reporter=text 2>&1 \
-            | reviewdog -f=vitest \
+          npx vitest run --coverage --reporter=json 2>&1 \
+            | reviewdog -f=json \
                 -name="vitest" \
                 -reporter=github-pr-review \
                 -level=info \
