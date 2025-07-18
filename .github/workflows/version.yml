@@ -23,9 +23,12 @@ jobs:
       - uses: bahulneel/action-version@v0.28.18
         id: version
         with:
-          branch: ?1
-          branch_deletion: prune
-        
+          branch: ${{ github.ref_name }}
+          base: main
+          branch_cleanup: prune
+          strategy: pre-release
+          create_branch: true
+
   open-pr:
     needs: version
     runs-on: ubuntu-latest
