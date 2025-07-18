@@ -53,10 +53,6 @@ jobs:
           lcov_path: ./**/coverage/lcov.info
           tool_name: vitest
           filter_mode: diff_context
-      - name: Check coverage thresholds
-        run: |
-          npm run test:coverage
-        continue-on-error: true
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
