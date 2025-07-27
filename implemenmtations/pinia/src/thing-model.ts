@@ -140,7 +140,7 @@ function withStacktraceLimit(limit: number, fn: () => void) {
 }
 
 function makeTxMetadata(): Record<string, unknown> {
-  const stack = withStacktraceLimit(100, () => new Error().stack?.split('\n').slice(5))
+  const stack = withStacktraceLimit(100, () => new Error('stub').stack?.split('\n').slice(5))
   return {
     txInstant: new Date(),
     stack,
