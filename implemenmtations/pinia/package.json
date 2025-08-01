@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@relational-fabric/filament": "*",
+    "@relational-fabric/filament": "^0.0.4-1",
     "@relational-fabric/weft": "*",
     "@types/lodash": "^4.17.20",
     "@vueuse/core": "^13.5.0",
