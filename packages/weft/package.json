@@ -1,7 +1,7 @@
 {
   "name": "@relational-fabric/weft",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.5-0.0",
   "description": "Core types and utilities for Relational Fabric",
   "exports": {
     ".": {
@@ -28,7 +28,7 @@
     "deploy": "npm publish"
   },
   "dependencies": {
-    "@relational-fabric/filament": "*"
+    "@relational-fabric/filament": "^0.0.5-0.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.20",
