@@ -1,4 +1,6 @@
-import type { EntityInterface, FeatureConfig, QuerySortFn, ScoreFn } from './types'
+import type { EntityInterface } from '@relational-fabric/filament'
+import type { QuerySortFn } from '@relational-fabric/weft/compat'
+import type { FeatureConfig, ScoreFn } from './types'
 
 export function isNormalized(config: FeatureConfig): config is FeatureConfig & { min: 0, max: 1 } {
   return config.min === 0 && config.max === 1

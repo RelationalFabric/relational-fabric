@@ -1,5 +1,3 @@
-export * from '@relational-fabric/filament'
-export * from '@relational-fabric/weft/compat'
 export * from './scoring'
 export * from './report'
 export * from './store'
