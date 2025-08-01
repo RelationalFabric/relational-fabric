@@ -23,7 +23,7 @@
     "deploy": "npm publish"
   },
   "dependencies": {
-    "@relational-fabric/filament": "*"
+    "@relational-fabric/filament": "^0.0.4-1"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "*",
