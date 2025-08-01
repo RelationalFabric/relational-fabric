@@ -2,9 +2,11 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { nextTick, watchEffect } from 'vue'
 
+import type { AnyThing, ThingUpdate } from '@relational-fabric/filament'
 import { entityRef, retractRef, tombstoneRef, useThingModelStore } from './thing-model'
 
-import type { AnyThing, ModelStoreInterface, ThingUpdate } from './types'
+import type { ModelStoreInterface } from './types'
+
 import type { Company, Group, Message, Person, Pet } from './types/test.js'
 
 // Add interface extension for test

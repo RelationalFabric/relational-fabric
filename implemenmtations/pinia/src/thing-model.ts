@@ -6,32 +6,10 @@ import { defineStore } from 'pinia'
 import { computed, markRaw, ref, shallowRef, toRaw, unref } from 'vue'
 import { computedAsync, until, useSessionStorage, watchDebounced, watchImmediate, whenever } from '@vueuse/core'
 import { runQuery } from '@relational-fabric/weft/compat'
+import type { QueryFn } from '@relational-fabric/weft/compat'
+import type { AnyThing, DSResultSet, EntityInterface, EntityRef, EntityType, Query, RefType, ResultSet, RetractRef, RetractType, ThingRef, ThingUpdate, TombstoneRef, TombstoneType, TypeAtPath } from '@relational-fabric/filament'
+import type { AnyTXReport, EndBatchFn, ModelStoreInterface, QueryInterface, StoreAPI, TXReportInterface } from './types'
 import { TXReport } from './tx'
-
-import type {
-  AnyThing,
-  DSResultSet,
-  EndBatchFn,
-  EntityInterface,
-  EntityRef,
-  EntityType,
-  ModelStoreInterface,
-  Query,
-  QueryFn,
-  QueryInterface,
-  RefType,
-  ResultSet,
-  RetractRef,
-  RetractType,
-  StoreAPI,
-  TXReportInterface,
-  ThingRef,
-  ThingUpdate,
-  TombstoneRef,
-  TombstoneType,
-  TxType,
-  TypeAtPath,
-} from './types'
 
 import { parse, stringify } from './serialise.js'
 import { splitBy } from './collection.js'
@@ -140,7 +118,7 @@ function withStacktraceLimit(limit: number, fn: () => void) {
 }
 
 function makeTxMetadata(): Record<string, unknown> {
-  const stack = withStacktraceLimit(100, () => new Error().stack?.split('\n').slice(5))
+  const stack = withStacktraceLimit(100, () => new Error('stub').stack?.split('\n').slice(5))
   return {
     txInstant: new Date(),
     stack,
@@ -223,7 +201,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     version: new Map<string, Map<string, number>>(),
     typeById: new Map<string, string>(),
     searchIndex: createSearchIndex(),
-    txLog: [] as TXReport<TxType[]>[],
+    txLog: [] as AnyTXReport[],
     basisT: 0,
   })
 
@@ -878,7 +856,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     }
     index.value = {
       ...index.value,
-      txLog: [...index.value.txLog, report],
+      txLog: [...index.value.txLog, report] as AnyTXReport[],
     }
     return report
     // }
@@ -970,7 +948,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
     }
     index.value = {
       ...index.value,
-      txLog: [...index.value.txLog, report],
+      txLog: [...index.value.txLog, report] as AnyTXReport[],
     }
     return report
     // }

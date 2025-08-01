@@ -1,15 +1,8 @@
 import * as lodash from 'lodash'
 
-import type {
-  AnyThing,
-  DBResult,
-  Refs,
-  TXReportInterface,
-  TxData,
-  TxInfo,
-  TxOpList,
-  TxType,
-} from '../types'
+import type { AnyThing, DBResult, TxData, TxInfo, TxOpList, TxType } from '@relational-fabric/filament'
+import type { Refs } from '@relational-fabric/weft/compat'
+import type { TXReportInterface } from '../types'
 
 export function flattenEntity<T extends AnyThing>(
   thing: T,

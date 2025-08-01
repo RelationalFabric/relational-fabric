@@ -1,11 +1,9 @@
 import * as devalue from 'devalue'
 
+import type { TxType } from '@relational-fabric/filament'
 import { TXReport } from './tx'
 
-import type {
-  TXReportInterface,
-  TxType,
-} from './types'
+import type { TXReportInterface } from './types'
 
 export const reducers = {
   TXReport: (tx: unknown) => tx instanceof TXReport && { ...tx, dbResult: undefined },
