@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@relational-fabric/filament": "^0.0.4-1",
-    "@relational-fabric/weft": "*",
+    "@relational-fabric/weft": "^0.0.4-1",
     "@types/lodash": "^4.17.20",
     "@vueuse/core": "^13.5.0",
     "devalue": "^5.1.1",
