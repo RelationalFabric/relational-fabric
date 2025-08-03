@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '>=20.0.0'
           cache: npm
-      - uses: bahulneel/action-version@v0.41.0
+      - uses: bahulneel/action-version@v0.42.0
         id: version
         with:
           branch: ${{ github.ref_name }}
