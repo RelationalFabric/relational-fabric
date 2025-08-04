@@ -1,6 +1,7 @@
 {
   "name": "@relational-fabric/pinia",
   "version": "0.0.1",
+  "private": false,
   "description": "",
   "author": "",
   "license": "MIT",
