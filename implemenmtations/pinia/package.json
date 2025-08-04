@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "deploy": "npm publish",
+    "deploy": "npm publish --access public",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
