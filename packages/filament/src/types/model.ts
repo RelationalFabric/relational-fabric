@@ -1,4 +1,4 @@
-import { AnyThing, EntityInterface } from "./entity.js"
+import type { AnyThing, EntityInterface } from './entity.js'
 
 export type ManyTypedReturn<T> = T extends unknown[] ? true : false
 
@@ -18,7 +18,7 @@ export interface ResultSet<T> {
 
 export type LVar = `?${string}`
 
-export type Query<T, A = true> = string & {
+export type Query<T, A> = string & {
   readonly __queryBrand: unique symbol
   readonly __resultType: T
   readonly __arrayResult: A
@@ -45,23 +45,6 @@ export type TxOpList<T extends readonly TxType[]> = T extends [infer F, ...infer
 export interface DBResult {
   [key: string]: unknown
 }
-
-export type QueryFn<T extends Query<unknown, boolean>> = <Q extends T>(
-  query: Q,
-  ...args: unknown[]
-) => DSResultSet<Q>
-
-export type QueryProvider<R = unknown, A extends boolean = false> = {
-  query: QueryFn<Query<R, A>>
-  getThing?: <T extends EntityInterface>(id: string) => T
-}
-
-export type TypedQueryFn<T = unknown> = (
-  provider: QueryProvider<T, ManyTypedReturn<T>>
-) => ResultSet<T>
-
-export type QuerySortFn<T extends EntityInterface> = (a: T, b: T) => number
-
 
 export type NullableThing<T extends AnyThing> = {
   id: string

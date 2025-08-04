@@ -18,17 +18,21 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: ">=20.0.0"
-          cache: "npm"
-      - uses: bahulneel/action-version@v0.28.6
+          node-version: '>=20.0.0'
+          cache: npm
+      - uses: bahulneel/action-version@v0.47.3
         id: version
         with:
-          branch: ?1
-          branch_deletion: prune
-        
+          branch: ${{ github.ref_name }}
+          base: main
+          branch_cleanup: prune
+          strategy: pre-release
+          create_branch: true
+
   open-pr:
     needs: version
     runs-on: ubuntu-latest
+    if: needs.version.outputs.branch
     permissions:
       contents: write
       pull-requests: write
@@ -37,13 +41,13 @@ jobs:
         with:
           ref: ${{ needs.version.outputs.branch }}
       - name: Debug Branch Name from Previous Job
-        run: "echo Release Branch Name received: ${{ needs.version.outputs.branch }}"
-      
+        run: 'echo Release Branch Name received: ${{ needs.version.outputs.branch }}'
+
       - name: Create Pull Request to Main using GitHub CLI
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_BRANCH: ${{ needs.version.outputs.branch }}
-          BASE_BRANCH: main
+          BASE_BRANCH: develop
         run: |
           echo "Checking if a PR from '$RELEASE_BRANCH' to '$BASE_BRANCH' already exists..."
           EXISTING_PR_NUMBER=$(gh pr list \

@@ -1,7 +1,7 @@
-import { Set as ImmutableSet, Map as ImmutableMap } from 'immutable'
+import { Map as ImmutableMap, Set as ImmutableSet } from 'immutable'
 import objectHash from 'object-hash'
 
-import type { BindingMapper, BindingsInterface, BindingFlatMapper, BindingReducer } from '@types'
+import type { BindingFlatMapper, BindingMapper, BindingReducer, BindingsInterface } from '@/compat/types/index.js'
 
 export type Passed = typeof PASSED
 export type BindingRecord = Record<string, unknown>
@@ -81,12 +81,12 @@ export class Bindings implements DefaultBindings {
   // Mutable add for accumulation
   add(binding: IntermediatBindingRecord | BindingRecord): void {
     const hash = Bindings.registry.add(unsanitise(binding))
-    this.hashCounts = this.hashCounts.update(hash, (count) => (count || 0) + 1)
+    this.hashCounts = this.hashCounts.update(hash, count => (count || 0) + 1)
     this.hashes = this.hashes.add(hash)
   }
 
   addAll(bindings: IntermediatBindingRecord[] | BindingRecord[]): void {
-    bindings.forEach((binding) => this.add(unsanitise(binding)))
+    bindings.forEach(binding => this.add(unsanitise(binding)))
   }
 
   count(binding: IntermediatBindingRecord | BindingRecord): number {
@@ -109,7 +109,7 @@ export class Bindings implements DefaultBindings {
 
   merge(other: DefaultBindings): DefaultBindings {
     if (!(other instanceof Bindings)) {
-      throw new Error('Cannot merge non-Bindings instance')
+      throw new TypeError('Cannot merge non-Bindings instance')
     }
     const newBindings = new Bindings()
     newBindings.hashes = this.hashes.union(other.hashes)
@@ -166,14 +166,14 @@ export class Bindings implements DefaultBindings {
         .map((hashes) => {
           return this.select(hashes.toArray())
         })
-        .values()
+        .values(),
     )
   }
 
   toArray(): BindingRecord[] {
     return this.hashes
       .sort()
-      .map((hash) => sanitise(Bindings.registry.get(hash)))
+      .map(hash => sanitise(Bindings.registry.get(hash)))
       .toArray()
   }
 
@@ -193,21 +193,21 @@ export class Bindings implements DefaultBindings {
   }
 
   find(
-    predicate: (binding: IntermediatBindingRecord | BindingRecord | undefined) => boolean
+    predicate: (binding: IntermediatBindingRecord | BindingRecord | undefined) => boolean,
   ): IntermediatBindingRecord | BindingRecord | undefined {
     return this.hashes
-      .map((hash) => Bindings.registry.get(hash))
-      .find((binding) => predicate(binding))
+      .map(hash => Bindings.registry.get(hash))
+      .find(binding => predicate(binding))
   }
 
   get<T>(key: string): T | undefined {
-    const binding = this.find((binding) => binding?.[key] !== undefined)
+    const binding = this.find(binding => binding?.[key] !== undefined)
     return binding?.[key] as T | undefined
   }
 
   select(hashes: string[]): Bindings {
     const b = new Bindings()
-    b.hashes = this.hashes.filter((hash) => hashes.includes(hash))
+    b.hashes = this.hashes.filter(hash => hashes.includes(hash))
     b.hashCounts = this.hashCounts.filter((_, hash) => hashes.includes(hash))
     return b
   }

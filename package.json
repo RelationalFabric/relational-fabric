@@ -1,44 +1,52 @@
 {
   "name": "@relational-fabric/relational-fabric",
-  "version": "0.0.5",
-  "description": "Weave your own data fabric",
   "type": "module",
-  "packageManager": "npm@10.9.0",
-  "engines": {
-    "node": ">=20.0.0"
-  },
+  "version": "0.0.6",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "main": "src/index.ts",
-  "types": "src/types/index.ts",
-  "files": [
-    "src"
-  ],
-  "scripts": {
-    "dev": "turbo watch build",
-    "build": "turbo build",
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit",
-    "clean": "turbo run clean",
-    "deploy": "turbo run deploy"
-  },
-  "devDependencies": {
-    "turbo": "^2.5.4",
-    "typescript": "^5.8.3"
-  },
+  "packageManager": "npm@10.9.0",
+  "description": "Weave your own data fabric",
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/RelationalFabric/relational-fabric#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RelationalFabric/relational-fabric.git"
   },
-  "author": "",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RelationalFabric/relational-fabric/issues"
   },
-  "homepage": "https://github.com/RelationalFabric/relational-fabric#readme",
+  "main": "src/index.ts",
+  "types": "src/types/index.ts",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "implemenmtations/*"
+  ],
+  "scripts": {
+    "dev": "turbo watch build",
+    "build": "turbo build",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "typecheck": "npm run --workspaces typecheck",
+    "clean": "turbo run clean",
+    "clean:all": "turbo run clean && rm -rf node_modules */*/node_modules package-lock.json",
+    "deploy": "turbo run deploy",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "dependencies": {
+    "vitest": "^3.2.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.0.0",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   }
 }

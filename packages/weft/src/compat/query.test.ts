@@ -1,12 +1,12 @@
-import { expect, describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { Bindings } from './bindings.js'
 import { sortByHash } from './hash.js'
 
-import type { InClauses, Where, TestFn, QueryPattern, TypedReturn } from '@types'
 import { matchPattern, parseInClause, query, runQuery, toQuery } from './query.js'
+import type { InClauses, QueryPattern, TestFn, TypedReturn, Where } from '@/compat/types/index.js'
 
-type PatternTest = {
+interface PatternTest {
   name: string
   pattern: Where
   value: unknown
@@ -146,8 +146,8 @@ const tests: PatternTest[] = [
       ],
     },
     value: {
-      '123': { id: '123', value: 'test' },
-      '456': { id: '456', value: undefined },
+      123: { id: '123', value: 'test' },
+      456: { id: '456', value: undefined },
     },
     expected: [{ '?key': '123', '?id': '123', '?value': 'test' }],
   },
@@ -390,7 +390,7 @@ describe('matchPattern', () => {
   })
 })
 
-type InClauseTest = {
+interface InClauseTest {
   name: string
   in: InClauses
   args: unknown[]
@@ -471,7 +471,7 @@ describe('regression tests', () => {
         { '?id1': '1', '?type1': 'A', '?id2': '1', '?type2': 'A' },
         { '?id1': '2', '?type1': 'A', '?id2': '1', '?type2': 'A' },
         { '?id1': '3', '?type1': 'B', '?id2': '1', '?type2': 'A' },
-      ])
+      ]),
     )
   })
 
@@ -484,7 +484,7 @@ describe('regression tests', () => {
   })
 })
 
-type QueryTest = {
+interface QueryTest {
   name: string
   query: QueryPattern<unknown, TypedReturn<string | (string | string[])[]>>
   data: unknown[]
@@ -609,7 +609,7 @@ const queryTests: QueryTest[] = [
 
 describe('runQuery', () => {
   it.each(queryTests)('should run query $name', (test) => {
-    const result = runQuery<unknown>(toQuery(test.query as QueryPattern<unknown, never>), test.data)
+    const result = runQuery<unknown, false>(toQuery(test.query as QueryPattern<unknown, never>), test.data)
     const expected = Array.isArray(test.expected) ? sortByHash(test.expected) : test.expected
     expect(result).toEqual(expected)
   })

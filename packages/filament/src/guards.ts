@@ -1,4 +1,4 @@
-import type { EntityRef, EntityType, RefType, RetractRef, RetractType, ThingRef, TombstoneRef, TombstoneType } from "types/index.js"
+import type { EntityRef, EntityType, RefType, RetractRef, RetractType, ThingRef, TombstoneRef, TombstoneType } from 'types/index.js'
 
 export const TombstoneRefTypeName: TombstoneType = '$tombstone$'
 export const RetractRefTypeName: RetractType = '$retract$'
@@ -6,11 +6,12 @@ export const EntityRefTypeName: EntityType = '$entity$'
 export const RefTypes: RefType[] = [TombstoneRefTypeName, RetractRefTypeName, EntityRefTypeName]
 
 export function isThingRef(value: unknown): value is ThingRef {
+  const obj = value as Record<string, unknown>
   return (
-    typeof value === 'object' &&
-    value !== null &&
-    Array.isArray((value as any).__ref) &&
-    RefTypes.includes((value as any).__ref[0])
+    typeof value === 'object'
+    && value !== null
+    && Array.isArray(obj.__ref)
+    && RefTypes.includes(obj.__ref[0] as RefType)
   )
 }
 
