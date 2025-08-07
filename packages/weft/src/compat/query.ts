@@ -27,7 +27,7 @@ import type {
   TypedLVar,
   TypedReturn,
   Where,
-} from '@/compat/types/index.js'
+} from './types/index.js'
 
 export function lVar<T>(name: string): TypedLVar<T> {
   name = name.replace(/^\?/, '')
