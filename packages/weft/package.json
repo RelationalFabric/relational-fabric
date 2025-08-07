@@ -1,9 +1,13 @@
 {
   "name": "@relational-fabric/weft",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "description": "Core types and utilities for Relational Fabric",
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

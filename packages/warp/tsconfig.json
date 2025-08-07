@@ -4,6 +4,7 @@
     "composite": true,
     "baseUrl": "./src",
     "rootDir": "./src",
+    "declaration": true,
     "declarationMap": true,
     "outDir": "./dist"
   },

@@ -4,10 +4,6 @@
     "composite": true,
     "baseUrl": "./src",
     "rootDir": "./src",
-    "paths": {
-      "@/*": ["./*"],
-      "@types": ["types/index.ts"]
-    },
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist"
