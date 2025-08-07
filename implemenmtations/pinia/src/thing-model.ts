@@ -1190,7 +1190,7 @@ export const useThingModelStore = defineStore('thing-model', () => {
       //   { query: query },
       //   function (this: OperationWrapContext) {
       const { limit = 100, offset = 0, log = false } = options || {}
-      const result = runQuery(query, entityList, args, log)
+      const result = runQuery(query as unknown as Query<never, boolean>, entityList, args, log)
       const resultSize = Array.isArray(result) ? result.length : 1
       const resultSlice = Array.isArray(result) ? result.slice(offset, offset + limit) : result
       const count = Array.isArray(result) ? result.length : 1
