@@ -1,7 +1,7 @@
 {
   "name": "@relational-fabric/filament",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "description": "Core types and utilities for Relational Fabric",
   "files": [
