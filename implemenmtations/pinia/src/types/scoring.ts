@@ -23,3 +23,7 @@ export interface ScoreResult<T> {
   scores: Record<string, number>
   value: number
 }
+
+export interface ScoreInterface<T> {
+  score: (item: T) => ScoreResult<T>
+}

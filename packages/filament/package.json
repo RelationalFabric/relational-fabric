@@ -1,7 +1,7 @@
 {
   "name": "@relational-fabric/filament",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "description": "Core types and utilities for Relational Fabric",
   "files": [
@@ -12,6 +12,7 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "default": "./dist/index.js"
     }
   },

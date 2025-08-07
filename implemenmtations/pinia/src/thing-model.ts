@@ -8,12 +8,12 @@ import { computedAsync, until, useSessionStorage, watchDebounced, watchImmediate
 import { runQuery } from '@relational-fabric/weft/compat'
 import type { QueryFn } from '@relational-fabric/weft/compat'
 import type { AnyThing, DSResultSet, EntityInterface, EntityRef, EntityType, Query, RefType, ResultSet, RetractRef, RetractType, ThingRef, ThingUpdate, TombstoneRef, TombstoneType, TypeAtPath } from '@relational-fabric/filament'
-import type { AnyTXReport, EndBatchFn, ModelStoreInterface, QueryInterface, StoreAPI, TXReportInterface } from './types'
-import { TXReport } from './tx'
+import type { AnyTXReport, EndBatchFn, ModelStoreInterface, QueryInterface, ScoreInterface, StoreAPI, TXReportInterface } from './types/index.js'
 
 import { parse, stringify } from './serialise.js'
 import { splitBy } from './collection.js'
-import { Score } from './scoring.js'
+import { isScorer } from './scoring.js'
+import { TXReport } from './tx/index.js'
 
 const NotFoundLabel = '$notfound$'
 
@@ -1113,14 +1113,16 @@ export const useThingModelStore = defineStore('thing-model', () => {
   }
 
   type TypeQuery<T extends AnyThing> = T['__type'] | `${'*'}${T['__type']}`
+
   type CompareFn<T> = (a: T, b: T) => number
+
   function search<T extends AnyThing>(
     query: string,
     type?: TypeQuery<T>,
     limit?: number,
     offset?: number,
     filter?: (entity: T) => boolean,
-    sort?: CompareFn<T> | Score<T>,
+    sort?: CompareFn<T> | ScoreInterface<T>,
   ): ResultSet<T[]> {
     limit = limit ?? 100
     offset = offset ?? 0
@@ -1145,12 +1147,12 @@ export const useThingModelStore = defineStore('thing-model', () => {
       .filter(entity => filter(entity))
     console.debug('ThingModel: search: filtered', filtered)
     let sorted: T[] = []
-    if (sort instanceof Score) {
+    if (isScorer<T>(sort)) {
       const scores = filtered.map(entity => sort.score(entity))
       console.debug('ThingModel: search: score state', sort)
       // Higher scores are better so sort descending
       sorted = scores
-        .filter(score => !isNaN(score.value))
+        .filter(score => !Number.isNaN(score.value))
         .sort((a, b) => b.value - a.value)
         .map(score => score.item)
       console.debug('ThingModel: search: scores', scores)

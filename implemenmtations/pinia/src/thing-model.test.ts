@@ -3,9 +3,9 @@ import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { nextTick, watchEffect } from 'vue'
 
 import type { AnyThing, ThingUpdate } from '@relational-fabric/filament'
-import { entityRef, retractRef, tombstoneRef, useThingModelStore } from './thing-model'
+import { entityRef, retractRef, tombstoneRef, useThingModelStore } from './thing-model.js'
 
-import type { ModelStoreInterface } from './types'
+import type { ModelStoreInterface } from './types/index.js'
 
 import type { Company, Group, Message, Person, Pet } from './types/test.js'
 

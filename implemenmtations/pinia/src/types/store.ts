@@ -1,8 +1,8 @@
 import type { AnyThing, ResultSet, ThingRef, ThingUpdate, TypeAtPath } from '@relational-fabric/filament'
-import type { Score } from 'scoring'
 import type { ComputedRef } from 'vue'
 import type { QueryFn, QuerySortFn } from '@relational-fabric/weft/compat'
-import type { AnyTXReport, TXReportInterface } from './report'
+import type { AnyTXReport, TXReportInterface } from './report.js'
+import type { ScoreInterface } from './scoring.js'
 
 export type EndBatchFn = () => void
 
@@ -13,7 +13,7 @@ export interface QueryInterface {
     limit?: number,
     offset?: number,
     filter?: (entity: T) => boolean,
-    sort?: QuerySortFn<T> | Score<T>
+    sort?: QuerySortFn<T> | ScoreInterface<T>
   ) => ResultSet<T[]>
   getQuery: <T, A extends boolean>(options?: { limit?: number, offset?: number, log?: boolean }) => QueryFn<T, A>
   getThing: <T extends AnyThing>(id: string, type?: T['__type']) => T | undefined

@@ -1,6 +1,7 @@
+import type { AnyThing } from '@relational-fabric/filament'
 import { isNormalized } from './sort.js'
 
-import type { Feature, FeatureConfig, ScoreFn, ScoreResult } from './types'
+import type { Feature, FeatureConfig, ScoreFn, ScoreInterface, ScoreResult } from './types/index.js'
 
 function nextMean(mean: number, count: number, value: number) {
   return (mean * count + value) / (count + 1)
@@ -17,7 +18,7 @@ function zScore(value: number, mean: number, variance: number) {
   return (value - mean) / Math.sqrt(variance)
 }
 
-export class Score<T> {
+export class Score<T> implements ScoreInterface<T> {
   defaultWeights: Record<string, number> = {}
   scoreFns: Record<string, ScoreFn<T>> = {}
   features: Record<string, Feature> = {}
@@ -116,4 +117,8 @@ export class Score<T> {
       },
     }
   }
+}
+
+export function isScorer<T extends AnyThing>(value: ScoreInterface<T> | unknown): value is ScoreInterface<T> {
+  return value instanceof Score
 }
