@@ -4,7 +4,7 @@ import { Bindings } from './bindings.js'
 import { sortByHash } from './hash.js'
 
 import { matchPattern, parseInClause, query, runQuery, toQuery } from './query.js'
-import type { InClauses, QueryPattern, TestFn, TypedReturn, Where } from '@/compat/types/index.js'
+import type { InClauses, QueryPattern, TestFn, TypedReturn, Where } from './types/index.js'
 
 interface PatternTest {
   name: string
